@@ -20,12 +20,14 @@ $font-lg: 2.5rem;
 $font-xl: 5.5rem;
 $font-2xl: 7rem;
 
+/*fonts weight*/
 $fs-300: 300;
 $fs-400: 400;
 $fs-500: 500;
 $fs-600: 600;
 $fs-700: 700;
 
+/*colors card */
 $light-green-code: "D9E9CF";
 $light-green-color: #d9e9cf;
 $light-blue-code: "C7D9DD";
@@ -44,3 +46,15 @@ $light-orange-code: "F1AE89";
 $light-orange-color: #f1ae89;
 $light-pink-code: "FCE2DB";
 $light-pink-color: #fce2db;
+
+/* breakpoints*/
+$mobile: 480px;
+$tablet: 900px;
+$desktop-sm: 1400px;
+
+/*spacing*/
+$spacing-xs: .5rem;
+$spacing-sm: 1rem;
+$spacing-md: 2rem;
+$spacing-lg: 4rem;
+$spacing-xl: 7rem;
