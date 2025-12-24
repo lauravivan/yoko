@@ -4,6 +4,8 @@ import { BsCheckAll } from "react-icons/bs";
 import { GiPartyPopper } from "react-icons/gi";
 import { getCountingOfDays } from "@/util/date/getCountingOfDays";
 import { formatDate } from "@/util/date/formatDate";
+import { AppType } from "@/types/app";
+import getCounting from "@/util/date/getCounting";
 
 interface CardType {
   event: EventType;
@@ -12,16 +14,18 @@ interface CardType {
   openModal: (type: ModalContentType) => void;
   handleEventId: (id: string) => void;
   handleTitle: (title: string) => void;
+  app: AppType;
 }
 
-export function Card({
+const Card = ({
   event,
   updateEventDesc,
   deleteEvent,
   openModal,
   handleEventId,
   handleTitle,
-}: CardType) {
+  app
+}: CardType) => {
   const [isCardHover, setIsCardHover] = useState(false);
   const countOfDays = useMemo(
     () => getCountingOfDays(event.date),
@@ -31,6 +35,7 @@ export function Card({
     () => formatDate(new Date(event.date)),
     [event.date]
   );
+  const count = useMemo(() => getCounting(event.date), [event.date])
 
   const handleMouseOver = () => {
     setIsCardHover(true);
@@ -81,15 +86,15 @@ export function Card({
               rows={3}
             />
           </form>
-          <span onClick={handleClick}>{countDateExtense}</span>
+          <span onClick={handleClick}>{app === 'countdown' ? countDateExtense : count}</span>
         </div>
-        <div
+        {app === 'countdown' && <div
           className="count"
           onClick={handleClick}
           style={{ border: `2px solid #${event.color}` }}
         >
           <span>{countOfDays}</span>
-        </div>
+        </div>}
       </div>
       {isCardHover && (
         <button
@@ -101,11 +106,13 @@ export function Card({
           <BsCheckAll />
         </button>
       )}
-      {countOfDays.includes("today") && (
+      {app === 'countdown' && countOfDays.includes("today") && (
         <div className="card__party pulsate-bck">
           <GiPartyPopper />
         </div>
       )}
     </article>
   );
-}
+};
+
+export default Card;

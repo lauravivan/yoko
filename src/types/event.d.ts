@@ -3,4 +3,5 @@ interface EventType {
   desc: string;
   color: string;
   date: Date;
+  type: AppType;
 }
