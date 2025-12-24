@@ -1,26 +1,27 @@
+import useModalStore from "@/store/modalStore";
 import { ModalContentType } from "@/types/modal";
-import { useState } from "react";
 
-export default function useModal() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [contentType, setContentType] = useState<ModalContentType>(null);
-  const [title, setTitle] = useState("");
+const useModal = () => {
+  const { handleOpen, setContentType, isOpen, title, contentType, setTitle } =
+    useModalStore();
 
   const openModal = (type: ModalContentType) => {
-    setIsOpen(true);
+    handleOpen(true);
     setContentType(type);
   };
 
   const closeModal = () => {
-    setIsOpen(false);
+    handleOpen(false);
   };
 
   return {
     openModal,
     closeModal,
     isOpen,
-    handleTitle: (title: string) => setTitle(title),
+    handleTitle: setTitle,
     title,
     contentType,
   };
-}
+};
+
+export default useModal;
