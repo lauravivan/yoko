@@ -1,11 +1,13 @@
 import { DEFAULT_THEME } from "../constants";
 import { ThemeType } from "@/types/theme";
 
+const LS_KEY = 'yoko-theme'
+
 export function getStoredTheme(): ThemeType {
-  const theme = localStorage.getItem("countdown-theme") as ThemeType;
+  const theme = localStorage.getItem(LS_KEY) as ThemeType;
   return theme || DEFAULT_THEME;
 }
 
 export function storeTheme(theme: ThemeType) {
-  localStorage.setItem("countdown-theme", theme);
+  localStorage.setItem(LS_KEY, theme);
 }
