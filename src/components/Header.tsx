@@ -1,34 +1,49 @@
+import useStore from "@/store/store";
+import { AppType } from "@/types/app";
 import { ModalContentType } from "@/types/modal";
-import { ChangeEvent } from "react";
+import { ThemeType } from "@/types/theme";
+import { paths } from "@/util/constants";
+import QueryManager from "@/util/query";
+import { ChangeEvent, useEffect } from "react";
 import {
+  BsAlarm,
+  BsBell,
   BsFillGridFill,
   BsFillMoonFill,
   BsFillSunFill,
   BsFilter,
   BsList,
   BsSearch,
+  BsX,
 } from "react-icons/bs";
 import { TbArrowsSort } from "react-icons/tb";
+import { useNavigate } from "react-router";
 
-type HeaderProps = {
-  theme: string;
+interface HeaderProps {
+  theme: ThemeType;
   toggleTheme: () => void;
-  view: string;
-  toggleView: () => void;
+  app: AppType;
   openModal: (type: ModalContentType) => void;
   handleTitle?: (title: string) => void;
   handleSearch: (search: string) => void;
-};
+  toggleApp: () => void;
+  search: string;
+}
 
-export function Header({
+const Header = ({
   theme,
   toggleTheme,
-  view,
-  toggleView,
   openModal,
   handleTitle,
   handleSearch,
-}: HeaderProps) {
+  app,
+  toggleApp,
+  search,
+}: HeaderProps) => {
+  const { toggleView, view } = useStore();
+  const queryManager = new QueryManager();
+  let navigate = useNavigate();
+
   const handleFilterModal = () => {
     openModal("filter");
     handleTitle?.("Filter");
@@ -40,8 +55,23 @@ export function Header({
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleSearch(e.currentTarget.value);
+    const value = e.currentTarget.value;
+    queryManager.query({ search: value });
+    handleSearch(value);
   };
+
+  const cleanSearch = () => {
+    handleSearch("");
+    queryManager.cleanQuery();
+  };
+
+  useEffect(() => {
+    if (app === "countdown") {
+      navigate(paths.home);
+    } else {
+      navigate(paths.actions);
+    }
+  }, [app]);
 
   return (
     <header className="header">
@@ -49,21 +79,31 @@ export function Header({
         <div className="header__title-wrapper__img-wrapper">
           <img src="/mascot.png" />
         </div>
-        <div className="header__title-wrapper__title">Countdown</div>
+        <div className="header__title-wrapper__title">Yoko!</div>
         <button className="toggle-btn" type="button" onClick={toggleTheme}>
           {theme === "moon" ? <BsFillMoonFill /> : <BsFillSunFill />}
         </button>
       </div>
-      <form>
+      <form method="get">
         <input
           placeholder="Search for a specific date..."
           onChange={handleChange}
           id="search"
           name="search"
+          value={search}
         />
-        <BsSearch />
+        {search.length > 0 ? (
+          <button type="button" onClick={cleanSearch}>
+            <BsX />
+          </button>
+        ) : (
+          <BsSearch />
+        )}
       </form>
       <div className="header__menu">
+        <button className="toggle-btn" type="button" onClick={toggleApp}>
+          {app === "actions" ? <BsAlarm /> : <BsBell />}
+        </button>
         <button className="toggle-btn" type="button" onClick={toggleView}>
           {view === "grid" ? <BsFillGridFill /> : <BsList />}
         </button>
@@ -76,4 +116,6 @@ export function Header({
       </div>
     </header>
   );
-}
+};
+
+export default Header;

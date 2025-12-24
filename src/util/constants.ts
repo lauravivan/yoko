@@ -1,6 +1,10 @@
 import { FilterType } from "@/types/filter";
 import { SortType } from "@/types/sort";
 
+export const DEFAULT_APP = 'countdown';
+
+export const TOGGLE_APP = 'actions';
+
 export const DEFAULT_THEME = "sunny";
 
 export const TOGGLE_THEME = "moon";
@@ -39,3 +43,8 @@ export const COLORS = {
   lightOrange: "F1AE89",
   lightPink: "FCE2DB",
 };
+
+export const paths = {
+  home: '/',
+  actions: '/actions'
+}

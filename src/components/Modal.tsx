@@ -7,7 +7,7 @@ type ModalType = {
   isOpen: boolean;
 };
 
-export function Modal({ title, children, closeModal, isOpen }: ModalType) {
+const Modal = ({ title, children, closeModal, isOpen }: ModalType) => {
   return (
     <dialog open={isOpen} className="modal">
       <div className="modal__content">
@@ -25,3 +25,5 @@ export function Modal({ title, children, closeModal, isOpen }: ModalType) {
     </dialog>
   );
 }
+
+export default Modal;
