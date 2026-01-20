@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 export const createUTCDate = (datePicked: string) => {
   const day = parseInt(datePicked.slice(8, 10));
@@ -9,6 +9,6 @@ export const createUTCDate = (datePicked: string) => {
 
 export const createUTCDateNow = () => {
   const currentDate = new Date();
-  const now = format(currentDate, "yyyy-MM-dd");
+  const now = format(currentDate, 'yyyy-MM-dd');
   return createUTCDate(now);
 };

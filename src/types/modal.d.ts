@@ -1,1 +1,1 @@
-export type ModalContentType = "filter" | "sort" | "card" | null;
+export type ModalContentType = 'filter' | 'sort' | 'card' | null;

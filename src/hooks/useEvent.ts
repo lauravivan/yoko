@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { getFilterAndSortEvents } from "@/util/getFilterAndSortEvents";
-import QueryManager from "@/util/query";
-import { AppType } from "@/types/app";
-import useEventStore from "@/store/eventStore";
-import useStore from "@/store/store";
+import { useEffect, useState } from 'react';
+import { getFilterAndSortEvents } from '@/util/getFilterAndSortEvents';
+import QueryManager from '@/util/query';
+import { type AppType } from '@/types/app';
+import useEventStore from '@/store/eventStore';
+import useStore from '@/store/store';
 
 const useEvent = () => {
   const queryManager = new QueryManager();
@@ -18,7 +18,7 @@ const useEvent = () => {
     setEvents,
   } = useEventStore();
   const [search, setSearch] = useState<string>(() =>
-    queryManager.getQuery("search")
+    queryManager.getQuery('search')
   );
 
   useEffect(() => {

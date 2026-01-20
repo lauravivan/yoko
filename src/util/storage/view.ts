@@ -1,7 +1,7 @@
-import { ViewType } from "@/types/view";
-import { DEFAULT_VIEW } from "../constants";
+import { type ViewType } from '@/types/view';
+import { DEFAULT_VIEW } from '../constants';
 
-const LS_KEY = "yoko-view";
+const LS_KEY = 'yoko-view';
 
 export function getStoredView(): ViewType {
   const view = localStorage.getItem(LS_KEY) as ViewType;

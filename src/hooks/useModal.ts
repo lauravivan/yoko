@@ -1,5 +1,5 @@
-import useModalStore from "@/store/modalStore";
-import { ModalContentType } from "@/types/modal";
+import useModalStore from '@/store/modalStore';
+import { type ModalContentType } from '@/types/modal';
 
 const useModal = () => {
   const { handleOpen, setContentType, isOpen, title, contentType, setTitle } =

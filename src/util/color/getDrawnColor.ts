@@ -1,4 +1,4 @@
-import { getColor } from "./getColor";
+import { getColor } from './getColor';
 
 export function getDrawnColor(lastColor: string): string {
   let drawnColor = getColor();

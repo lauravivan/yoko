@@ -1,7 +1,7 @@
-import { DEFAULT_THEME } from "../constants";
-import { ThemeType } from "@/types/theme";
+import { DEFAULT_THEME } from '../constants';
+import { type ThemeType } from '@/types/theme';
 
-const LS_KEY = 'yoko-theme'
+const LS_KEY = 'yoko-theme';
 
 export function getStoredTheme(): ThemeType {
   const theme = localStorage.getItem(LS_KEY) as ThemeType;

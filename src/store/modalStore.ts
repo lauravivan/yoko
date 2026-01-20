@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { ModalContentType } from "@/types/modal";
+import { create } from 'zustand';
+import { type ModalContentType } from '@/types/modal';
 
 interface EventStoreState {
   isOpen: boolean;
@@ -13,10 +13,10 @@ interface EventStoreState {
 const useModalStore = create<EventStoreState>((set) => ({
   isOpen: false,
   handleOpen: (isOpen: boolean) => set((state) => ({ ...state, isOpen })),
-  contentType: "card",
+  contentType: 'card',
   setContentType: (contentType: ModalContentType) =>
     set((state) => ({ ...state, contentType })),
-  title: "",
+  title: '',
   setTitle: (title: string) => set((state) => ({ ...state, title })),
 }));
 

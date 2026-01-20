@@ -1,7 +1,7 @@
-import { SortType } from "@/types/sort";
-import { SORT_OPTIONS } from "../constants";
+import { type SortType } from '@/types/sort';
+import { SORT_OPTIONS } from '../constants';
 
-const LS_KEY = "yoko-sort";
+const LS_KEY = 'yoko-sort';
 
 export function getStoredSort(): SortType {
   const sort = localStorage.getItem(LS_KEY) as SortType;

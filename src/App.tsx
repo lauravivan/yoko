@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import MainLayout from "./layouts/MainLayout";
-import EventsPage from "./pages/Events";
+import { BrowserRouter, Route, Routes } from 'react-router';
+import MainLayout from './layouts/MainLayout';
+import EventsPage from './pages/Events';
 
 const App = () => {
   return (

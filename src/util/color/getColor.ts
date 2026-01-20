@@ -1,4 +1,4 @@
-import { getColors } from "./getColors";
+import { getColors } from './getColors';
 
 export function getColor(): string {
   const colors = getColors();

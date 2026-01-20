@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
-import { ModalContentType } from "@/types/modal";
-import { BsCheckAll } from "react-icons/bs";
-import { GiPartyPopper } from "react-icons/gi";
-import { getCountingOfDays } from "@/util/date/getCountingOfDays";
-import { formatDate } from "@/util/date/formatDate";
-import { AppType } from "@/types/app";
-import getCounting from "@/util/date/getCounting";
+import { useMemo, useState } from 'react';
+import { type ModalContentType } from '@/types/modal';
+import { BsCheckAll } from 'react-icons/bs';
+import { GiPartyPopper } from 'react-icons/gi';
+import { getCountingOfDays } from '@/util/date/getCountingOfDays';
+import { formatDate } from '@/util/date/formatDate';
+import { type AppType } from '@/types/app';
+import getCounting from '@/util/date/getCounting';
 
 interface CardType {
   event: EventType;
@@ -24,7 +24,7 @@ const Card = ({
   openModal,
   handleEventId,
   handleTitle,
-  app
+  app,
 }: CardType) => {
   const [isCardHover, setIsCardHover] = useState(false);
   const countOfDays = useMemo(
@@ -35,7 +35,7 @@ const Card = ({
     () => formatDate(new Date(event.date)),
     [event.date]
   );
-  const count = useMemo(() => getCounting(event.date), [event.date])
+  const count = useMemo(() => getCounting(event.date), [event.date]);
 
   const handleMouseOver = () => {
     setIsCardHover(true);
@@ -59,7 +59,7 @@ const Card = ({
   };
 
   const handleClick = () => {
-    openModal("card");
+    openModal('card');
     handleEventId(event.id);
     handleTitle(`Edit ${event.desc}`);
   };
@@ -86,15 +86,19 @@ const Card = ({
               rows={3}
             />
           </form>
-          <span onClick={handleClick}>{app === 'countdown' ? countDateExtense : count}</span>
+          <span onClick={handleClick}>
+            {app === 'countdown' ? countDateExtense : count}
+          </span>
         </div>
-        {app === 'countdown' && <div
-          className="count"
-          onClick={handleClick}
-          style={{ border: `2px solid #${event.color}` }}
-        >
-          <span>{countOfDays}</span>
-        </div>}
+        {app === 'countdown' && (
+          <div
+            className="count"
+            onClick={handleClick}
+            style={{ border: `2px solid #${event.color}` }}
+          >
+            <span>{countOfDays}</span>
+          </div>
+        )}
       </div>
       {isCardHover && (
         <button
@@ -106,7 +110,7 @@ const Card = ({
           <BsCheckAll />
         </button>
       )}
-      {app === 'countdown' && countOfDays.includes("today") && (
+      {app === 'countdown' && countOfDays.includes('today') && (
         <div className="card__party pulsate-bck">
           <GiPartyPopper />
         </div>

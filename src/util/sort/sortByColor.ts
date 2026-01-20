@@ -1,4 +1,4 @@
-export function sortByColor(events: Array<EventType>) {
+export function sortByColor(events: EventType[]) {
   return events.sort((a, b) => {
     return a.color.localeCompare(b.color);
   });

@@ -1,7 +1,7 @@
 class QueryManager {
   params = new URLSearchParams();
 
-  public query(queries: { [key: string]: string }) {
+  public query(queries: Record<string, string>) {
     Object.entries(queries).forEach((q) => this.params.set(q[0], q[1]));
     this.buildUrl(this.params);
   }
@@ -11,7 +11,7 @@ class QueryManager {
   }
 
   public getQuery(key: string): string {
-    return this.params.get(key) || "";
+    return this.params.get(key) || '';
   }
 
   private buildUrl(params?: URLSearchParams) {
@@ -21,7 +21,7 @@ class QueryManager {
       newUrl += `?${params.toString()}`;
     }
 
-    window.history.pushState({}, "", newUrl);
+    window.history.pushState({}, '', newUrl);
   }
 }
 

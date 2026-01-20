@@ -1,7 +1,7 @@
-import { Card } from "@/components";
-import { useEvent, useModal } from "@/hooks";
-import useStore from "@/store/store";
-import { BsPlusLg } from "react-icons/bs";
+import { Card } from '@/components';
+import { useEvent, useModal } from '@/hooks';
+import useStore from '@/store/store';
+import { BsPlusLg } from 'react-icons/bs';
 
 const EventsPage = () => {
   const { openModal, handleTitle } = useModal();
@@ -21,7 +21,7 @@ const EventsPage = () => {
         {!search && (
           <div
             className="cards__add-event"
-            style={{ textAlign: "center" }}
+            style={{ textAlign: 'center' }}
             onClick={() => createEvent(app, filter, sort)}
             aria-label="Adicionar evento"
           >

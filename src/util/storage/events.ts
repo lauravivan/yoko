@@ -1,4 +1,4 @@
-const LS_KEY = "yoko-events";
+const LS_KEY = 'yoko-events';
 
 export function getStoredEvents() {
   const events = localStorage.getItem(LS_KEY);

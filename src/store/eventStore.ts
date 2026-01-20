@@ -1,12 +1,12 @@
-import { AppType } from "@/types/app";
-import { getStoredEvents, storeEvents } from "@/util/storage/events";
-import { create } from "zustand";
-import { v4 as uuidv4 } from "uuid";
-import { getDateByFilter } from "@/util/date/getDateByFilter";
-import { getDrawnColor } from "@/util/color/getDrawnColor";
-import { getFilterAndSortEvents } from "@/util/getFilterAndSortEvents";
-import { FilterType } from "@/types/filter";
-import { SortType } from "@/types/sort";
+import { type AppType } from '@/types/app';
+import { getStoredEvents, storeEvents } from '@/util/storage/events';
+import { create } from 'zustand';
+import { v4 as uuidv4 } from 'uuid';
+import { getDateByFilter } from '@/util/date/getDateByFilter';
+import { getDrawnColor } from '@/util/color/getDrawnColor';
+import { getFilterAndSortEvents } from '@/util/getFilterAndSortEvents';
+import { type FilterType } from '@/types/filter';
+import { type SortType } from '@/types/sort';
 
 interface EventStoreState {
   events: EventType[];
@@ -29,11 +29,11 @@ const useEventStore = create<EventStoreState>((set) => ({
       const drawnColor =
         ev?.length > 0
           ? getDrawnColor(ev[ev.length - 1].color)
-          : getDrawnColor("");
+          : getDrawnColor('');
 
       const event: EventType = {
         id: id,
-        desc: "Unamed",
+        desc: 'Unamed',
         color: drawnColor,
         date: dateValid,
         type,
