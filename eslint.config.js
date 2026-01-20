@@ -16,7 +16,7 @@ export default defineConfig(
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
-      ...sonarjs.configs.recommended
+      sonarjs.configs.recommended
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
