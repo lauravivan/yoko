@@ -6,14 +6,17 @@ import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
+import sonarjs from 'eslint-plugin-sonarjs';
+import { defineConfig } from 'eslint/config';
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ['dist', 'node_modules', '.github', '.husky'] },
   {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
+      ...sonarjs.configs.recommended
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
