@@ -6,27 +6,24 @@ export function filterEvents(
   operator = '=='
 ): EventType[] {
   const date = new Date();
-  const filtered: EventType[] = [];
 
-  events.filter((event: EventType) => {
+  return events.filter((event: EventType) => {
     const eventDate = new Date(event.date);
     const difference = differenceInCalendarMonths(eventDate, date);
 
     switch (operator) {
       case '==':
         if (difference == diffInMonths) {
-          filtered.push(event);
+          return event;
         }
         break;
       case '>':
         if (difference > diffInMonths) {
-          filtered.push(event);
+          return event;
         }
         break;
       default:
         break;
     }
   });
-
-  return filtered;
 }

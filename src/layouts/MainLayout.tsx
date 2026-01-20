@@ -3,7 +3,6 @@ import { useEvent, useModal } from '@/hooks';
 import useStore from '@/store/store';
 import { type FilterType } from '@/types/filter';
 import { type SortType } from '@/types/sort';
-import { getColors } from '@/util/color/getColors';
 import { FILTER_OPTIONS, SORT_OPTIONS } from '@/util/constants';
 import { createUTCDate, createUTCDateNow } from '@/util/date/createUTCDate';
 import { useState } from 'react';
@@ -24,7 +23,7 @@ const MainLayout = () => {
     toggleApp,
     eventId,
   } = useStore();
-  const { getEvent, handleSearch, search, updateEventColor, updateEventDate } =
+  const { getEvent, handleSearch, search,  updateEventDate } =
     useEvent();
   const [date, setDate] = useState(() => {
     const event = getEvent(eventId);
@@ -44,15 +43,6 @@ const MainLayout = () => {
     updateEventDate(eventId, date);
     setDate(e.target.value);
   };
-
-  const ColorsAvailable = () =>
-    getColors().map((color) => (
-      <span
-        key={color}
-        className={`color-circle color-circle--${color}`}
-        onClick={updateEventColor.bind(self, eventId, color)}
-      ></span>
-    ));
 
   return (
     <div className={`app ${theme === 'moon' ? 'dark' : 'light'}`}>
@@ -118,7 +108,6 @@ const MainLayout = () => {
               <div className="card-date-update__colors">
                 <span>Pick a color: </span>
                 <div className="card-date-update__colors__colors">
-                  <ColorsAvailable />
                 </div>
               </div>
             </form>

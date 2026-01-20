@@ -11,7 +11,7 @@ class QueryManager {
   }
 
   public getQuery(key: string): string {
-    return this.params.get(key) || '';
+    return this.params.get(key) ?? '';
   }
 
   private buildUrl(params?: URLSearchParams) {
