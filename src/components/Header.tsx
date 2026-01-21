@@ -66,7 +66,7 @@ const Header = ({
   };
 
   useEffect(() => {
-    const fetchData = async () : Promise<void> => {
+    const fetchData = async (): Promise<void> => {
       if (app === 'countdown') {
         await navigate(paths.home);
       } else {
@@ -74,7 +74,7 @@ const Header = ({
       }
     };
 
-    void fetchData()
+    void fetchData();
   }, [app]);
 
   return (

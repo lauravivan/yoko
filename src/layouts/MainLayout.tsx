@@ -23,8 +23,7 @@ const MainLayout = () => {
     toggleApp,
     eventId,
   } = useStore();
-  const { getEvent, handleSearch, search,  updateEventDate } =
-    useEvent();
+  const { getEvent, handleSearch, search, updateEventDate } = useEvent();
   const [date, setDate] = useState(() => {
     const event = getEvent(eventId);
 
@@ -107,8 +106,7 @@ const MainLayout = () => {
               </label>
               <div className="card-date-update__colors">
                 <span>Pick a color: </span>
-                <div className="card-date-update__colors__colors">
-                </div>
+                <div className="card-date-update__colors__colors"></div>
               </div>
             </form>
           )}
