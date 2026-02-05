@@ -75,6 +75,11 @@ jobs:
           projectId: ${{ vars.FIREBASE_PROJECT_ID }}
           channelId: live
 
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
   build-and-deploy-develop:
     runs-on: ubuntu-latest
     name: Build and Deploy Develop
