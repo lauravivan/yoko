@@ -1,8 +1,8 @@
-import { AppType } from "@/types/app";
-import { FilterType } from "@/types/filter";
-import { SortType } from "@/types/sort";
-import { ThemeType } from "@/types/theme";
-import { ViewType } from "@/types/view";
+import { type AppType } from '@/types/app';
+import { type FilterType } from '@/types/filter';
+import { type SortType } from '@/types/sort';
+import { type ThemeType } from '@/types/theme';
+import { type ViewType } from '@/types/view';
 import {
   DEFAULT_APP,
   DEFAULT_THEME,
@@ -10,13 +10,13 @@ import {
   TOGGLE_APP,
   TOGGLE_THEME,
   TOGGLE_VIEW,
-} from "@/util/constants";
-import { getStoredApp, storeApp } from "@/util/storage/app";
-import { getStoredFilter, storeFilter } from "@/util/storage/filter";
-import { getStoredSort, storeSort } from "@/util/storage/sort";
-import { getStoredTheme, storeTheme } from "@/util/storage/theme";
-import { getStoredView, storeView } from "@/util/storage/view";
-import { create } from "zustand";
+} from '@/util/constants';
+import { getStoredApp, storeApp } from '@/util/storage/app';
+import { getStoredFilter, storeFilter } from '@/util/storage/filter';
+import { getStoredSort, storeSort } from '@/util/storage/sort';
+import { getStoredTheme, storeTheme } from '@/util/storage/theme';
+import { getStoredView, storeView } from '@/util/storage/view';
+import { create } from 'zustand';
 
 interface StoreState {
   view: ViewType;
@@ -70,7 +70,7 @@ const useStore = create<StoreState>((set) => ({
       storeApp(newApp);
       return { ...state, app: newApp };
     }),
-  eventId: "",
+  eventId: '',
   setEventId: (eventId: string) => set((state) => ({ ...state, eventId })),
 }));
 

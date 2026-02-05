@@ -1,1 +1,1 @@
-export type AppType = 'actions' | 'countdown'
+export type AppType = 'actions' | 'countdown';

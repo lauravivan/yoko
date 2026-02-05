@@ -1,4 +1,4 @@
-export function sortByAlphabet(events: Array<EventType>) {
+export function sortByAlphabet(events: EventType[]) {
   return events.sort((a, b) => {
     const x = a.desc.toLowerCase();
     const y = b.desc.toLowerCase();

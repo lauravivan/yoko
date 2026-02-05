@@ -1,10 +1,10 @@
-import useStore from "@/store/store";
-import { AppType } from "@/types/app";
-import { ModalContentType } from "@/types/modal";
-import { ThemeType } from "@/types/theme";
-import { paths } from "@/util/constants";
-import QueryManager from "@/util/query";
-import { ChangeEvent, useEffect } from "react";
+import useStore from '@/store/store';
+import { type AppType } from '@/types/app';
+import { type ModalContentType } from '@/types/modal';
+import { type ThemeType } from '@/types/theme';
+import { paths } from '@/util/constants';
+import QueryManager from '@/util/query';
+import { type ChangeEvent, useEffect } from 'react';
 import {
   BsAlarm,
   BsBell,
@@ -15,9 +15,9 @@ import {
   BsList,
   BsSearch,
   BsX,
-} from "react-icons/bs";
-import { TbArrowsSort } from "react-icons/tb";
-import { useNavigate } from "react-router";
+} from 'react-icons/bs';
+import { TbArrowsSort } from 'react-icons/tb';
+import { useNavigate } from 'react-router';
 
 interface HeaderProps {
   theme: ThemeType;
@@ -42,16 +42,16 @@ const Header = ({
 }: HeaderProps) => {
   const { toggleView, view } = useStore();
   const queryManager = new QueryManager();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleFilterModal = () => {
-    openModal("filter");
-    handleTitle?.("Filter");
+    openModal('filter');
+    handleTitle?.('Filter');
   };
 
   const handleSortModal = () => {
-    openModal("sort");
-    handleTitle?.("Sort");
+    openModal('sort');
+    handleTitle?.('Sort');
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,16 +61,20 @@ const Header = ({
   };
 
   const cleanSearch = () => {
-    handleSearch("");
+    handleSearch('');
     queryManager.cleanQuery();
   };
 
   useEffect(() => {
-    if (app === "countdown") {
-      navigate(paths.home);
-    } else {
-      navigate(paths.actions);
-    }
+    const fetchData = async (): Promise<void> => {
+      if (app === 'countdown') {
+        await navigate(paths.home);
+      } else {
+        await navigate(paths.actions);
+      }
+    };
+
+    void fetchData();
   }, [app]);
 
   return (
@@ -81,7 +85,7 @@ const Header = ({
         </div>
         <div className="header__title-wrapper__title">Yoko!</div>
         <button className="toggle-btn" type="button" onClick={toggleTheme}>
-          {theme === "moon" ? <BsFillMoonFill /> : <BsFillSunFill />}
+          {theme === 'moon' ? <BsFillMoonFill /> : <BsFillSunFill />}
         </button>
       </div>
       <form method="get">
@@ -102,10 +106,10 @@ const Header = ({
       </form>
       <div className="header__menu">
         <button className="toggle-btn" type="button" onClick={toggleApp}>
-          {app === "actions" ? <BsAlarm /> : <BsBell />}
+          {app === 'actions' ? <BsAlarm /> : <BsBell />}
         </button>
         <button className="toggle-btn" type="button" onClick={toggleView}>
-          {view === "grid" ? <BsFillGridFill /> : <BsList />}
+          {view === 'grid' ? <BsFillGridFill /> : <BsList />}
         </button>
         <button onClick={handleFilterModal} className="select-btn">
           <BsFilter />

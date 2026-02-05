@@ -1,7 +1,7 @@
-import { AppType } from "@/types/app";
-import { DEFAULT_APP } from "../constants";
+import { type AppType } from '@/types/app';
+import { DEFAULT_APP } from '../constants';
 
-const LS_KEY = 'yoko-app'
+const LS_KEY = 'yoko-app';
 
 export function getStoredApp(): AppType {
   const app = localStorage.getItem(LS_KEY) as AppType;

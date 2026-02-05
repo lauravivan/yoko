@@ -1,6 +1,6 @@
 export function formatDate(date: Date): string {
   const dateUTCString = date.toUTCString();
-  const dateUTCStringSplit = dateUTCString.split(" ");
+  const dateUTCStringSplit = dateUTCString.split(' ');
   const dayOfWeek = dateUTCStringSplit[0];
   const day = dateUTCStringSplit[1];
   const month = dateUTCStringSplit[2];

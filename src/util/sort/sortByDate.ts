@@ -1,4 +1,4 @@
-export function sortByDate(events: Array<EventType>) {
+export function sortByDate(events: EventType[]) {
   return events.sort((a, b) => {
     const x = new Date(a.date);
     const y = new Date(b.date);

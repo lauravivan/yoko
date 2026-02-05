@@ -1,11 +1,11 @@
-import { BsXLg } from "react-icons/bs";
+import { BsXLg } from 'react-icons/bs';
 
-type ModalType = {
+interface ModalType {
   title: string;
   children: React.ReactNode;
   closeModal: () => void;
   isOpen: boolean;
-};
+}
 
 const Modal = ({ title, children, closeModal, isOpen }: ModalType) => {
   return (
@@ -24,6 +24,6 @@ const Modal = ({ title, children, closeModal, isOpen }: ModalType) => {
       </div>
     </dialog>
   );
-}
+};
 
 export default Modal;

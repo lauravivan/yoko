@@ -1,1 +1,1 @@
-export type ThemeType = "sunny" | "moon";
+export type ThemeType = 'sunny' | 'moon';

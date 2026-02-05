@@ -1,5 +1,5 @@
-import { COLORS } from "../constants";
+import { COLORS } from '../constants';
 
-export function getColors(): Array<string> {
+export function getColors(): string[] {
   return Object.values(COLORS);
 }

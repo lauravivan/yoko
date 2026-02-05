@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 /*colors*/
 $dark: #262626;
@@ -10,7 +10,7 @@ $dark-white: #f9f9f9;
 $purple: #9d4edd;
 
 /*fonts*/
-$quicksand: "Quicksand", sans-serif;
+$quicksand: 'Quicksand', sans-serif;
 
 /*fonts size*/
 $font-xs: 0.5rem;
@@ -28,23 +28,23 @@ $fs-600: 600;
 $fs-700: 700;
 
 /*colors card */
-$light-green-code: "D9E9CF";
+$light-green-code: 'D9E9CF';
 $light-green-color: #d9e9cf;
-$light-blue-code: "C7D9DD";
+$light-blue-code: 'C7D9DD';
 $light-blue-color: #c7d9dd;
-$light-yellow-code: "F2E2B1";
+$light-yellow-code: 'F2E2B1';
 $light-yellow-color: #f2e2b1;
-$light-salmon-code: "FCE7C8";
+$light-salmon-code: 'FCE7C8';
 $light-salmon-color: #fce7c8;
-$light-beige-code: "E2E0C8";
+$light-beige-code: 'E2E0C8';
 $light-beige-color: #e2e0c8;
-$light-brown-code: "DAB88B";
+$light-brown-code: 'DAB88B';
 $light-brown-color: #dab88b;
-$light-purple-code: "F1C6D3";
+$light-purple-code: 'F1C6D3';
 $light-purple-color: #f1c6d3;
-$light-orange-code: "F1AE89";
+$light-orange-code: 'F1AE89';
 $light-orange-color: #f1ae89;
-$light-pink-code: "FCE2DB";
+$light-pink-code: 'FCE2DB';
 $light-pink-color: #fce2db;
 
 /* breakpoints*/
@@ -53,7 +53,7 @@ $tablet: 900px;
 $desktop-sm: 1400px;
 
 /*spacing*/
-$spacing-xs: .5rem;
+$spacing-xs: 0.5rem;
 $spacing-sm: 1rem;
 $spacing-md: 2rem;
 $spacing-lg: 4rem;

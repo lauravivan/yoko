@@ -1,5 +1,5 @@
-@use "sass:meta";
-@use "variable" as var;
+@use 'sass:meta';
+@use 'variable' as var;
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -41,8 +41,8 @@ svg {
   font-size: 1.8rem;
 }
 
-@include meta.load-css("header");
-@include meta.load-css("modal");
-@include meta.load-css("cards");
-@include meta.load-css("animation");
-@include meta.load-css("color-circle");
+@include meta.load-css('header');
+@include meta.load-css('modal');
+@include meta.load-css('cards');
+@include meta.load-css('animation');
+@include meta.load-css('color-circle');

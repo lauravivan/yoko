@@ -4,8 +4,8 @@ import {
   differenceInDays,
   differenceInMonths,
   differenceInYears,
-} from "date-fns";
-import { createUTCDateNow } from "./createUTCDate";
+} from 'date-fns';
+import { createUTCDateNow } from './createUTCDate';
 
 const getCounting = (date: Date) => {
   const now = createUTCDateNow();
@@ -15,11 +15,11 @@ const getCounting = (date: Date) => {
   const dateAfterMonths = addMonths(dateAfterYears, months);
   const days = differenceInDays(now, dateAfterMonths);
 
-  const yearsExtense = `${years} ${years === 1 ? "year" : "years"}`;
-  const monthsExtense = `${months} ${months === 1 ? "month" : "months"}`;
-  const daysExtense = `${days} ${days === 1 ? "day" : "days"}`;
+  const yearsExtense = `${years} ${years === 1 ? 'year' : 'years'}`;
+  const monthsExtense = `${months} ${months === 1 ? 'month' : 'months'}`;
+  const daysExtense = `${days} ${days === 1 ? 'day' : 'days'}`;
 
-  let counting = "";
+  let counting = '';
 
   if (years > 0) {
     counting += `${yearsExtense}, `;
