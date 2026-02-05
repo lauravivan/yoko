@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && npm run lint && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "sass": "sass src/assets/sass/main.scss src/assets/css/main.css --watch",
     "sass-migrate": "npx sass-migrator module --migrate-deps src/assets/sass/main.scss",
@@ -16,7 +16,8 @@
     "format:check": "npx prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prepare": "husky",
     "type-check": "tsc --noEmit",
-    "firebase:login": "firebase login"
+    "firebase:login": "firebase login",
+    "analyze": "vite build --mode analyze"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
@@ -48,6 +49,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.0",
+    "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.97.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
