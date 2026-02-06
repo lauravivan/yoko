@@ -17,7 +17,8 @@
     "prepare": "husky",
     "type-check": "tsc --noEmit",
     "firebase:login": "firebase login",
-    "analyze": "vite build --mode analyze"
+    "analyze": "vite build --mode analyze",
+    "emulators:start": "npx firebase emulators:start"
   },
   "dependencies": {
     "date-fns": "^4.1.0",

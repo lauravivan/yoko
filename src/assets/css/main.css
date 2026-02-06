@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 /*colors*/
 /*fonts*/
 /*fonts size*/
@@ -15,8 +13,9 @@
 }
 
 :root {
-  color: #262626;
+  color: rgb(0, 0, 0);
   font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
 }
 
 body {
@@ -24,11 +23,17 @@ body {
   min-height: 100vh;
   max-width: 100vw;
   width: 100vw;
+  height: 100vh;
   margin: 0;
 }
 body:has(.dark) {
   background-color: #262626;
   color: rgba(255, 255, 255, 0.87);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }
 
 .app {
@@ -396,7 +401,6 @@ svg {
   font-size: 1.1rem;
   background-color: transparent;
   border: none;
-  font-family: 'Quicksand', sans-serif;
   outline: none;
   resize: none;
   flex: 1;
@@ -589,6 +593,88 @@ svg {
 
 .color-circle--FCE2DB {
   background-color: #fce2db;
+}
+
+.button {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.btn-blue {
+  background-color: rgb(167, 218, 255);
+}
+
+.btn-default {
+  background-color: #f3f3f3;
+}
+
+.login {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.login > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  width: max-content;
+  margin: auto;
+  background-color: rgba(167, 218, 255, 0.5);
+  border-radius: 10px;
+  padding: 40px 30px;
+}
+
+.login > div > img {
+  position: absolute;
+  max-width: 150px;
+  top: -110px;
+  right: 40px;
+}
+
+.login > div > div:first-of-type > h3 {
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.login > div > div:first-of-type > p {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  text-align: center;
+}
+
+.login > div > form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.login > div > form > input {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 19px 17px;
+  font-size: 0.9rem;
+}
+
+.login > div > form > input ::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.login > div > div:nth-of-type(2) {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+}
+
+.login > div button {
+  width: max-content;
+  margin: auto;
 }
 
 /*# sourceMappingURL=main.css.map */

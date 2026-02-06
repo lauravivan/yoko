@@ -1,13 +1,16 @@
 @use 'sass:meta';
 @use 'variable' as var;
+@use 'tokens/color' as colors;
+@use 'tokens/typography' as typography;
 
 ::-webkit-scrollbar {
   width: 5px;
 }
 
 :root {
-  color: var.$dark;
-  font-family: var.$quicksand;
+  color: colors.$color-black;
+  font-family: typography.$quicksand;
+  font-weight: typography.$font-weight-regular;
 }
 
 body {
@@ -15,12 +18,18 @@ body {
   min-height: 100vh;
   max-width: 100vw;
   width: 100vw;
+  height: 100vh;
   margin: 0;
 
   &:has(.dark) {
     background-color: var.$dark;
     color: var.$white;
   }
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }
 
 .app {
@@ -41,8 +50,16 @@ svg {
   font-size: 1.8rem;
 }
 
+@include meta.load-css('tokens/color');
+@include meta.load-css('tokens/typography');
+@include meta.load-css('tokens/effects');
+
 @include meta.load-css('header');
 @include meta.load-css('modal');
 @include meta.load-css('cards');
 @include meta.load-css('animation');
 @include meta.load-css('color-circle');
+
+@include meta.load-css('components/button');
+
+@include meta.load-css('pages/login');

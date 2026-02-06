@@ -1,0 +1,15 @@
+@use '../tokens/effects' as effects;
+@use '../tokens/color' as colors;
+
+.button {
+  border-radius: effects.$border-r-md;
+  padding: 10px;
+}
+
+.btn-blue {
+  background-color: colors.$color-blue;
+}
+
+.btn-default {
+  background-color: colors.$color-gray;
+}

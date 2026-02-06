@@ -69,6 +69,7 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ vars.FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ vars.FIREBASE_MEASUREMENT_ID }}
+          VITE_HOSTING_URL: ${{ vars.URL_PRODUCTION }}
 
       - name: Semantic Release
         env:
@@ -112,6 +113,7 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ vars.FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ vars.FIREBASE_MEASUREMENT_ID }}
+          VITE_HOSTING_URL: ${{ vars.URL_PREVIEW }}
 
       - name: Deploy to Firebase Hosting (Development Channel)
         uses: FirebaseExtended/action-hosting-deploy@v0

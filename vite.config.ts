@@ -34,4 +34,13 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
+  server: {
+    proxy: {
+      // Proxies para os emulators
+      '/__/auth': {
+        target: 'http://localhost:9099',
+        changeOrigin: true,
+      },
+    },
+  },
 }));
