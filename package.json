@@ -24,6 +24,7 @@
     "emulators:start": "npx firebase emulators:start"
   },
   "dependencies": {
+    "@sentry/react": "^10.53.1",
     "date-fns": "^4.1.0",
     "firebase": "^12.8.0",
     "react": "^19.2.3",
