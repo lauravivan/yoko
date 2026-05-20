@@ -13,10 +13,16 @@
     "sass": "sass src/assets/sass/main.scss src/assets/css/main.css --watch",
     "sass-migrate": "npx sass-migrator module --migrate-deps src/assets/sass/main.scss",
     "test": "vitest",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint . --fix",
-    "format": "npx prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "format:check": "npx prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint",
+    "lint:all": "eslint .",
+    "lint:fix": "eslint --fix",
+    "lint:fix:all": "eslint . --fix",
+    "format": "prettier --write",
+    "format:check": "prettier --check",
+    "format:all": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:check:all": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "prepare": "husky",
     "type-check": "tsc --noEmit",
     "firebase:login": "firebase login",
@@ -69,7 +75,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,md,mdx,css,scss}": "prettier --write",
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "vitest --related --passWithNoTests"
     ]
   }
 }
