@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -64,12 +67,9 @@
     ]
   },
   "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md,mdx,css,scss}": "prettier --write",
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,scss,md}": [
-      "prettier --write"
+      "eslint --fix"
     ]
   }
 }
