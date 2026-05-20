@@ -1,0 +1,15 @@
+@use './base.scss';
+
+$border-color: (
+  default: $blue,
+  error: $red,
+  success: $grass,
+  subtle: $gray-90,
+  dark: $dark,
+);
+
+@each $name, $color in $bg-colors {
+  %border-color-#{$name} {
+    color: $color;
+  }
+}

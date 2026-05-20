@@ -1,0 +1,43 @@
+@use './base.scss';
+
+$bg-colors: (
+  // Card
+  card-baby-pink: $baby-pink,
+  card-baby-pink-subtle: $baby-pink-50,
+  card-aqua: $aqua,
+  card-aqua-subtle: $aqua-50,
+  card-pink: $pink,
+  card-pink-subtle: $pink-50,
+  card-purple: $purple,
+  card-purple-subtle: $purple-50,
+  card-yellow: $yellow,
+  card-yellow-subtle: $yellow-50,
+  card-orange: $orange,
+  card-orange-subtle: $orange-50,
+  card-brown: $brown,
+  card-brown-subtle: $brown-50,
+  card-green: $green,
+  card-green-subtle: $green-50,
+  card-dark-subtle: $dark-soft,
+  card-dark: $dark,
+  card-red: $red-70,
+  card-red-subtle: $red-50,
+
+  // Button
+  button-error: $red,
+
+  //Error
+  error-subtle: $red-30,
+
+  // Default / Subtle / Invert
+  default: $blue,
+  default-subtle: $blue-50,
+  subtle: $gray-50,
+  default-invert: $blue-30
+);
+
+@each $name, $color in $bg-colors {
+  %bg-color-#{$name} {
+    background-color: $color;
+  }
+}

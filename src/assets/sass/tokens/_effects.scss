@@ -1,2 +1,19 @@
-// border-radius
-$border-r-md: 10px;
+/* border radius */
+$border-r-soft: 5%;
+$border-r-default: 10%;
+$border-r-full: 100%;
+
+/* border width */
+$border-w-default: 1px;
+$border-w-highlight: 2px;
+
+/* opacity */
+$opacity-soft: 20%;
+$opacity-md: 50%;
+$opacity-strong: 70%;
+
+/* shadow */
+$shadow-sm: drop-shadow(#301934 20px 10px 4px);
+$shadow-md: drop-shadow(#301934 20px 10px 4px);
+$shadow-lg: drop-shadow(#301934 20px 10px 4px);
+$shadow-dark-sm: drop-shadow(#301934 20px 10px 4px);

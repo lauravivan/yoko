@@ -2,6 +2,9 @@
 
 $quicksand: 'Quicksand', sans-serif;
 
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 700;
+@mixin text-form($fs, $fw: 400) {
+  font-family: $quicksand;
+  font-weight: $fw;
+  font-size: $fs;
+  line-height: 1.5;
+}
