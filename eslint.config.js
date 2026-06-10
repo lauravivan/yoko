@@ -7,7 +7,7 @@ import react from 'eslint-plugin-react';
 import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import sonarjs from 'eslint-plugin-sonarjs';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig(
   { ignores: ['dist', 'node_modules', '.github', '.husky'] },
@@ -83,5 +83,12 @@ export default defineConfig(
       ],
     },
   },
-  prettierConfig
+  prettierConfig,
+  globalIgnores([
+    '/node_modules',
+    'dist/**',
+    'eslint.config.js',
+    'vite-env.d.ts',
+    'vite.config.ts',
+  ])
 );
