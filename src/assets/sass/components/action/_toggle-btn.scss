@@ -1,0 +1,31 @@
+@use '../../tokens';
+
+.c-toggle-button {
+  all: unset;
+  cursor: pointer;
+
+  :hover {
+    background-color: tokens.$bg-default-subtle;
+  }
+
+  svg {
+    padding: 8px 9px 8px 10px;
+    border-radius: tokens.$border-r-soft;
+  }
+
+  &--default {
+    svg {
+      padding: 8px 9px 8px 10px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &--sm {
+    svg {
+      padding: 8px 6px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

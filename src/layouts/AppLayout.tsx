@@ -1,4 +1,5 @@
-import { Header, Modal } from '@/components';
+import Modal from '@/components/Modal';
+import Header from '@/components/navigation/Header';
 import { useEvent, useModal } from '@/hooks';
 import useStore from '@/store/store';
 import { type FilterType } from '@/types/filter';
@@ -9,7 +10,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Outlet } from 'react-router';
 
-const MainLayout = () => {
+const AppLayout = () => {
   const { closeModal, contentType, isOpen, openModal, handleTitle, title } =
     useModal();
   const {
@@ -117,4 +118,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default AppLayout;

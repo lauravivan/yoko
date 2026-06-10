@@ -1,9 +1,21 @@
-import { Card } from '@/components';
+import Card from '@/components/Card';
+import { useGeneral } from '@/context/GeneralContext';
 import { useEvent, useModal } from '@/hooks';
 import useStore from '@/store/store';
 import { BsPlusLg } from 'react-icons/bs';
+import { useLocation } from 'react-router';
+
+const TODOModal = () => {
+  return (
+    <div className="todo">
+      <h3>TODO</h3>
+    </div>
+  );
+};
 
 const EventsPage = () => {
+  const location = useLocation();
+  const app = location.pathname === 'actions' ? 'actions' : 'countdown';
   const { openModal, handleTitle } = useModal();
   const {
     createEvent,
@@ -12,11 +24,12 @@ const EventsPage = () => {
     search,
     updateEventDesc,
   } = useEvent();
-  const { view, app, filter, sort, setEventId } = useStore();
+  const { view, filter, sort, setEventId } = useStore();
   const events = getPaginatedEvents(app);
+  const { isTaskOpen } = useGeneral();
 
   return (
-    <main>
+    <main className="events-page">
       <div className={`cards-view-${view} cards`}>
         {!search && (
           <div
@@ -42,6 +55,8 @@ const EventsPage = () => {
               app={app}
             />
           ))}
+
+        {isTaskOpen && <TODOModal />}
       </div>
       {search && events.length === 0 && (
         <div>Sorry, we couldn’t find any results related to your research.</div>

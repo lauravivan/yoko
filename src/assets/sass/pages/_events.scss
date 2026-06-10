@@ -1,0 +1,17 @@
+@use '../tokens/color' as colors;
+@use '../tokens/effects' as effects;
+
+.todo {
+  position: absolute;
+  right: 0;
+  min-width: 25%;
+  max-width: 30%;
+  background-color: colors.$color-gray3;
+  border-radius: effects.$border-r-md;
+  padding: 0 1.5rem;
+}
+
+.events-page {
+  position: relative;
+  height: 100%;
+}
