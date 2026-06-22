@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,7 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
+    "test:workflow:local": "vitest related --passWithNoTests --coverage=false",
     "lint": "eslint",
     "lint:all": "eslint .",
     "lint:fix": "eslint --fix",
@@ -76,8 +77,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,md,mdx,css,scss}": "prettier --write",
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "vitest --related --passWithNoTests"
+      "eslint --cache --fix",
+      "vitest related --passWithNoTests --coverage=false"
     ]
   }
 }

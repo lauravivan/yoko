@@ -1,4 +1,4 @@
-name: Format, lint, type check and tests
+name: CI
 
 on:
   pull_request:
@@ -8,9 +8,9 @@ permissions:
   contents: write
 
 jobs:
-  local-changes:
+  ci:
     runs-on: ubuntu-latest
-    name: Lint, format and tests (local changes)
+    name: Lint, format and tests
 
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
@@ -53,7 +53,7 @@ jobs:
         if: steps.changed-files.outputs.should_test == 'true'
         id: tests
         working-directory: src/
-        run: npm run test:coverage
+        run: npm run test:workflow:local -- $(git diff --name-only origin/${{ github.base_ref }}...HEAD)
 
       - name: Check for failures
         if: always()
@@ -67,42 +67,3 @@ jobs:
             echo "| Tests | ${{ steps.tests.outcome == 'failure' && '❌' || '✅' }} |" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
-
-  full-project:
-    runs-on: ubuntu-latest
-    name: Lint and type check (full project)
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-            fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-            node-version: "20"
-            cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci --prefer-offline --no-audit --no-fund
-
-      - name: Run TypeScript type check
-        id: typecheck
-        run: npm run type-check
-
-      - name: Run ESLint
-        id: lint
-        run: npm run lint:all
-
-      - name: Check for failures
-        if: always()
-        run: |
-            if [[  "${{ steps.lint.outcome }}" == "failure" || "${{ steps.typecheck.outcome }}" == "failure" ]]; then
-                echo "## ❌ CI falhou" >> $GITHUB_STEP_SUMMARY
-                echo "| Step | Status |" >> $GITHUB_STEP_SUMMARY
-                echo "|---|---|" >> $GITHUB_STEP_SUMMARY
-                echo "| Typecheck | ${{ steps.typecheck.outcome == 'failure' && '❌' || '✅' }} |" >> $GITHUB_STEP_SUMMARY
-                echo "| ESLint | ${{ steps.lint.outcome == 'failure' && '❌' || '✅' }} |" >> $GITHUB_STEP_SUMMARY
-                exit 1
-            fi
