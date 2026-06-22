@@ -1,0 +1,9 @@
+@forward 'colors' hide $gray-40, $gray-50, $gray-90, $gray, $blue-30, $blue-50,
+  $blue-70, $blue, $red-30, $red-50, $red-70, $red, $dark-soft, $dark-md, $dark,
+  $baby-pink-50, $baby-pink, $aqua-50, $aqua, $pink-50, $pink, $purple-50,
+  $purple, $yellow-50, $yellow, $orange-50, $orange, $brown-50, $brown,
+  $green-50, $grass, $green;
+
+@forward 'breakpoints';
+@forward 'effects';
+@forward 'typography';

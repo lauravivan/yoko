@@ -1,0 +1,66 @@
+@use '../variable' as var;
+
+.grid {
+  display: grid;
+  gap: 10px;
+}
+
+@for $i from 1 through 12 {
+  .grid--#{$i} {
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+@for $i from 1 through 12 {
+  @for $j from 1 through 12 {
+    .grid-item__span__#{$i}__start__#{$j} {
+      grid-column: $j / span $i;
+
+      @media (max-width: var.$tablet) {
+        &--tablet {
+          grid-column: $j / span $i;
+        }
+      }
+
+      @media (max-width: var.$mobile) {
+        &--mobile {
+          grid-column: $j / span $i;
+        }
+      }
+    }
+  }
+}
+
+.grid-item {
+  &__justify__start {
+    justify-self: start;
+  }
+
+  &__justify__end {
+    justify-self: end;
+  }
+
+  &__justify__center {
+    justify-self: center;
+  }
+
+  &__justify__stretch {
+    justify-self: stretch;
+  }
+
+  &__align__start {
+    align-self: start;
+  }
+
+  &__align__end {
+    align-self: end;
+  }
+
+  &__align__center {
+    align-self: center;
+  }
+
+  &__align__stretch {
+    align-self: stretch;
+  }
+}

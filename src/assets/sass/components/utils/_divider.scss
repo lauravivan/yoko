@@ -1,0 +1,7 @@
+@use '../../tokens';
+
+.c-divider {
+  width: 100px;
+  height: 1px;
+  background-color: tokens.$bg-subtle;
+}

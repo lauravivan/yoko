@@ -18,10 +18,16 @@
     padding: 40px 30px;
 
     > img {
+      cursor: pointer;
       position: absolute;
       max-width: 150px;
       top: -110px;
       right: 40px;
+
+      &:hover {
+        fill-opacity: 0.9;
+        opacity: 0.9;
+      }
     }
 
     > div:first-of-type {

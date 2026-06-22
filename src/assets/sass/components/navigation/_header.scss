@@ -1,0 +1,131 @@
+@use '../../tokens';
+
+.c-header {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  align-items: flex-end;
+
+  &__logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    flex: 1;
+
+    > div {
+      display: flex;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    background-color: tokens.$bg-subtle;
+    border-radius: tokens.$border-r-default;
+    padding: 10px 20px;
+    flex: 1;
+
+    &:hover {
+      outline: 1px solid tokens.$border-dark;
+    }
+
+    input {
+      all: unset;
+      width: 100%;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    position: relative;
+
+    &__menu {
+      > button {
+        all: unset;
+
+        svg {
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+        }
+      }
+
+      > ul {
+        position: absolute;
+        right: 0;
+        width: max-content;
+        list-style: none;
+        padding: 9px 52px 8px 12px;
+        background-color: tokens.$bg-subtle;
+        border: 2px solid tokens.$border-default;
+        border-radius: tokens.$border-r-default;
+        row-gap: 5px;
+        z-index: 1000;
+        box-shadow: tokens.$shadow-sm;
+
+        > li > a {
+          all: unset;
+          display: block;
+
+          > div:first-of-type {
+            display: flex;
+            align-items: center;
+            background-color: tokens.$bg-default;
+            @include tokens.text-sm();
+            column-gap: 10px;
+            width: 100%;
+            border-radius: tokens.$border-r-default;
+            padding: 10px 10px 10px 2px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: tokens.$bg-default-subtle;
+            }
+
+            > div {
+              display: flex;
+              align-items: center;
+
+              svg {
+                width: 18px;
+                height: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: tokens.$tablet-min) {
+    width: 100%;
+    margin-bottom: 40px;
+
+    &__search {
+      border-radius: 10px;
+    }
+  }
+}
+
+// .dark {
+//   .header {
+//     form {
+//       border-color: var.$white;
+
+//       &:hover {
+//         outline-color: var.$white;
+//       }
+//     }
+
+//     &__menu {
+//       .select-btn:hover,
+//       .toggle-btn:hover {
+//         background-color: var.$dark-lighter !important;
+//       }
+//     }
+//   }
+// }

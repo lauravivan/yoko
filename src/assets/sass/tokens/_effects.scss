@@ -1,6 +1,8 @@
+@use './colors';
+
 /* border radius */
-$border-r-soft: 5%;
-$border-r-default: 10%;
+$border-r-soft: 5px;
+$border-r-default: 10px;
 $border-r-full: 100%;
 
 /* border width */
@@ -13,7 +15,7 @@ $opacity-md: 50%;
 $opacity-strong: 70%;
 
 /* shadow */
-$shadow-sm: drop-shadow(#301934 20px 10px 4px);
-$shadow-md: drop-shadow(#301934 20px 10px 4px);
-$shadow-lg: drop-shadow(#301934 20px 10px 4px);
-$shadow-dark-sm: drop-shadow(#301934 20px 10px 4px);
+$shadow-sm: 0px 2px 20px 2px colors.$gray;
+$shadow-md: 0px 10px 20px 5px colors.$gray;
+$shadow-lg: 5px 15px 20px 10px colors.$gray;
+$shadow-dark-sm: 0px 2px 20px 2px colors.$dark-soft;

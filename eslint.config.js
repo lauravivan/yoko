@@ -7,7 +7,7 @@ import react from 'eslint-plugin-react';
 import prettier from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import sonarjs from 'eslint-plugin-sonarjs';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig(
   { ignores: ['dist', 'node_modules', '.github', '.husky'] },
@@ -16,7 +16,7 @@ export default defineConfig(
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
-      sonarjs.configs.recommended
+      sonarjs.configs.recommended,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -24,7 +24,6 @@ export default defineConfig(
       globals: globals.browser,
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
       },
     },
     settings: {
@@ -84,5 +83,12 @@ export default defineConfig(
       ],
     },
   },
-  prettierConfig
+  prettierConfig,
+  globalIgnores([
+    '/node_modules',
+    'dist/**',
+    'eslint.config.js',
+    'vite-env.d.ts',
+    'vite.config.ts',
+  ])
 );
