@@ -3,6 +3,8 @@ name: CI and deploy to Cloudflare Pages
 on:
   push:
     branches: [main, develop]
+    paths:
+      - "src/**"
 
 permissions:
   contents: write
