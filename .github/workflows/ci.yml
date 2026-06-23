@@ -55,6 +55,9 @@ jobs:
         working-directory: src/
         run: npm run test:workflow:local -- $(git diff --name-only origin/${{ github.base_ref }}...HEAD)
 
+      - name: Build project
+        run: npm run build
+
       - name: Deploy preview to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
