@@ -10,7 +10,7 @@ import sonarjs from 'eslint-plugin-sonarjs';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig(
-  { ignores: ['dist', 'node_modules', '.github', '.husky'] },
+  { ignores: ['dist', 'node_modules', '.github', '.husky', 'docs'] },
   {
     extends: [
       js.configs.recommended,
@@ -90,5 +90,6 @@ export default defineConfig(
     'eslint.config.js',
     'vite-env.d.ts',
     'vite.config.ts',
+    '/docs',
   ])
 );
