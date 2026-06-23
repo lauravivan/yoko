@@ -55,6 +55,13 @@ jobs:
         working-directory: src/
         run: npm run test:workflow:local -- $(git diff --name-only origin/${{ github.base_ref }}...HEAD)
 
+      - name: Deploy preview to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=yoko
+
       - name: Check for failures
         if: always()
         run: |
