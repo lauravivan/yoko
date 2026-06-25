@@ -1,0 +1,43 @@
+@use '../../tokens';
+
+.c-info-card {
+  display: flex;
+  background-color: tokens.$bg-default;
+  border-radius: tokens.$border-r-soft;
+  padding: 15px 30px 10px;
+  cursor: pointer;
+
+  &--disabled {
+    background-color: tokens.$bg-subtle;
+  }
+
+  &:hover {
+    background-color: tokens.$bg-subtle;
+  }
+
+  a {
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__title {
+    @include tokens.text-base-highlight();
+  }
+
+  &__desc {
+    @include tokens.text-sm();
+  }
+
+  &__mascot {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

@@ -1,4 +1,3 @@
-import { useAuth } from '@/context/AuthContext';
 import { type AppType } from '@/types/app';
 import { type ModalContentType } from '@/types/modal';
 import { type ThemeType } from '@/types/theme';
@@ -63,9 +62,9 @@ const Header = ({
 }: HeaderProps) => {
   const timeOfDay = getTimeOfDay();
   const queryManager = new QueryManager();
-  const navigate = useNavigate();
-  const { user, signOut } = useAuth();
-  const { toggleTask } = useGeneral();
+  // const navigate = useNavigate();
+  // const { user, signOut } = useAuth();
+  // const { toggleTask } = useGeneral();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,17 +93,19 @@ const Header = ({
   const handleMenu = () => setMenuOpen((open) => !open);
 
   return (
-    <div className="c-header">
+    <header className="c-header">
       <div className="c-header__logo-wrapper">
         <div>
-          <DefaultLogo />
-          <ToggleButton type="button" onClick={toggleTheme}>
-            {timeOfDay.icon()}
-          </ToggleButton>
+          <div>
+            <DefaultLogo />
+            <ToggleButton type="button" onClick={toggleTheme}>
+              {timeOfDay.icon()}
+            </ToggleButton>
+          </div>
+          <span>
+            {timeOfDay.phrase}. It's {timeOfDay.time}
+          </span>
         </div>
-        <span>
-          {timeOfDay.phrase}. It's {timeOfDay.time}
-        </span>
       </div>
       <form className="c-header__search" method="get">
         <input
@@ -135,7 +136,7 @@ const Header = ({
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

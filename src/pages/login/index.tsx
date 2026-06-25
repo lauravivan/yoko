@@ -1,6 +1,4 @@
 import Button from '@/components/Button';
-import auth from '@/firebase';
-import { sendSignInLinkToEmail } from 'firebase/auth';
 
 const Login = () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -15,17 +13,17 @@ const Login = () => {
 
     if (!email) return;
 
-    try {
-      await sendSignInLinkToEmail(auth, email, {
-        url: `${import.meta.env.VITE_HOSTING_URL}/signin/redirect`,
-        handleCodeInApp: true,
-      });
-      window.localStorage.setItem('emailForSignIn', email);
-    } catch (error) {
-      const err = error as Error;
-      const errorMessage = err.message;
-      console.log(errorMessage);
-    }
+    // try {
+    //   await sendSignInLinkToEmail(auth, email, {
+    //     url: `${import.meta.env.VITE_HOSTING_URL}/signin/redirect`,
+    //     handleCodeInApp: true,
+    //   });
+    //   window.localStorage.setItem('emailForSignIn', email);
+    // } catch (error) {
+    //   const err = error as Error;
+    //   const errorMessage = err.message;
+    //   console.log(errorMessage);
+    // }
   };
 
   return (
