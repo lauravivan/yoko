@@ -57,10 +57,15 @@ body {
 @include meta.load-css('components/action/toggle-btn');
 
 @include meta.load-css('components/navigation/header');
+@include meta.load-css('components/navigation/footer');
+
+@include meta.load-css('components/cards/info-card');
 
 // @include meta.load-css('components/button/toggle');
 // @include meta.load-css('components/grid');
 
 /* pages */
+@include meta.load-css('pages/homepage');
+
 // @include meta.load-css('pages/login');
 // @include meta.load-css('pages/events');
