@@ -1,0 +1,40 @@
+@use '../../tokens';
+
+.c-footer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @media (min-width: tokens.$desktop-sm-min) {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
+
+  &__copyright {
+    position: relative;
+
+    > div {
+      position: absolute;
+      top: -10px;
+      left: 30px;
+    }
+
+    img {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  &__data {
+    display: flex;
+    flex-direction: column;
+  }
+}

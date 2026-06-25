@@ -1,4 +1,5 @@
 import Modal from '@/components/Modal';
+import Footer from '@/components/navigation/Footer';
 import Header from '@/components/navigation/Header';
 import { useEvent, useModal } from '@/hooks';
 import useStore from '@/store/store';
@@ -57,6 +58,7 @@ const AppLayout = () => {
         search={search}
       />
       <Outlet />
+      <Footer />
       {createPortal(
         <Modal closeModal={closeModal} title={title} isOpen={isOpen}>
           {contentType === 'filter' && (
