@@ -1,0 +1,67 @@
+---
+title: Patterns
+sidebar_position: 5
+---
+
+# **COMMITS**
+
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+- **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+- **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+- **docs**: Documentation only changes
+- **feat**: A new feature
+- **fix**: A bug fix
+- **perf**: A code change that improves performance
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **test**: Adding missing tests or correcting existing tests
+
+The **scope** usually refers to:
+
+- A **module**, **feature**, or **area** of the codebase
+- Not a specific file name
+
+### Conventional Commit Types Reference
+
+| **Type**   | **Purpose**                                                  | **Example Commit Message**                                                                       | **Affects Production Code?** |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ---------------------------- |
+| `feat`     | Introduces a new feature for the user                        | `feat: add dark mode toggle to settings`                                                         | ✅ Yes                       |
+| `fix`      | Fixes a bug that affects the user experience                 | `fix: resolve login crash on Safari`                                                             | ✅ Yes                       |
+| `docs`     | Updates or adds documentation only                           | `docs: update README with setup instructions` / `docs(readme): update installation instructions` | ❌ No                        |
+| `style`    | Changes formatting or code style (e.g., semicolons, spacing) | `style: fix indentation in userProfile.ts`                                                       | ❌ No                        |
+| `refactor` | Refactors code without changing behavior                     | `refactor: rename userData to userInfo for clarity`                                              | ✅ Yes                       |
+| `test`     | Adds or updates tests (unit, integration, etc.)              | `test: add tests for login validation`                                                           | ❌ No                        |
+| `chore`    | Misc tasks like config updates, build scripts, tooling       | `chore: update eslint config and dependencies`                                                   | ❌ No                        |
+
+# **README**
+
+It must contain:
+
+- the name of the project as the title
+- a description explaining what this project is about and what is intended to help
+- the link for the prototype, in this case, figma
+- a preview, find a way of not being a downloaded image, so it won’t be necessary to change it every time the project stays different
+- technologies used, a list explaining the use of each in the project
+- a list of important features
+- project setup
+- license
+
+# **VERSIONING**
+
+### Semantic Versioning Breakdown
+
+| **Version** | **Name**         | **What It Means**                          | **Example Change**                          |
+| ----------- | ---------------- | ------------------------------------------ | ------------------------------------------- |
+| `1.0.0`     | **Major**        | Breaking changes, incompatible API updates | Removing a function, changing its signature |
+| `0.1.0`     | **Minor**        | New features, backward compatible          | Adding a new CLI command                    |
+| `0.0.1`     | **Patch**        | Bug fixes, backward compatible             | Fixing a typo or crash                      |
+| `1.2.3`     | **Full version** | Major.Minor.Patch, standard format         | `1` = major, `2` = minor, `3` = patch       |
+
+### Bonus: Pre-release & Build Metadata
+
+| **Format**        | **Purpose**               | **Example**                 |
+| ----------------- | ------------------------- | --------------------------- |
+| `1.2.3-alpha.1`   | Pre-release version       | Early test version          |
+| `1.2.3-beta`      | Beta release              | Feature complete, not final |
+| `1.2.3+build.456` | Build metadata (optional) | Internal tracking           |
