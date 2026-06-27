@@ -5,17 +5,96 @@ sidebar_position: 3
 
 > **FUNCTIONAL REQUIREMENTS**
 
-- The user needs to authenticate to access their long persistence data. Also access their data in any browser and device.
-- The user can create actions/events even if not logged in. This data must be saved locally. If the user authenticates the data must be transferred for their account if first login.
-- The user can use different sorters for actions and events: default (creation), color, alphabet and date.
+- The user needs to authenticate to access their long persistence data.
+- The user can access all the main functionalities even if not logged in. This data must be saved locally. If the user authenticates the data must be synchronized.
+- The user can access the main functionalities via header menu or main page.
+- The user can toggle between themes: light or dark.
+
+**EVENTS**
+
+- An event must have an ID. Can have a short title, a date (date of event), color and description.
 - The user can filter for events: if it’s happening this month, next month, in 2, 3, 4, 5, or more than 6.
-- The user can toggle between actions page and events page.
-- The user can toggle between themes: light and dark.
-- The user must be able to search for a specific event or action, by name.
-- The user can download their events and actions into a PDF or sheets.
-- The user can import their events and actions using a sheets with the columns: title, date and color
-- The user can mark an event and action to no longer exist
-- The user can select any event or action that won’t longer exist
-- The user can delete all events or actions
+- The user can sort by default (creation date), color, alphabet and date.
+- The user can edit an event (title, date, color or description).
+- The user can delete one or more events.
+- The user must see the counting until the event happens all the time, also the title and date of the event
+  - If it happened the user must see "Already happened" on the screen instead of the counting.
+  - If it's the day of the event the user must see "It's today" on the screen instead of the counting.
+- The user can choose if wants to show or not the description of the event.
+
+**ACTIONS**
+
+- An action must have an ID. Can have a short title, a date (date since perform action), color and description.
+- The user can delete one or more actions
+- The user can edit an action (title, date, color or description)
+- The user can sort by default (creation date), color, alphabet and date.
+- The user can filter by typing the desired period of time, based on days, months or years.
+- The user must see the counting since it started all the time, also the title and date of the action.
+- The user can choose if wants to show or not the description of the action.
+- The user can toggle the counting display of the action: if they want to appear by days, months or years.
+
+**NOTES AND TASKS**
+
+- A note must have an ID. Can have a title or description.
+- A task must have an ID. Can have a short description and a range of time (eg. 3 PM - 4 PM). A task will have a color based on its category: TODO, In progress, on hold, blocked, completed, deferred, cancelled. The default category must be always TODO.
+- The user can delete one or more notes/tasks.
+- The user can edit a note (title, description).
+- The user can edit a task (description, range of time, category).
+- The user can sort tasks by default (range of time) or category.
+- The user can filter tasks by category or range of time.
+
+**MOOD**
+
+- A mood register must have an ID, the date the mood was registered and the mood. Can have a description to help describe the situation that drove to that emotion/feeling.
+- The user will have a history of their mood track that can be filtered by month or day.
+- The user cannot edit their mood once registered, but can delete it.
+
+Mood list:
+
+- Happy
+- saved
+- Angry
+- Anxious
+- Excited
+- Relaxed
+- Confident
+- Nervous
+- Calm
+- Frustrated
+- Joyful
+- Depressed
+- Grateful
+- Envious
+- Jealous
+- Guilty
+- Ashamed
+- Embarrassed
+- Proud
+- Hopeful
+- Disappointed
+- Bored
+- Curious
+- Irritated
+- Amused
+- Playful
+- Serious
+- Lonely
+- Loved
+- Hated
+- Confused
+- Overwhelmed
+- Insecure
+- Optimistic
+- Pessimistic
+- Enthusiastic
+- Apathetic
+- Compassionate
+- Indifferent
+- Reflective
+
+**IMPORT/DOWNLOAD**
+
+- The user can download their data into a PDF or sheets.
+- The user can import their data using a sheets with the columns:
 
 > **NOT-FUNCTIONAL REQUIREMENTS**
