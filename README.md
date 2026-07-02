@@ -2,29 +2,31 @@
 
 ## Description
 
-This is a website made with React.js to keep on track of important events and current actions.
+[Yoko!]("#") is a SPA that helps users with self-management.
 
 ## Features
 
-- [x] Filter
-- [x] Sort
-  - [x] By day
-  - [x] By color
-  - [x] By alphabet
-- [x] View
-  - [x] Grid
-  - [x] List
-- [x] Themes
-  - [x] Light
-  - [x] Dark
-- [x] Search
+### Recurring actions
 
-## Tools
-![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=for-the-badge)
-![Sass Badge](https://img.shields.io/badge/Sass-C69?logo=sass&logoColor=fff&style=for-the-badge)
-![Vite Badge](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff&style=for-the-badge)
-![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)
-![ESLint Badge](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=fff&style=for-the-badge)
+Yoko! let`s you manage actions that you need to keep track.
+Eg. you need to know the amount of days since you stop eating junk food.
+
+### Events
+
+Yoko! let`s you manage events that you need to keep track. 
+Eg. you need a place to keep the day of your friend`s graduation and know the counting of days until the date.
+
+### Tasks
+
+Yoko! let`s you manage daily tasks.
+
+### Notes
+
+Yoko! let`s you manage your notes.
+
+### Mood
+
+Yoko! let`s you register your mood and keep track of it.
 
 ## Project Setup
 
@@ -47,3 +49,7 @@ npm run build
 ## License
 
 [MIT](./License.md)
+
+---
+
+Made with 💜 by Laura
