@@ -1,9 +1,9 @@
-import { Link } from 'react-router';
+import { Link, To } from 'react-router';
 
 interface InfoCardProps {
   title: string;
   desc: string;
-  to: string;
+  to: To;
   isDisabled?: boolean;
 }
 
