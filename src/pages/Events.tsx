@@ -1,9 +1,10 @@
 import Card from '@/components/Card';
 import { useGeneral } from '@/context/GeneralContext';
 import { useEvent, useModal } from '@/hooks';
+import navigation from '@/navigation';
 import useStore from '@/store/store';
 import { BsPlusLg } from 'react-icons/bs';
-import { useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const TODOModal = () => {
   return (
@@ -27,9 +28,13 @@ const EventsPage = () => {
   const { view, filter, sort, setEventId } = useStore();
   const events = getPaginatedEvents(app);
   const { isTaskOpen } = useGeneral();
+  const navigate = useNavigate();
+
+  navigate(navigation.navigateToActions());
 
   return (
     <main className="events-page">
+      <Link to={navigation.navigateToActions()}>teste</Link>
       <div className={`cards-view-${view} cards`}>
         {!search && (
           <div

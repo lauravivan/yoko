@@ -7,7 +7,7 @@ const Homepage = () => {
         title="Countdown"
         desc="Access all your important events and keep track on 
 their counting days"
-        to="/countdown"
+        to="/events"
       />
       <InfoCard
         title="Recurring actions"
