@@ -1,17 +1,374 @@
-/* Error: Can't find stylesheet to import.
- *    ,
- * 60 | @include meta.load-css('components/navigation/footer');
- *    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   src\assets\sass\main.scss 60:1  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a    \2577 \a 60 \2502  @include meta.load-css('components/navigation/footer');\a    \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   src\\assets\\sass\\main.scss 60:1  root stylesheet";
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+::-webkit-scrollbar {
+  width: 5px;
 }
+
+:root {
+  color: #262626;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  max-width: 100vw;
+  width: 100vw;
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  padding: 3rem 5rem;
+  height: 100%;
+}
+
+/* tokens */
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+/* components */
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-divider {
+  width: 100px;
+  height: 1px;
+  background-color: rgba(235, 235, 235, 0.5);
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.logo {
+  position: relative;
+  width: max-content;
+}
+
+.logo__img-wrapper {
+  width: auto;
+  height: auto;
+  max-width: 44px;
+  max-height: 44px;
+  position: absolute;
+  z-index: 100;
+  top: -40%;
+  left: 50%;
+}
+
+.logo__img-wrapper img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.logo__appname {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.5;
+  z-index: 200;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-toggle-button {
+  all: unset;
+  cursor: pointer;
+}
+
+.c-toggle-button :hover {
+  background-color: rgba(167, 218, 255, 0.5);
+}
+
+.c-toggle-button svg {
+  padding: 8px 9px 8px 10px;
+  border-radius: 5px;
+}
+
+.c-toggle-button--default svg {
+  padding: 8px 9px 8px 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.c-toggle-button--sm svg {
+  padding: 8px 6px;
+  width: 20px;
+  height: 20px;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-header {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  align-items: flex-end;
+}
+
+.c-header__logo-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+.c-header__logo-wrapper > div {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.c-header__logo-wrapper > div > div {
+  display: flex;
+}
+
+.c-header__logo-wrapper > div > div svg {
+  width: 38px;
+  height: 38px;
+}
+
+.c-header__search {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+  background-color: rgba(235, 235, 235, 0.5);
+  border-radius: 10px;
+  padding: 10px 20px;
+  flex: 1;
+}
+
+.c-header__search:hover {
+  outline: 1px solid #1a1a1a;
+}
+
+.c-header__search input {
+  all: unset;
+  width: 100%;
+}
+
+.c-header__options {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  position: relative;
+}
+
+.c-header__options__menu > button {
+  all: unset;
+}
+
+.c-header__options__menu > button svg {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.c-header__options__menu > ul {
+  position: absolute;
+  right: 0;
+  width: max-content;
+  list-style: none;
+  padding: 9px 52px 8px 12px;
+  background-color: rgba(235, 235, 235, 0.5);
+  border: 2px solid #a7daff;
+  border-radius: 10px;
+  row-gap: 5px;
+  z-index: 1000;
+  box-shadow: 0px 2px 20px 2px #d5d5d5;
+}
+
+.c-header__options__menu > ul > li > a {
+  all: unset;
+  display: block;
+}
+
+.c-header__options__menu > ul > li > a > div:first-of-type {
+  display: flex;
+  align-items: center;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  column-gap: 10px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 10px 10px 2px;
+  cursor: pointer;
+}
+
+.c-header__options__menu > ul > li > a > div:first-of-type:hover {
+  background-color: rgba(167, 218, 255, 0.5);
+}
+
+.c-header__options__menu > ul > li > a > div:first-of-type > div {
+  display: flex;
+  align-items: center;
+}
+
+.c-header__options__menu > ul > li > a > div:first-of-type > div svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 481px) {
+  .c-header {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  .c-header__search {
+    border-radius: 10px;
+  }
+}
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-footer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.c-footer > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+@media (min-width: 769px) {
+  .c-footer > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+.c-footer__copyright {
+  position: relative;
+}
+
+.c-footer__copyright > div {
+  position: absolute;
+  top: -10px;
+  left: 30px;
+}
+
+.c-footer__copyright img {
+  width: 19px;
+  height: 19px;
+}
+
+.c-footer__data {
+  display: flex;
+  flex-direction: column;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-info-card {
+  display: flex;
+  background-color: #a7daff;
+  border-radius: 5px;
+  padding: 15px 30px 10px;
+  cursor: pointer;
+}
+
+.c-info-card--disabled {
+  background-color: rgba(235, 235, 235, 0.5);
+}
+
+.c-info-card:hover {
+  background-color: rgba(235, 235, 235, 0.5);
+}
+
+.c-info-card a {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.c-info-card__title {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.c-info-card__desc {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.c-info-card__mascot {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.c-info-card__mascot img {
+  width: 100%;
+  height: 100%;
+}
+
+/* pages */
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.p-homepage {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 56px;
+  column-gap: 50px;
+  margin: 100px 0;
+}
+
+@media (min-width: 769px) {
+  .p-homepage {
+    padding: 0 100px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

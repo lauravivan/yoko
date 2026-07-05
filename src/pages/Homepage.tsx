@@ -1,13 +1,14 @@
 import InfoCard from '@/components/cards/InfoCard';
+import navigation from '@/navigation';
 
 const Homepage = () => {
   return (
     <main className="p-homepage">
       <InfoCard
-        title="Countdown"
+        title="Events"
         desc="Access all your important events and keep track on 
 their counting days"
-        to="/countdown"
+        to={navigation.navigateToEvents()}
       />
       <InfoCard
         title="Recurring actions"
