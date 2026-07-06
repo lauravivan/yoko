@@ -5,6 +5,7 @@
   width: 100%;
   padding: 10px;
   align-items: flex-end;
+  flex-shrink: 0;
 
   &__logo-wrapper {
     display: flex;

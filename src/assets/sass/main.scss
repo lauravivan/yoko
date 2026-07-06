@@ -1,5 +1,6 @@
 @use 'sass:meta';
 @use './tokens';
+@include meta.load-css('reset');
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -11,26 +12,17 @@
 }
 
 body {
-  overflow-x: hidden;
-  min-height: 100vh;
-  max-width: 100vw;
-  width: 100vw;
-  margin: 0;
-
   // &:has(.dark) {
   //   background-color: var.$dark;
   //   color: var.$white;
   // }
 }
 
-#root {
-  width: 100%;
-  height: 100%;
-}
-
 .app {
   padding: 3rem 5rem;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
   // @media (max-width: var.$tablet) {
   //   padding: var.$spacing-lg var.$spacing-sm;
@@ -60,12 +52,14 @@ body {
 @include meta.load-css('components/navigation/footer');
 
 @include meta.load-css('components/cards/info-card');
+@include meta.load-css('components/cards/countdown-card');
+@include meta.load-css('components/cards/add-card');
 
 // @include meta.load-css('components/button/toggle');
 // @include meta.load-css('components/grid');
 
 /* pages */
 @include meta.load-css('pages/homepage');
+@include meta.load-css('pages/events');
 
 // @include meta.load-css('pages/login');
-// @include meta.load-css('pages/events');

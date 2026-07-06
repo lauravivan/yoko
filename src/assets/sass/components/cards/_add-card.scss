@@ -1,0 +1,14 @@
+@use '../../tokens';
+
+.c-add-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: tokens.$border-r-default;
+  background-color: tokens.$bg-subtle;
+
+  svg {
+    height: 30px;
+    width: 30px;
+  }
+}

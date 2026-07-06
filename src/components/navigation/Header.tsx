@@ -4,7 +4,7 @@ import { type ThemeType } from '@/types/theme';
 import QueryManager from '@/util/query';
 import React, { type ChangeEvent, useState } from 'react';
 import { BsSearch, BsX } from 'react-icons/bs';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 // import SignOutIcon from './icons/SignOut';
 // import SignInIcon from './icons/SignIn';
 import DefaultLogo from '@/components/display/DefaultLogo';
@@ -18,6 +18,7 @@ import ToggleButton from '@/components/action/ToggleButton';
 import MenuIcon from '@/components/display/icons/Menu';
 import Divider from '@/components/utils/Divider';
 import ClockIcon from '@/components/display/icons/Clock';
+import navigation from '@/navigation';
 
 interface HeaderProps {
   theme: ThemeType;
@@ -97,7 +98,9 @@ const Header = ({
       <div className="c-header__logo-wrapper">
         <div>
           <div>
-            <DefaultLogo />
+            <Link style={{ all: 'unset', cursor: 'pointer' }} to="/">
+              <DefaultLogo />
+            </Link>
             <ToggleButton type="button" onClick={toggleTheme}>
               {timeOfDay.icon()}
             </ToggleButton>
