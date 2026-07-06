@@ -4,6 +4,10 @@
   position: relative;
   width: max-content;
 
+  &:hover {
+    color: tokens.$text-highlight;
+  }
+
   &__img-wrapper {
     width: auto;
     height: auto;
