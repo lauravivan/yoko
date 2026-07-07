@@ -1,5 +1,5 @@
 import { type AppType } from '@/types/app';
-import { getStoredEvents, storeEvents } from '@/util/storage/events';
+import { storeEvents } from '@/helpers/storage/events';
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
 import { getDateByFilter } from '@/util/date/getDateByFilter';
@@ -16,10 +16,11 @@ interface EventStoreState {
   updateEventDate: (id: string, newDate: Date) => void;
   deleteEvent: (id: string) => void;
   setEvents: (search: string, filter: FilterType, sort: SortType) => void;
+  saveEvents: (events: EventType[]) => void;
 }
 
 const useEventStore = create<EventStoreState>((set) => ({
-  events: getStoredEvents(),
+  events: [],
   createEvent: (type: AppType, filter: FilterType, sort: SortType) =>
     set((state) => {
       const ev = getFilterAndSortEvents(filter, sort, state.events);
@@ -33,7 +34,8 @@ const useEventStore = create<EventStoreState>((set) => ({
 
       const event: EventType = {
         id: id,
-        desc: 'Unamed',
+        title: 'Unamed',
+        desc: '',
         color: drawnColor,
         date: dateValid,
         type,
@@ -116,8 +118,8 @@ const useEventStore = create<EventStoreState>((set) => ({
       const ev = getFilterAndSortEvents(filter, sort, state.events);
       const evsFiltered = ev.filter(
         (e) =>
-          search.toLowerCase().includes(e.desc.toLowerCase()) ||
-          e.desc.toLowerCase().includes(search.toLowerCase())
+          search.toLowerCase().includes(e.title.toLowerCase()) ||
+          e.title.toLowerCase().includes(search.toLowerCase())
       );
 
       return search
@@ -127,6 +129,10 @@ const useEventStore = create<EventStoreState>((set) => ({
           }
         : state;
     }),
+  saveEvents: (events: EventType[]) =>
+    set(() => ({
+      events,
+    })),
 }));
 
 export default useEventStore;

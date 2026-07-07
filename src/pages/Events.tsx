@@ -1,5 +1,6 @@
 import CountdownCard from '@/components/cards/CountdownCard';
 import AddIcon from '@/components/display/icons/Add';
+import { useAuth } from '@/context/AuthContext';
 import { useGeneral } from '@/context/GeneralContext';
 import { useEvent, useModal } from '@/hooks';
 import useStore from '@/store/store';
@@ -14,19 +15,20 @@ const TODOModal = () => {
 };
 
 //mock
-const events = [
-  {
-    title: 'Meu evento',
-    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum explicabo architecto fugiat molestiae vitae suscipit modi voluptatem eligendi. Laudantium rem autem dolor ipsa magnam voluptatibus perspiciatis natus cumque repellendus.',
-    date: new Date(),
-  },
-  {
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-];
+// const events = [
+//   {
+//     title: 'Meu evento',
+//     desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum explicabo architecto fugiat molestiae vitae suscipit modi voluptatem eligendi. Laudantium rem autem dolor ipsa magnam voluptatibus perspiciatis natus cumque repellendus.',
+//     date: new Date(),
+//   },
+//   {
+//     title: 'Meu evento 2',
+//     date: new Date(),
+//   },
+// ];
 
 const EventsPage = () => {
+  const session = useAuth();
   const location = useLocation();
   const app = location.pathname === 'actions' ? 'actions' : 'countdown';
   const { openModal, handleTitle } = useModal();
@@ -36,6 +38,7 @@ const EventsPage = () => {
     getPaginatedEvents,
     search,
     updateEventDesc,
+    events,
   } = useEvent();
   const { view, filter, sort, setEventId } = useStore();
   // const events = getPaginatedEvents(app);
@@ -45,13 +48,13 @@ const EventsPage = () => {
     <main className="p-events">
       <div className={`cards-view-${view} cards`}>
         {!search && (
-          <div
+          <button
             className="c-add-card"
             onClick={() => createEvent(app, filter, sort)}
             aria-label="Adicionar evento"
           >
             <AddIcon />
-          </div>
+          </button>
         )}
 
         {events.length > 0 &&
@@ -70,6 +73,7 @@ const EventsPage = () => {
               title={event.title}
               desc={event.desc}
               date={event.date}
+              bgColor=""
             />
           ))}
 

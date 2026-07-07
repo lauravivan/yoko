@@ -4,14 +4,14 @@ import EventsPage from './pages/Events';
 // import Login from './pages/login';
 // import LoginLayout from './layouts/LoginLayout';
 // import LoginRedirect from './pages/login/redirect';
-import { GeneralProvider } from './context/GeneralContext';
 import Homepage from './pages/Homepage';
 import navigate from '@/navigation';
+import { AuthProvider } from '@/context/AuthContext';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <GeneralProvider>
+      <AuthProvider>
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<Homepage />} />
@@ -28,7 +28,7 @@ const App = () => {
             />
           </Route> */}
         </Routes>
-      </GeneralProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 };

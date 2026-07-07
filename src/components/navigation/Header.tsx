@@ -1,6 +1,3 @@
-import { type AppType } from '@/types/app';
-import { type ModalContentType } from '@/types/modal';
-import { type ThemeType } from '@/types/theme';
 import QueryManager from '@/util/query';
 import React, { type ChangeEvent, useState } from 'react';
 import { BsSearch, BsX } from 'react-icons/bs';
@@ -21,10 +18,8 @@ import ClockIcon from '@/components/display/icons/Clock';
 import navigation from '@/navigation';
 
 interface HeaderProps {
-  theme: ThemeType;
   toggleTheme: () => void;
-  app: AppType;
-  openModal: (type: ModalContentType) => void;
+  openModal: () => void;
   handleTitle?: (title: string) => void;
   handleSearch: (search: string) => void;
   toggleApp: () => void;
@@ -54,10 +49,8 @@ const MenuItem = ({
 };
 
 const Header = ({
-  theme,
   toggleTheme,
   handleSearch,
-  app,
   toggleApp,
   search,
 }: HeaderProps) => {
@@ -105,9 +98,7 @@ const Header = ({
               {timeOfDay.icon()}
             </ToggleButton>
           </div>
-          <span>
-            {timeOfDay.phrase}. It's {timeOfDay.time}
-          </span>
+          <span>Hey there.</span>
         </div>
       </div>
       <form className="c-header__search" method="get">
