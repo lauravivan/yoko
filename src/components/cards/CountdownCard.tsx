@@ -1,6 +1,6 @@
-import { formatDate } from '@/util/date/formatDate';
 import { useState } from 'react';
 import NoteIcon from '@/components/display/icons/Note';
+import { formatDate } from '@/helpers/formatters/date';
 
 interface CountdownCardProps {
   title: string;

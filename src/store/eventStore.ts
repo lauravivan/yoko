@@ -1,44 +1,30 @@
-import { type AppType } from '@/types/app';
 import { storeEvents } from '@/helpers/storage/events';
 import { create } from 'zustand';
-import { v4 as uuidv4 } from 'uuid';
-import { getDateByFilter } from '@/util/date/getDateByFilter';
-import { getDrawnColor } from '@/util/color/getDrawnColor';
-import { getFilterAndSortEvents } from '@/util/getFilterAndSortEvents';
-import { type FilterType } from '@/types/filter';
-import { type SortType } from '@/types/sort';
+import { v7 as uuidv7 } from 'uuid';
+import { generateRandomString } from '@/helpers/generators/random';
+import { getCardColors } from '@/helpers/transformers/getCardColors';
 
 interface EventStoreState {
-  events: EventType[];
-  createEvent: (type: AppType, filter: FilterType, sort: SortType) => void;
+  events: IEvent[];
+  createEvent: () => void;
   updateEventDesc: (id: string, newDesc: string) => void;
   updateEventColor: (id: string, newColor: string) => void;
   updateEventDate: (id: string, newDate: Date) => void;
   deleteEvent: (id: string) => void;
-  setEvents: (search: string, filter: FilterType, sort: SortType) => void;
-  saveEvents: (events: EventType[]) => void;
+  setEvents: (search: string, filter: string, sort: string) => void;
+  saveEvents: (events: IEvent[]) => void;
 }
 
 const useEventStore = create<EventStoreState>((set) => ({
   events: [],
-  createEvent: (type: AppType, filter: FilterType, sort: SortType) =>
+  createEvent: () =>
     set((state) => {
-      const ev = getFilterAndSortEvents(filter, sort, state.events);
-      const id = uuidv4();
-      const dateValid = filter ? getDateByFilter(filter) : new Date();
-
-      const drawnColor =
-        ev?.length > 0
-          ? getDrawnColor(ev[ev.length - 1].color)
-          : getDrawnColor('');
-
-      const event: EventType = {
-        id: id,
+      const event: IEvent = {
+        id: uuidv7(),
         title: 'Unamed',
         desc: '',
-        color: drawnColor,
-        date: dateValid,
-        type,
+        color: generateRandomString('', getCardColors()),
+        date: new Date(),
       };
 
       const prevEvents = [...state.events];
@@ -113,23 +99,17 @@ const useEventStore = create<EventStoreState>((set) => ({
         events: newEvents,
       };
     }),
-  setEvents: (search: string, filter: FilterType, sort: SortType) =>
+  setEvents: (search: string, filter: string, sort: string) =>
     set((state) => {
-      const ev = getFilterAndSortEvents(filter, sort, state.events);
-      const evsFiltered = ev.filter(
-        (e) =>
-          search.toLowerCase().includes(e.title.toLowerCase()) ||
-          e.title.toLowerCase().includes(search.toLowerCase())
-      );
-
+      const ev = [...state.events];
       return search
         ? {
             ...state,
-            events: evsFiltered,
+            events: ev,
           }
         : state;
     }),
-  saveEvents: (events: EventType[]) =>
+  saveEvents: (events: IEvent[]) =>
     set(() => ({
       events,
     })),

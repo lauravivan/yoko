@@ -1,18 +1,10 @@
 import CountdownCard from '@/components/cards/CountdownCard';
 import AddIcon from '@/components/display/icons/Add';
 import { useAuth } from '@/context/AuthContext';
-import { useGeneral } from '@/context/GeneralContext';
-import { useEvent, useModal } from '@/hooks';
+import useModal from '@/hooks/useModal';
+import useEvent from '@/hooks/useEvent';
 import useStore from '@/store/store';
 import { useLocation } from 'react-router';
-
-const TODOModal = () => {
-  return (
-    <div className="todo">
-      <h3>TODO</h3>
-    </div>
-  );
-};
 
 //mock
 // const events = [
@@ -40,17 +32,16 @@ const EventsPage = () => {
     updateEventDesc,
     events,
   } = useEvent();
-  const { view, filter, sort, setEventId } = useStore();
+  const { filter, sort, setEventId } = useStore();
   // const events = getPaginatedEvents(app);
-  const { isTaskOpen } = useGeneral();
 
   return (
     <main className="p-events">
-      <div className={`cards-view-${view} cards`}>
+      <div className={`cards`}>
         {!search && (
           <button
             className="c-add-card"
-            onClick={() => createEvent(app, filter, sort)}
+            onClick={() => createEvent()}
             aria-label="Adicionar evento"
           >
             <AddIcon />
@@ -58,7 +49,7 @@ const EventsPage = () => {
         )}
 
         {events.length > 0 &&
-          events.map((event) => (
+          events.map((event: IEvent) => (
             // <Card
             //   event={event}
             //   key={event.id}
@@ -72,15 +63,13 @@ const EventsPage = () => {
             <CountdownCard
               title={event.title}
               desc={event.desc}
-              date={event.date}
+              date={new Date(event.date)}
               bgColor=""
             />
           ))}
-
-        {isTaskOpen && <TODOModal />}
       </div>
       {search && events.length === 0 && (
-        <div>Sorry, we couldn’t find any results related to your research.</div>
+        <div>Sorry, we couldn't find any results related to your research.</div>
       )}
     </main>
   );

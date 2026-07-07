@@ -38,7 +38,7 @@ const useEvent = () => {
   }, [search]);
 
   const getPaginatedEvents = (): IEvent[] => {
-    const e = getFilterAndSortEvents(filter, sort, evs);
+    const e = evs;
     // return e.filter((e) => e.type === type);
     return [];
   };
@@ -54,7 +54,7 @@ const useEvent = () => {
     getEvent,
     createEvent,
     deleteEvent,
-    events: getFilterAndSortEvents(filter, sort, evs),
+    events: evs,
     updateEventColor,
     updateEventDate,
     updateEventDesc,
