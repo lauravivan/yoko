@@ -1,11 +1,18 @@
 @use '../../tokens';
 
 .c-add-card {
+  all: unset;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: tokens.$border-r-default;
   background-color: tokens.$bg-subtle;
+  cursor: pointer;
+  padding: 20px 0;
+
+  &:hover {
+    box-shadow: inset tokens.$shadow-xs;
+  }
 
   svg {
     height: 30px;

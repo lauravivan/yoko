@@ -2,9 +2,9 @@
 
 .c-header {
   display: flex;
-  width: 100%;
+  column-gap: 20px;
   padding: 10px;
-  align-items: flex-end;
+  align-items: center;
   flex-shrink: 0;
 
   &__logo-wrapper {
@@ -36,7 +36,7 @@
     background-color: tokens.$bg-subtle;
     border-radius: tokens.$border-r-default;
     padding: 10px 20px;
-    flex: 1;
+    flex: 3;
 
     &:hover {
       outline: 1px solid tokens.$border-dark;
@@ -113,7 +113,7 @@
 
   @media (min-width: tokens.$tablet-min) {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 
     &__search {
       border-radius: 10px;
