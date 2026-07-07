@@ -1,5 +1,3 @@
-import Button from '@/components/Button';
-
 const Login = () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const signInWithGoogle = () => {};
@@ -40,12 +38,12 @@ const Login = () => {
           id="email"
           placeholder="example@mail.com"
         />
-        <Button type="submit">Sign in with email</Button>
+        {/* <Button type="submit">Sign in with email</Button> */}
       </form>
 
       <div>
         <span>Sign in with google instead</span>
-        <Button onClick={signInWithGoogle}>Google</Button>
+        {/* <Button onClick={signInWithGoogle}>Google</Button> */}
       </div>
     </>
   );

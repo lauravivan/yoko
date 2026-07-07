@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getFilterAndSortEvents } from '@/util/getFilterAndSortEvents';
 import QueryManager from '@/util/query';
-import { type AppType } from '@/types/app';
 import useEventStore from '@/store/eventStore';
 import useStore from '@/store/store';
+import { getStoredEvents } from '@/helpers/storage/events';
+import { useAuth } from '@/context/AuthContext';
 
 const useEvent = () => {
+  const session = useAuth();
   const queryManager = new QueryManager();
   const { filter, sort } = useStore();
   const {
@@ -16,18 +18,29 @@ const useEvent = () => {
     updateEventDate,
     updateEventDesc,
     setEvents,
+    saveEvents,
   } = useEventStore();
   const [search, setSearch] = useState<string>(() =>
     queryManager.getQuery('search')
   );
 
   useEffect(() => {
+    const events: IEvent[] = getStoredEvents();
+
+    if (session.user?.id) {
+    } else {
+      saveEvents(events);
+    }
+  }, []);
+
+  useEffect(() => {
     setEvents(search, filter, sort);
   }, [search]);
 
-  const getPaginatedEvents = (type: AppType): EventType[] => {
+  const getPaginatedEvents = (): IEvent[] => {
     const e = getFilterAndSortEvents(filter, sort, evs);
-    return e.filter((e) => e.type === type);
+    // return e.filter((e) => e.type === type);
+    return [];
   };
 
   const getEvent = (id: string) => {

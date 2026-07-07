@@ -1,4 +1,3 @@
-import { paths } from '@/contants/paths';
 import { Outlet, useNavigate } from 'react-router';
 
 const LoginLayout = () => {
@@ -6,7 +5,7 @@ const LoginLayout = () => {
   return (
     <main className="login">
       <div>
-        <img src="/mascot.svg" onClick={() => navigate(paths.home)} />
+        {/* <img src="/mascot.svg" onClick={() => navigate(paths.home)} /> */}
 
         <Outlet />
       </div>
