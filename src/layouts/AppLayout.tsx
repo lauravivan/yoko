@@ -1,37 +1,24 @@
-import Modal from '@/components/Modal';
 import Footer from '@/components/navigation/Footer';
 import Header from '@/components/navigation/Header';
-import { useEvent, useModal } from '@/hooks';
+import useModal from '@/hooks/useModal';
+import useEvent from '@/hooks/useEvent';
 import useStore from '@/store/store';
-import { type FilterType } from '@/types/filter';
-import { type SortType } from '@/types/sort';
-import { FILTER_OPTIONS, SORT_OPTIONS } from '@/util/constants';
 import { createUTCDate, createUTCDateNow } from '@/util/date/createUTCDate';
 import { useState } from 'react';
-import { createPortal } from 'react-dom';
 import { Outlet } from 'react-router';
 
 const AppLayout = () => {
   const { closeModal, contentType, isOpen, openModal, handleTitle, title } =
     useModal();
-  const {
-    app,
-    filter,
-    theme,
-    sort,
-    selectFilter,
-    selectSort,
-    toggleTheme,
-    toggleApp,
-    eventId,
-  } = useStore();
+  const { filter, theme, sort, selectFilter, selectSort, toggleTheme } =
+    useStore();
   const { getEvent, handleSearch, search, updateEventDate } = useEvent();
   const [date, setDate] = useState(() => {
-    const event = getEvent(eventId);
+    // if (!event) return createUTCDateNow().toISOString();
 
-    if (!event) return createUTCDateNow().toISOString();
+    // return event.date.toDateString();
 
-    return event.date.toDateString();
+    return new Date().toDateString();
   });
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -41,7 +28,7 @@ const AppLayout = () => {
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const datePicked = e.target.value;
     const date = createUTCDate(datePicked);
-    updateEventDate(eventId, date);
+    // updateEventDate(eventId, date);
     setDate(e.target.value);
   };
 
@@ -49,17 +36,14 @@ const AppLayout = () => {
     <div className={`app ${theme === 'moon' ? 'dark' : 'light'}`}>
       <Header
         toggleTheme={toggleTheme}
-        theme={theme}
-        openModal={openModal}
         handleTitle={handleTitle}
         handleSearch={handleSearch}
-        app={app}
-        toggleApp={toggleApp}
         search={search}
+        openModal={() => {}}
       />
       <Outlet />
       <Footer />
-      {createPortal(
+      {/* {createPortal(
         <Modal closeModal={closeModal} title={title} isOpen={isOpen}>
           {contentType === 'filter' && (
             <ul className="select-list">
@@ -115,7 +99,7 @@ const AppLayout = () => {
           )}
         </Modal>,
         document.getElementById('root')!
-      )}
+      )} */}
     </div>
   );
 };

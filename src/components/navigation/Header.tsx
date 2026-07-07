@@ -22,7 +22,6 @@ interface HeaderProps {
   openModal: () => void;
   handleTitle?: (title: string) => void;
   handleSearch: (search: string) => void;
-  toggleApp: () => void;
   search: string;
 }
 
@@ -48,12 +47,7 @@ const MenuItem = ({
   );
 };
 
-const Header = ({
-  toggleTheme,
-  handleSearch,
-  toggleApp,
-  search,
-}: HeaderProps) => {
+const Header = ({ toggleTheme, handleSearch, search }: HeaderProps) => {
   const timeOfDay = getTimeOfDay();
   const queryManager = new QueryManager();
   // const navigate = useNavigate();

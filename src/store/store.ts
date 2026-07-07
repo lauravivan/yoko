@@ -1,46 +1,19 @@
-import { type AppType } from '@/types/app';
-import { type FilterType } from '@/types/filter';
-import { type SortType } from '@/types/sort';
-import { type ThemeType } from '@/types/theme';
-import { type ViewType } from '@/types/view';
-import {
-  DEFAULT_APP,
-  DEFAULT_THEME,
-  DEFAULT_VIEW,
-  TOGGLE_APP,
-  TOGGLE_THEME,
-  TOGGLE_VIEW,
-} from '@/util/constants';
-import { getStoredApp, storeApp } from '@/util/storage/app';
-import { getStoredFilter, storeFilter } from '@/util/storage/filter';
-import { getStoredSort, storeSort } from '@/util/storage/sort';
-import { getStoredTheme, storeTheme } from '@/util/storage/theme';
-import { getStoredView, storeView } from '@/util/storage/view';
+import { DEFAULT_THEME, TOGGLE_THEME } from '@/constants/toggle';
+import { getStoredFilter, storeFilter } from '@/helpers/storage/filter';
+import { getStoredSort, storeSort } from '@/helpers/storage/sort';
+import { getStoredTheme, storeTheme } from '@/helpers/storage/theme';
 import { create } from 'zustand';
 
 interface StoreState {
-  view: ViewType;
-  toggleView: () => void;
-  theme: ThemeType;
+  theme: string;
   toggleTheme: () => void;
-  sort: SortType;
-  selectSort: (sort: SortType) => void;
-  filter: FilterType;
-  selectFilter: (filter: FilterType) => void;
-  app: AppType;
-  toggleApp: () => void;
-  eventId: string;
-  setEventId: (eventId: string) => void;
+  sort: string;
+  selectSort: (sort: string) => void;
+  filter: string;
+  selectFilter: (filter: string) => void;
 }
 
 const useStore = create<StoreState>((set) => ({
-  view: getStoredView(),
-  toggleView: () =>
-    set((state) => {
-      const newView = state.view === DEFAULT_VIEW ? TOGGLE_VIEW : DEFAULT_VIEW;
-      storeView(newView);
-      return { ...state, view: newView };
-    }),
   theme: getStoredTheme(),
   toggleTheme: () =>
     set((state) => {
@@ -52,26 +25,17 @@ const useStore = create<StoreState>((set) => ({
       return { ...state, theme: newTheme };
     }),
   sort: getStoredSort(),
-  selectSort: (sort: SortType) =>
+  selectSort: (sort: string) =>
     set((state) => {
       storeSort(sort);
       return { ...state, sort };
     }),
   filter: getStoredFilter(),
-  selectFilter: (filter: FilterType) =>
+  selectFilter: (filter: string) =>
     set((state) => {
       storeFilter(filter);
       return { ...state, filter };
     }),
-  app: getStoredApp(),
-  toggleApp: () =>
-    set((state) => {
-      const newApp = state.app === DEFAULT_APP ? TOGGLE_APP : DEFAULT_APP;
-      storeApp(newApp);
-      return { ...state, app: newApp };
-    }),
-  eventId: '',
-  setEventId: (eventId: string) => set((state) => ({ ...state, eventId })),
 }));
 
 export default useStore;
