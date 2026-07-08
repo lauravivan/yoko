@@ -1,9 +1,8 @@
-import Footer from '@/components/navigation/Footer';
-import Header from '@/components/navigation/Header';
+import Footer from '@/layouts/components/Footer';
+import Header from '@/layouts/components/Header';
 import useModal from '@/hooks/useModal';
 import useEvent from '@/hooks/useEvent';
 import useStore from '@/store/store';
-import { createUTCDate, createUTCDateNow } from '@/util/date/createUTCDate';
 import { useState } from 'react';
 import { Outlet } from 'react-router';
 
@@ -27,7 +26,7 @@ const AppLayout = () => {
 
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const datePicked = e.target.value;
-    const date = createUTCDate(datePicked);
+    // const date = createUTCDate(datePicked);
     // updateEventDate(eventId, date);
     setDate(e.target.value);
   };

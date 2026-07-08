@@ -383,6 +383,51 @@ h6 {
 /* border width */
 /* opacity */
 /* shadow */
+.c-add-card {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgba(235, 235, 235, 0.5);
+  cursor: pointer;
+  padding: 20px 0;
+}
+
+.c-add-card:hover {
+  box-shadow: inset 0px 0px 13px 4px rgba(213, 213, 213, 0.3);
+}
+
+.c-add-card svg {
+  height: 30px;
+  width: 30px;
+}
+
+/* pages */
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.p-homepage {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 56px;
+  column-gap: 50px;
+  margin: 20px 0;
+}
+
+@media (min-width: 769px) {
+  .p-homepage {
+    padding: 0 100px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
 .c-info-card {
   display: flex;
   background-color: #a7daff;
@@ -429,6 +474,26 @@ h6 {
 .c-info-card__mascot img {
   width: 100%;
   height: 100%;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.p-events {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.p-events > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  row-gap: 30px;
+  column-gap: 40px;
 }
 
 /* breakpoints */
@@ -521,69 +586,12 @@ h6 {
   align-self: center;
 }
 
-/* breakpoints */
-/* border radius */
-/* border width */
-/* opacity */
-/* shadow */
-.c-add-card {
-  all: unset;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+.c-countdown-card__modal {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  z-index: 1000;
   background-color: rgba(235, 235, 235, 0.5);
-  cursor: pointer;
-  padding: 20px 0;
-}
-
-.c-add-card:hover {
-  box-shadow: inset 0px 0px 13px 4px rgba(213, 213, 213, 0.3);
-}
-
-.c-add-card svg {
-  height: 30px;
-  width: 30px;
-}
-
-/* pages */
-/* breakpoints */
-/* border radius */
-/* border width */
-/* opacity */
-/* shadow */
-.p-homepage {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 56px;
-  column-gap: 50px;
-  margin: 20px 0;
-}
-
-@media (min-width: 769px) {
-  .p-homepage {
-    padding: 0 100px;
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-/* breakpoints */
-/* border radius */
-/* border width */
-/* opacity */
-/* shadow */
-.p-events {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.p-events > div {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  row-gap: 30px;
-  column-gap: 40px;
 }
 
 /*# sourceMappingURL=main.css.map */

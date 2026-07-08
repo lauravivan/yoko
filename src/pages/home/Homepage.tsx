@@ -1,4 +1,4 @@
-import InfoCard from '@/components/cards/InfoCard';
+import InfoCard from '@/pages/home/components/InfoCard';
 import navigation from '@/navigation';
 
 const Homepage = () => {

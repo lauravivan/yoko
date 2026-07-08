@@ -1,11 +1,10 @@
-import QueryManager from '@/util/query';
+import QueryManager from '@/helpers/query';
 import React, { type ChangeEvent, useState } from 'react';
 import { BsSearch, BsX } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router';
 // import SignOutIcon from './icons/SignOut';
 // import SignInIcon from './icons/SignIn';
 import DefaultLogo from '@/components/display/DefaultLogo';
-import getTimeOfDay from '@/util/time/getTimeOfDay';
 import StopWatchIcon from '@/components/display/icons/StopWatch';
 // import Grid from '../Grid';
 // import { paths } from '@/contants/paths';
@@ -16,6 +15,7 @@ import MenuIcon from '@/components/display/icons/Menu';
 import Divider from '@/components/utils/Divider';
 import ClockIcon from '@/components/display/icons/Clock';
 import navigation from '@/navigation';
+import getTimeOfDay from '@/helpers/time/getTimeOfDay';
 
 interface HeaderProps {
   toggleTheme: () => void;

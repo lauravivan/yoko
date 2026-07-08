@@ -48,11 +48,9 @@ body {
 
 @include meta.load-css('components/action/toggle-btn');
 
-@include meta.load-css('components/navigation/header');
-@include meta.load-css('components/navigation/footer');
+@include meta.load-css('./header');
+@include meta.load-css('./footer');
 
-@include meta.load-css('components/cards/info-card');
-@include meta.load-css('components/cards/countdown-card');
 @include meta.load-css('components/cards/add-card');
 
 // @include meta.load-css('components/button/toggle');
@@ -60,6 +58,8 @@ body {
 
 /* pages */
 @include meta.load-css('pages/homepage');
+@include meta.load-css('pages/homepage/components/info-card');
 @include meta.load-css('pages/events');
+@include meta.load-css('pages/events/components/countdown-card');
 
 // @include meta.load-css('pages/login');
