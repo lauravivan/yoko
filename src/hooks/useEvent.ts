@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getFilterAndSortEvents } from '@/util/getFilterAndSortEvents';
-import QueryManager from '@/util/query';
+import QueryManager from '@/helpers/query';
 import useEventStore from '@/store/eventStore';
 import useStore from '@/store/store';
 import { getStoredEvents } from '@/helpers/storage/events';

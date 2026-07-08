@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import AppLayout from './layouts/AppLayout';
-import EventsPage from './pages/Events';
+import EventsPage from './pages/event/Events';
 // import Login from './pages/login';
 // import LoginLayout from './layouts/LoginLayout';
 // import LoginRedirect from './pages/login/redirect';
-import Homepage from './pages/Homepage';
+import Homepage from './pages/home/Homepage';
 import navigate from '@/navigation';
 import { AuthProvider } from '@/context/AuthContext';
 

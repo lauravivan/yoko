@@ -1,4 +1,4 @@
-@use '../../tokens';
+@use '../../../tokens';
 
 .c-countdown-card {
   display: flex;
@@ -79,5 +79,13 @@
       text-align: center;
       align-self: center;
     }
+  }
+
+  &__modal {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    z-index: 1000;
+    background-color: tokens.$bg-subtle;
   }
 }

@@ -1,4 +1,4 @@
-import CountdownCard from '@/components/cards/CountdownCard';
+import CountdownCard from './components/CountdownCard';
 import AddIcon from '@/components/display/icons/Add';
 import { useAuth } from '@/context/AuthContext';
 import useModal from '@/hooks/useModal';
@@ -65,6 +65,7 @@ const EventsPage = () => {
               desc={event.desc}
               date={new Date(event.date)}
               bgColor=""
+              key={event.id}
             />
           ))}
       </div>
