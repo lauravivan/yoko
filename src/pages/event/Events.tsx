@@ -1,28 +1,33 @@
-import CountdownCard from './components/CountdownCard';
+import CountingCard from '@/pages/event/components/CountingCard';
 import AddIcon from '@/components/display/icons/Add';
 import { useAuth } from '@/context/AuthContext';
 import useModal from '@/hooks/useModal';
 import useEvent from '@/hooks/useEvent';
 import useStore from '@/store/store';
 import { useLocation } from 'react-router';
+import DeleteButton from '@/components/action/DeleteButton';
+import useDelete from '@/hooks/useDelete';
 
 //mock
-// const events = [
-//   {
-//     title: 'Meu evento',
-//     desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum explicabo architecto fugiat molestiae vitae suscipit modi voluptatem eligendi. Laudantium rem autem dolor ipsa magnam voluptatibus perspiciatis natus cumque repellendus.',
-//     date: new Date(),
-//   },
-//   {
-//     title: 'Meu evento 2',
-//     date: new Date(),
-//   },
-// ];
+const events = [
+  {
+    title: 'Meu evento',
+    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum explicabo architecto fugiat molestiae vitae suscipit modi voluptatem eligendi. Laudantium rem autem dolor ipsa magnam voluptatibus perspiciatis natus cumque repellendus.',
+    date: new Date(),
+  },
+  {
+    title: 'Meu evento 2',
+    date: new Date(),
+  },
+];
 
-const EventsPage = () => {
+interface EventsPageProps {
+  isEvents?: boolean;
+}
+
+const EventsPage = ({ isEvents = false }: EventsPageProps) => {
   const session = useAuth();
   const location = useLocation();
-  const app = location.pathname === 'actions' ? 'actions' : 'countdown';
   const { openModal, handleTitle } = useModal();
   const {
     createEvent,
@@ -30,13 +35,19 @@ const EventsPage = () => {
     getPaginatedEvents,
     search,
     updateEventDesc,
-    events,
   } = useEvent();
   const { filter, sort, setEventId } = useStore();
+  const { selectedCount, onSelect, onDeselect } = useDelete();
   // const events = getPaginatedEvents(app);
 
   return (
-    <main className="p-events">
+    <main className={`${isEvents ? 'p-events' : 'p-actions'}`}>
+      <div>
+        <DeleteButton
+          title={`Delete (${selectedCount} selected)`}
+          onDelete={() => {}}
+        />
+      </div>
       <div className={`cards`}>
         {!search && (
           <button
@@ -60,12 +71,15 @@ const EventsPage = () => {
             //   handleTitle={handleTitle}
             //   app={app}
             // />
-            <CountdownCard
+            <CountingCard
               title={event.title}
               desc={event.desc}
               date={new Date(event.date)}
               bgColor=""
               key={event.id}
+              onSelect={onSelect}
+              onDeselect={onDeselect}
+              isCountdown={isEvents}
             />
           ))}
       </div>

@@ -10,17 +10,39 @@
 //   padding: 0 1.5rem;
 // }
 
-.p-events {
+.p-events,
+.p-actions {
   position: relative;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 20px;
 
   > div {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     row-gap: 30px;
     column-gap: 40px;
+  }
+}
+
+.p-events {
+  > div {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+.p-actions {
+  > div {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  }
+
+  &:has(.c-countup-card--show-desc) {
+    > div {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .c-countup-card {
+      width: fit-content;
+
+      &__left-container {
+        flex: none;
+      }
+    }
   }
 }

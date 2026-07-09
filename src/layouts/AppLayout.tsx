@@ -40,7 +40,9 @@ const AppLayout = () => {
         search={search}
         openModal={() => {}}
       />
-      <Outlet />
+      <div className="app__outlet">
+        <Outlet />
+      </div>
       <Footer />
       {/* {createPortal(
         <Modal closeModal={closeModal} title={title} isOpen={isOpen}>

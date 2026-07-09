@@ -3,12 +3,19 @@
 .p-homepage {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 56px;
+  row-gap: 35px;
   column-gap: 50px;
-  margin: 20px 0;
 
   @media (min-width: tokens.$desktop-sm-min) {
-    padding: 0 100px;
     grid-template-columns: repeat(2, 1fr);
+
+    .c-info-card {
+      max-width: 400px;
+    }
+
+    .c-info-card:nth-child(1),
+    .c-info-card:nth-child(3) {
+      margin-left: auto;
+    }
   }
 }

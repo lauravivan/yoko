@@ -1,0 +1,5 @@
+@use '../../tokens';
+
+.c-menu-button {
+  background-color: tokens.$bg-subtle;
+}

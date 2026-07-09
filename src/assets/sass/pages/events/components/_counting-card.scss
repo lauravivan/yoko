@@ -1,0 +1,168 @@
+@use '../../../tokens';
+
+.c-countdown-card,
+.c-countup-card {
+  display: flex;
+  position: relative;
+  border-radius: tokens.$border-r-default;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover,
+  &:has(.c-countdown-card__checkbox-container input[type='checkbox']:checked),
+  &:has(.c-countup-card__checkbox-container input[type='checkbox']:checked) {
+    .c-countdown-card__checkbox-container,
+    .c-countup-card__checkbox-container {
+      display: block;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+
+    border-color: tokens.$border-default;
+  }
+
+  &:has(.c-countdown-card__checkbox-container input[type='checkbox']:checked),
+  &:has(.c-countup-card__checkbox-container input[type='checkbox']:checked) {
+    border-width: 2px;
+  }
+
+  &__left-container {
+    display: flex;
+    border-top-left-radius: tokens.$border-r-default;
+    border-bottom-left-radius: tokens.$border-r-default;
+
+    > div {
+      flex: 1;
+    }
+  }
+
+  &__right-container {
+    display: flex;
+    padding: 33px 19px 30px 17px;
+    border-top-right-radius: tokens.$border-r-default;
+    border-bottom-right-radius: tokens.$border-r-default;
+
+    span {
+      text-align: center;
+      align-self: center;
+    }
+  }
+
+  &__title-container {
+    width: fit-content;
+    display: flex;
+    column-gap: 5px;
+
+    button {
+      all: unset;
+      cursor: pointer;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  &__desc {
+    font-size: 10px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  &__title {
+    @include tokens.text-base-highlight();
+    margin: 0;
+
+    &--desc-hidden {
+      flex: 2;
+    }
+  }
+
+  &__date {
+    font-weight: 300;
+    font-size: 12px;
+  }
+
+  &__checkbox-container {
+    display: none;
+  }
+
+  &__modal {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    z-index: 1000;
+    background-color: tokens.$bg-subtle;
+  }
+}
+
+.c-countdown-card {
+  &__left-container {
+    padding: 12px;
+    flex: 2;
+
+    > div {
+      align-content: flex-end;
+    }
+  }
+
+  &__right-container {
+    flex: 1;
+  }
+}
+
+.c-countup-card {
+  &__left-container {
+    padding: 10px 20px;
+    align-items: center;
+    flex: 1;
+    border-top-right-radius: tokens.$border-r-default;
+    border-bottom-right-radius: tokens.$border-r-default;
+  }
+
+  &--show-desc {
+    .c-countup-card__left-container {
+      border-top-right-radius: unset;
+      border-bottom-right-radius: unset;
+    }
+  }
+
+  &__title-container,
+  &__date {
+    justify-self: center;
+    display: block;
+  }
+
+  &__right-container {
+    flex: 2;
+  }
+
+  &__countup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__countup__num {
+    margin: 0 auto;
+    @include tokens.text-xl-highlight();
+  }
+
+  &__countup__ext {
+    margin: 0 auto;
+    @include tokens.text-base();
+  }
+
+  &__desc-btn {
+    all: unset;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

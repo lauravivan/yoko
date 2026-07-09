@@ -17,6 +17,10 @@ const App = () => {
             <Route index element={<Homepage />} />
             <Route
               path={navigate.navigateToEvents().pathname}
+              element={<EventsPage isEvents />}
+            />
+            <Route
+              path={navigate.navigateToActions().pathname}
               element={<EventsPage />}
             />
           </Route>
