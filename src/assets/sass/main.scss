@@ -12,6 +12,8 @@
 }
 
 body {
+  max-width: 1800px;
+  margin: 0 auto;
   // &:has(.dark) {
   //   background-color: var.$dark;
   //   color: var.$white;
@@ -23,6 +25,13 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+
+  &__outlet {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 20px;
+  }
 
   // @media (max-width: var.$tablet) {
   //   padding: var.$spacing-lg var.$spacing-sm;
@@ -60,6 +69,6 @@ body {
 @include meta.load-css('pages/homepage');
 @include meta.load-css('pages/homepage/components/info-card');
 @include meta.load-css('pages/events');
-@include meta.load-css('pages/events/components/countdown-card');
+@include meta.load-css('pages/events/components/counting-card');
 
 // @include meta.load-css('pages/login');

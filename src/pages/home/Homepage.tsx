@@ -14,8 +14,7 @@ their counting days"
         title="Recurring actions"
         desc="Access all your important events and keep track on 
 their counting days"
-        to="#"
-        isDisabled
+        to={navigation.navigateToActions()}
       />
       <InfoCard
         title="Notes and tasks"

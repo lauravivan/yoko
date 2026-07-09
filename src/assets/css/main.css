@@ -103,11 +103,22 @@ h6 {
   line-height: 1.5;
 }
 
+body {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
 .app {
   padding: 1.4rem 5rem 0.5rem;
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+.app__outlet {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px;
 }
 
 /* tokens */
@@ -412,15 +423,20 @@ h6 {
 .p-homepage {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 56px;
+  row-gap: 35px;
   column-gap: 50px;
-  margin: 20px 0;
 }
 
 @media (min-width: 769px) {
   .p-homepage {
-    padding: 0 100px;
     grid-template-columns: repeat(2, 1fr);
+  }
+  .p-homepage .c-info-card {
+    max-width: 400px;
+  }
+  .p-homepage .c-info-card:nth-child(1),
+  .p-homepage .c-info-card:nth-child(3) {
+    margin-left: auto;
   }
 }
 /* breakpoints */
@@ -432,8 +448,9 @@ h6 {
   display: flex;
   background-color: #a7daff;
   border-radius: 5px;
-  padding: 15px 30px 10px;
+  padding: 20px 30px 10px;
   cursor: pointer;
+  min-height: 150px;
 }
 
 .c-info-card--disabled {
@@ -456,6 +473,7 @@ h6 {
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
+  margin-bottom: 5px;
 }
 
 .c-info-card__desc {
@@ -466,14 +484,15 @@ h6 {
 }
 
 .c-info-card__mascot {
-  width: 50px;
-  height: 50px;
+  display: flex;
+  align-items: center;
   margin: 0 auto;
+  height: 100%;
 }
 
 .c-info-card__mascot img {
-  width: 100%;
-  height: 100%;
+  width: 50px;
+  height: 50px;
 }
 
 /* breakpoints */
@@ -481,79 +500,135 @@ h6 {
 /* border width */
 /* opacity */
 /* shadow */
-.p-events {
+.p-events,
+.p-actions {
   position: relative;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 20px;
 }
 
-.p-events > div {
+.p-events > div,
+.p-actions > div {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   row-gap: 30px;
   column-gap: 40px;
 }
 
+.p-events > div {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.p-actions > div {
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+}
+
+.p-actions:has(.c-countup-card--show-desc) > div {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.p-actions:has(.c-countup-card--show-desc) .c-countup-card {
+  width: fit-content;
+}
+
+.p-actions:has(.c-countup-card--show-desc) .c-countup-card__left-container {
+  flex: none;
+}
+
 /* breakpoints */
 /* border radius */
 /* border width */
 /* opacity */
 /* shadow */
-.c-countdown-card {
+.c-countdown-card,
+.c-countup-card {
   display: flex;
   position: relative;
   border-radius: 10px;
   border: 1px solid transparent;
+  cursor: pointer;
 }
 
-.c-countdown-card:hover .c-countdown-card__checkbox-container {
+.c-countdown-card:hover .c-countdown-card__checkbox-container,
+.c-countdown-card:hover .c-countup-card__checkbox-container, .c-countdown-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked) .c-countdown-card__checkbox-container,
+.c-countdown-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked) .c-countup-card__checkbox-container, .c-countdown-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) .c-countdown-card__checkbox-container,
+.c-countdown-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) .c-countup-card__checkbox-container,
+.c-countup-card:hover .c-countdown-card__checkbox-container,
+.c-countup-card:hover .c-countup-card__checkbox-container,
+.c-countup-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked) .c-countdown-card__checkbox-container,
+.c-countup-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked) .c-countup-card__checkbox-container,
+.c-countup-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) .c-countdown-card__checkbox-container,
+.c-countup-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) .c-countup-card__checkbox-container {
   display: block;
   position: absolute;
   top: 5px;
   right: 5px;
 }
 
-.c-countdown-card:hover {
+.c-countdown-card:hover, .c-countdown-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked), .c-countdown-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked),
+.c-countup-card:hover,
+.c-countup-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked),
+.c-countup-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) {
   border-color: rgba(255, 97, 94, 0.5);
 }
 
-.c-countdown-card > div:first-of-type {
-  padding: 0.5rem;
+.c-countdown-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked), .c-countdown-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked),
+.c-countup-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked),
+.c-countup-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) {
+  border-width: 2px;
+}
+
+.c-countdown-card__left-container,
+.c-countup-card__left-container {
+  display: flex;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+.c-countdown-card__left-container > div,
+.c-countup-card__left-container > div {
+  flex: 1;
+}
+
+.c-countdown-card__right-container,
+.c-countup-card__right-container {
   display: flex;
-  flex: 2;
+  padding: 33px 19px 30px 17px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.c-countdown-card > div:first-of-type > div {
-  align-self: flex-end;
+.c-countdown-card__right-container span,
+.c-countup-card__right-container span {
+  text-align: center;
+  align-self: center;
 }
 
-.c-countdown-card__title-container {
+.c-countdown-card__title-container,
+.c-countup-card__title-container {
   width: fit-content;
   display: flex;
   column-gap: 5px;
 }
 
-.c-countdown-card__title-container button {
+.c-countdown-card__title-container button,
+.c-countup-card__title-container button {
   all: unset;
   cursor: pointer;
 }
 
-.c-countdown-card__title-container button svg {
+.c-countdown-card__title-container button svg,
+.c-countup-card__title-container button svg {
   width: 20px;
   height: 20px;
 }
 
-.c-countdown-card__desc {
+.c-countdown-card__desc,
+.c-countup-card__desc {
   font-size: 10px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
-.c-countdown-card__title {
+.c-countdown-card__title,
+.c-countup-card__title {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -561,37 +636,97 @@ h6 {
   margin: 0;
 }
 
-.c-countdown-card__title--desc-hidden {
+.c-countdown-card__title--desc-hidden,
+.c-countup-card__title--desc-hidden {
   flex: 2;
 }
 
-.c-countdown-card__date {
+.c-countdown-card__date,
+.c-countup-card__date {
   font-weight: 300;
   font-size: 12px;
 }
 
-.c-countdown-card__checkbox-container {
+.c-countdown-card__checkbox-container,
+.c-countup-card__checkbox-container {
   display: none;
 }
 
-.c-countdown-card__counting-container {
-  padding: 33px 19px 30px 17px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  display: flex;
-}
-
-.c-countdown-card__counting-container span {
-  text-align: center;
-  align-self: center;
-}
-
-.c-countdown-card__modal {
+.c-countdown-card__modal,
+.c-countup-card__modal {
   position: absolute;
   bottom: -10px;
   left: 50%;
   z-index: 1000;
   background-color: rgba(235, 235, 235, 0.5);
+}
+
+.c-countdown-card__left-container {
+  padding: 12px;
+  flex: 2;
+}
+
+.c-countdown-card__left-container > div {
+  align-content: flex-end;
+}
+
+.c-countdown-card__right-container {
+  flex: 1;
+}
+
+.c-countup-card__left-container {
+  padding: 10px 20px;
+  align-items: center;
+  flex: 1;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.c-countup-card--show-desc .c-countup-card__left-container {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+}
+
+.c-countup-card__title-container, .c-countup-card__date {
+  justify-self: center;
+  display: block;
+}
+
+.c-countup-card__right-container {
+  flex: 2;
+}
+
+.c-countup-card__countup {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-countup-card__countup__num {
+  margin: 0 auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.5;
+}
+
+.c-countup-card__countup__ext {
+  margin: 0 auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.c-countup-card__desc-btn {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+}
+
+.c-countup-card__desc-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 /*# sourceMappingURL=main.css.map */
