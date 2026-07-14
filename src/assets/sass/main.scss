@@ -25,6 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
 
   &__outlet {
     flex: 1;
@@ -36,6 +37,11 @@ body {
   // @media (max-width: var.$tablet) {
   //   padding: var.$spacing-lg var.$spacing-sm;
   // }
+}
+
+.highlight {
+  color: tokens.$text-highlight;
+  font-weight: 700;
 }
 
 // main {
@@ -57,6 +63,7 @@ body {
 
 @include meta.load-css('components/action/toggle-btn');
 @include meta.load-css('components/action/list-toolbar');
+@include meta.load-css('components/action/default-btn');
 
 @include meta.load-css('./header');
 @include meta.load-css('./footer');

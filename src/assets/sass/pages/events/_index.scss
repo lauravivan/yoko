@@ -3,11 +3,27 @@
 .p-events,
 .p-actions {
   position: relative;
+  height: 100%;
 
   &__cards {
     display: grid;
     row-gap: 30px;
     column-gap: 40px;
+    padding-bottom: 50px;
+  }
+
+  &__no-data {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      justify-items: center;
+      align-items: center;
+    }
   }
 }
 

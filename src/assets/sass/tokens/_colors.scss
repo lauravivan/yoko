@@ -66,14 +66,19 @@ $bg-card-red: $red-70;
 $bg-card-red-subtle: $red-50;
 // Button
 $bg-button-error: $red;
+$bg-button-default: $blue;
+$bg-button-subtle: $gray-90;
+$bg-button-default-subtle: $blue-50;
+$bg-button-error-subtle: $red-50;
+$bg-button-subtle-light: $gray-50;
 // Error
 $bg-error-subtle: $red-30;
 // Default / Subtle / Invert
 $bg-default: $blue;
 $bg-default-subtle: $red-50;
-$bg-subtle: $gray-50;
-$bg-subtle-dark: $gray-90;
-$bg-subtle-hover: $gray-40;
+$bg-subtle: $gray-90;
+$bg-subtle-hover: $gray-50;
+$bg-subtle-light: $gray-40;
 $bg-default-invert: $blue-30;
 
 // Border colors
