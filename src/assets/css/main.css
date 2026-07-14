@@ -12,6 +12,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 /* breakpoints */
 /* border radius */
 /* border width */
@@ -114,12 +115,18 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
 }
 .app__outlet {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   padding: 20px;
+}
+
+.highlight {
+  color: #a7daff;
+  font-weight: 700;
 }
 
 /* tokens */
@@ -136,7 +143,7 @@ body {
 /* shadow */
 .c-divider {
   height: 1px;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
 }
 
 /* breakpoints */
@@ -226,7 +233,7 @@ body {
   display: flex;
   column-gap: 5px;
   align-items: center;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
   cursor: pointer;
   padding: 10px 15px;
   border-radius: 10px;
@@ -238,7 +245,7 @@ body {
 }
 
 .c-list-toolbar__item__btn:hover {
-  background-color: #f8f8f8;
+  background-color: rgba(235, 235, 235, 0.5);
 }
 
 .c-list-toolbar__item__options {
@@ -259,7 +266,7 @@ body {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
   padding: 10px 0;
   border-radius: 10px;
 }
@@ -268,6 +275,43 @@ body {
   background-color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-default-button {
+  all: unset;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  width: max-content;
+}
+
+.c-default-button--subtle {
+  background-color: rgba(235, 235, 235, 0.9);
+}
+
+.c-default-button--subtle:hover {
+  background-color: rgba(235, 235, 235, 0.5);
+}
+
+.c-default-button--error {
+  background-color: #ff615e;
+}
+
+.c-default-button--error:hover {
+  background-color: rgba(255, 97, 94, 0.5);
+}
+
+.c-default-button--default {
+  background-color: #a7daff;
+}
+
+.c-default-button--default:hover {
+  background-color: rgba(167, 218, 255, 0.5);
 }
 
 /* breakpoints */
@@ -309,7 +353,7 @@ body {
   align-items: center;
   width: 100%;
   height: max-content;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: #f8f8f8;
   border-radius: 10px;
   padding: 10px 20px;
   flex: 3;
@@ -347,7 +391,7 @@ body {
   width: max-content;
   list-style: none;
   padding: 9px 52px 8px 12px;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
   border: 2px solid rgba(255, 97, 94, 0.5);
   border-radius: 10px;
   row-gap: 5px;
@@ -402,14 +446,25 @@ body {
 /* border width */
 /* opacity */
 /* shadow */
-.c-footer {
+.c-footer > div {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
   flex-shrink: 0;
+  position: relative;
+  overflow: visible;
 }
 
-.c-footer > div {
+.c-footer > div > img {
+  position: absolute;
+  bottom: -300px;
+  width: 600px;
+  right: 90px;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.c-footer > div > div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -417,7 +472,7 @@ body {
 }
 
 @media (min-width: 769px) {
-  .c-footer > div {
+  .c-footer > div > div {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -462,13 +517,13 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
   cursor: pointer;
   padding: 20px 0;
 }
 
 .c-add-card:hover {
-  background-color: #f8f8f8;
+  background-color: rgba(235, 235, 235, 0.5);
 }
 
 .c-add-card svg {
@@ -516,11 +571,11 @@ body {
 }
 
 .c-info-card--disabled {
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
 }
 
 .c-info-card:hover {
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
 }
 
 .c-info-card a {
@@ -565,6 +620,7 @@ body {
 .p-events,
 .p-actions {
   position: relative;
+  height: 100%;
 }
 
 .p-events__cards,
@@ -572,6 +628,23 @@ body {
   display: grid;
   row-gap: 30px;
   column-gap: 40px;
+  padding-bottom: 50px;
+}
+
+.p-events__no-data,
+.p-actions__no-data {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.p-events__no-data > div,
+.p-actions__no-data > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-items: center;
+  align-items: center;
 }
 
 .p-events__cards {
@@ -720,7 +793,7 @@ body {
   bottom: -10px;
   left: 50%;
   z-index: 1000;
-  background-color: rgba(235, 235, 235, 0.5);
+  background-color: rgba(235, 235, 235, 0.9);
 }
 
 .c-countdown-card__left-container {

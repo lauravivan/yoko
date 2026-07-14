@@ -1,21 +1,34 @@
 @use './tokens';
 
 .c-footer {
-  display: flex;
-  flex-direction: column;
-  row-gap: 15px;
-  flex-shrink: 0;
-
   > div {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
+    row-gap: 15px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: visible;
 
-    @media (min-width: tokens.$desktop-sm-min) {
+    > img {
+      position: absolute;
+      bottom: -300px;
+      width: 600px;
+      right: 90px;
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    > div {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-end;
+
+      @media (min-width: tokens.$desktop-sm-min) {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
     }
   }
 

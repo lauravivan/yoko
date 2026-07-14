@@ -1,0 +1,33 @@
+@use '../../tokens';
+
+.c-default-button {
+  all: unset;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: tokens.$border-r-soft;
+  width: max-content;
+
+  &--subtle {
+    background-color: tokens.$bg-button-subtle;
+
+    &:hover {
+      background-color: tokens.$bg-button-subtle-light;
+    }
+  }
+
+  &--error {
+    background-color: tokens.$bg-button-error;
+
+    &:hover {
+      background-color: tokens.$bg-button-error-subtle;
+    }
+  }
+
+  &--default {
+    background-color: tokens.$bg-button-default;
+
+    &:hover {
+      background-color: tokens.$bg-button-default-subtle;
+    }
+  }
+}
