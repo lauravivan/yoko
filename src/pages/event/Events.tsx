@@ -5,8 +5,8 @@ import useModal from '@/hooks/useModal';
 import useEvent from '@/hooks/useEvent';
 import useStore from '@/store/store';
 import { useLocation } from 'react-router';
-import DeleteButton from '@/components/action/DeleteButton';
 import useDelete from '@/hooks/useDelete';
+import ListToolbar from '@/components/action/ListToolbar';
 
 //mock
 const events = [
@@ -40,15 +40,30 @@ const EventsPage = ({ isEvents = false }: EventsPageProps) => {
   const { selectedCount, onSelect, onDeselect } = useDelete();
   // const events = getPaginatedEvents(app);
 
+  const baseClass = isEvents ? 'p-events' : 'p-actions';
+
   return (
-    <main className={`${isEvents ? 'p-events' : 'p-actions'}`}>
-      <div>
-        <DeleteButton
-          title={`Delete (${selectedCount} selected)`}
-          onDelete={() => {}}
-        />
-      </div>
-      <div className={`cards`}>
+    <main className={`${baseClass}`}>
+      <ListToolbar>
+        <ListToolbar.Item
+          type="filter"
+          options={[
+            'All',
+            'Happening this month',
+            'Happening next month',
+            'Happening in 2 months',
+            'Happening in 3 months',
+            'Happening in 4 months',
+            'Happening in 5 months',
+            'Happening in 6 months',
+            'Happening in more than 6 months',
+          ]}
+        >
+          All
+        </ListToolbar.Item>
+        <ListToolbar.Item type="delete">Delete</ListToolbar.Item>
+      </ListToolbar>
+      <div className={`${baseClass}__cards`}>
         {!search && (
           <button
             className="c-add-card"

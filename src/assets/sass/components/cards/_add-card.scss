@@ -11,7 +11,7 @@
   padding: 20px 0;
 
   &:hover {
-    box-shadow: inset tokens.$shadow-xs;
+    background-color: tokens.$bg-subtle-hover;
   }
 
   svg {
