@@ -1,0 +1,59 @@
+@use '../../tokens';
+
+.c-list-toolbar {
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+
+  &__item {
+    &__btn {
+      all: unset;
+      display: flex;
+      column-gap: 5px;
+      align-items: center;
+      background-color: tokens.$bg-subtle;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: tokens.$border-r-default;
+
+      svg {
+        width: 19px;
+        height: 19px;
+      }
+
+      &:hover {
+        background-color: tokens.$bg-subtle-hover;
+      }
+    }
+
+    &__options {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      background-color: tokens.$bg-subtle-dark;
+      z-index: 1000;
+      position: absolute;
+      border-radius: tokens.$border-r-default;
+      border: 2px solid tokens.$border-default;
+      box-shadow: tokens.$shadow-sm;
+      padding: 18px 20px;
+
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+        background-color: tokens.$bg-subtle;
+        padding: 10px 0;
+        border-radius: tokens.$border-r-default;
+
+        li {
+          background-color: #fff;
+          border-radius: tokens.$border-r-soft;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+}

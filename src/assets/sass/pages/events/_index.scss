@@ -1,20 +1,10 @@
 @use '../../tokens';
 
-// .todo {
-//   position: absolute;
-//   right: 0;
-//   min-width: 25%;
-//   max-width: 30%;
-//   background-color: colors.$color-gray3;
-//   border-radius: effects.$border-r-md;
-//   padding: 0 1.5rem;
-// }
-
 .p-events,
 .p-actions {
   position: relative;
 
-  > div {
+  &__cards {
     display: grid;
     row-gap: 30px;
     column-gap: 40px;
@@ -22,18 +12,18 @@
 }
 
 .p-events {
-  > div {
+  &__cards {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
 
 .p-actions {
-  > div {
+  &__cards {
     grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
   }
 
   &:has(.c-countup-card--show-desc) {
-    > div {
+    .p-actions__cards {
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 
