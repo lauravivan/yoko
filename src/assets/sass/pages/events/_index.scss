@@ -25,6 +25,25 @@
       align-items: center;
     }
   }
+
+  .c-list-toolbar__item-wrapper {
+    .c-dynamic-modal {
+      ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 10px 0;
+        border-radius: tokens.$border-r-default;
+
+        li {
+          background-color: tokens.$bg-subtle-light;
+          border-radius: tokens.$border-r-soft;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
 }
 
 .p-events {

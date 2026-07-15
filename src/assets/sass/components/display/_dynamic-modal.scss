@@ -1,0 +1,11 @@
+@use '../../tokens';
+
+.c-dynamic-modal {
+  position: absolute;
+  background-color: #fff;
+  padding: 18px 20px;
+  border-radius: tokens.$border-r-default;
+  border: 2px solid tokens.$border-default;
+  box-shadow: tokens.$shadow-sm;
+  z-index: 1000;
+}

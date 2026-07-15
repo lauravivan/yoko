@@ -13,6 +13,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 /* breakpoints */
 /* border radius */
 /* border width */
@@ -190,6 +191,21 @@ body {
 /* border width */
 /* opacity */
 /* shadow */
+.c-dynamic-modal {
+  position: absolute;
+  background-color: #fff;
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 215, 246, 0.5);
+  box-shadow: 0px 2px 20px 2px #d5d5d5;
+  z-index: 1000;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
 .c-toggle-button {
   all: unset;
   cursor: pointer;
@@ -248,33 +264,18 @@ body {
   background-color: rgba(235, 235, 235, 0.5);
 }
 
-.c-list-toolbar__item__options {
+.c-list-toolbar__item-wrapper .c-dynamic-modal {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  background-color: rgba(235, 235, 235, 0.9);
-  z-index: 1000;
-  position: absolute;
-  border-radius: 10px;
-  border: 2px solid rgba(255, 97, 94, 0.5);
-  box-shadow: 0px 2px 20px 2px #d5d5d5;
-  padding: 18px 20px;
+  max-width: 40%;
 }
 
-.c-list-toolbar__item__options ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  row-gap: 12px;
-  background-color: rgba(235, 235, 235, 0.9);
-  padding: 10px 0;
-  border-radius: 10px;
-}
-
-.c-list-toolbar__item__options ul li {
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 5px 10px;
+.c-list-toolbar__item-wrapper .c-dynamic-modal__title {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 /* breakpoints */
@@ -391,8 +392,8 @@ body {
   width: max-content;
   list-style: none;
   padding: 9px 52px 8px 12px;
-  background-color: rgba(235, 235, 235, 0.9);
-  border: 2px solid rgba(255, 97, 94, 0.5);
+  background-color: #fff;
+  border: 2px solid rgba(255, 215, 246, 0.5);
   border-radius: 10px;
   row-gap: 5px;
   z-index: 1000;
@@ -647,6 +648,23 @@ body {
   align-items: center;
 }
 
+.p-events .c-list-toolbar__item-wrapper .c-dynamic-modal ul,
+.p-actions .c-list-toolbar__item-wrapper .c-dynamic-modal ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.p-events .c-list-toolbar__item-wrapper .c-dynamic-modal ul li,
+.p-actions .c-list-toolbar__item-wrapper .c-dynamic-modal ul li {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
 .p-events__cards {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
@@ -701,7 +719,7 @@ body {
 .c-countup-card:hover,
 .c-countup-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked),
 .c-countup-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked) {
-  border-color: rgba(255, 97, 94, 0.5);
+  border-color: rgba(255, 215, 246, 0.5);
 }
 
 .c-countdown-card:has(.c-countdown-card__checkbox-container input[type=checkbox]:checked), .c-countdown-card:has(.c-countup-card__checkbox-container input[type=checkbox]:checked),
@@ -787,15 +805,6 @@ body {
   display: none;
 }
 
-.c-countdown-card__modal,
-.c-countup-card__modal {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  z-index: 1000;
-  background-color: rgba(235, 235, 235, 0.9);
-}
-
 .c-countdown-card__left-container {
   padding: 12px;
   flex: 2;
@@ -862,6 +871,129 @@ body {
 .c-countup-card__desc-btn svg {
   width: 20px;
   height: 20px;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  cursor: auto;
+  top: 30%;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors__color {
+  all: unset;
+  width: 23px;
+  height: 23px;
+  border-radius: 100%;
+  border: 1px solid rgba(235, 235, 235, 0.9);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--c6ebee {
+  background-color: #c6ebee;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--c6ebee:hover {
+  background-color: rgba(198, 235, 238, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ffd7f6 {
+  background-color: #ffd7f6;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ffd7f6:hover {
+  background-color: rgba(255, 215, 246, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--b59c8a {
+  background-color: #b59c8a;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--b59c8a:hover {
+  background-color: rgba(181, 156, 138, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--b5e2ba {
+  background-color: #b5e2ba;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--b5e2ba:hover {
+  background-color: rgba(181, 226, 186, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ffb494 {
+  background-color: #ffb494;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ffb494:hover {
+  background-color: rgba(255, 180, 148, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ebc6ee {
+  background-color: #ebc6ee;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ebc6ee:hover {
+  background-color: rgba(235, 198, 238, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--e0bcff {
+  background-color: #e0bcff;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--e0bcff:hover {
+  background-color: rgba(224, 188, 255, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ffe99f {
+  background-color: #ffe99f;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ffe99f:hover {
+  background-color: rgba(255, 233, 159, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ff615e {
+  background-color: #ff615e;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__colors .c-dynamic-modal__colors__color--ff615e:hover {
+  background-color: rgba(255, 97, 94, 0.8);
+  transform: scale(1.1);
+}
+
+.c-counting-card-wrapper .c-dynamic-modal__title span {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.c-counting-card-wrapper .c-dynamic-modal textarea,
+.c-counting-card-wrapper .c-dynamic-modal input {
+  all: unset;
+  background-color: #f8f8f8;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #262626;
 }
 
 /*# sourceMappingURL=main.css.map */
