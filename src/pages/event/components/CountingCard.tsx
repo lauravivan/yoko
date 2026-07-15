@@ -90,7 +90,7 @@ const CountingCard = ({
     isCountdown ? true : false
   );
 
-  const articleRef = useClickOutside<HTMLElement>(() => setModalOpen(false));
+  const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
 
   const baseClass = isCountdown ? 'c-countdown-card' : 'c-countup-card';
   const showRightClass = showRightContainer ? ' c-countup-card--show-desc' : '';
@@ -153,7 +153,7 @@ const CountingCard = ({
         {showRightContainer && (
           <div
             className={`${baseClass}__right-container`}
-            style={{ backgroundColor: bgColor || '#ffd7f680' }}
+            style={{ backgroundColor: `${bgColor}80` || '#ffd7f680' }}
           >
             {isCountdown && <CountingOfDays dateToEvent={date} />}
             {showDesc && desc && !isCountdown && (
