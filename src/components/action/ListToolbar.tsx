@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import TrashIcon from '@/components/display/icons/Trash';
 import FilterIcon from '@/components/display/icons/Filter';
 import SortIcon from '@/components/display/icons/Sort';
+import DynamicModal from '@/components/display/DynamicModal';
+import { autoPlacement, autoUpdate, useFloating } from '@floating-ui/react-dom';
 
 interface ListToolbarItemProps {
-  children: string;
+  children: React.ReactNode;
   type: 'delete' | 'filter' | 'sort';
-  options?: Array<React.ReactNode>;
+  currentActive: string;
 }
 
-const ListToolbarItem = ({ children, type, options }: ListToolbarItemProps) => {
+const ListToolbarItem = ({
+  children,
+  type,
+  currentActive,
+}: ListToolbarItemProps) => {
   const [openModalOptions, setOpenModalOptions] = useState(false);
   const [openModalChoice, setOpenModalChoice] = useState(false);
 
@@ -23,24 +29,34 @@ const ListToolbarItem = ({ children, type, options }: ListToolbarItemProps) => {
     else setOpenModalChoice((prev) => !prev);
   };
 
+  const { refs } = useFloating({
+    open: openModalOptions,
+    middleware: [autoPlacement()],
+    whileElementsMounted: autoUpdate,
+  });
+
   return (
-    <div className="c-list-toolbar__item">
-      <button onClick={handleClick} className="c-list-toolbar__item__btn">
-        {isDelete && <TrashIcon />}
-        {isFilter && <FilterIcon />}
-        {isSort && <SortIcon />}
-        {children}
-      </button>
+    <div className="c-list-toolbar__item-wrapper">
+      <div className="c-list-toolbar__item">
+        <button
+          onClick={handleClick}
+          ref={refs.setReference}
+          className="c-list-toolbar__item__btn"
+        >
+          {isDelete && <TrashIcon />}
+          {isFilter && <FilterIcon />}
+          {isSort && <SortIcon />}
+          {currentActive}
+        </button>
+      </div>
       {(isSort || isFilter) && openModalOptions && (
-        <div className="c-list-toolbar__item__options">
-          {isSort && <span>Sort by</span>}
-          {isFilter && <span>Filter by</span>}
-          <ul>
-            {options?.map((op) => (
-              <li>{op}</li>
-            ))}
-          </ul>
-        </div>
+        <DynamicModal ref={refs.setFloating}>
+          {isSort && <span className="c-dynamic-modal__title">Sort by</span>}
+          {isFilter && (
+            <span className="c-dynamic-modal__title">Filter by</span>
+          )}
+          {children}
+        </DynamicModal>
       )}
       {isDelete &&
         openModalChoice &&

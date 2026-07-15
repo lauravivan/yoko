@@ -11,6 +11,9 @@ import {
 } from 'date-fns';
 import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
+import DynamicModal from '@/components/display/DynamicModal';
+import { getCardColors } from '@/helpers/transformers/getCardColors';
+import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
 
 interface CountingCardProps {
   title: string;
@@ -98,73 +101,98 @@ const CountingCard = ({
     if (!isCountdown) setShowRightContainer((prev) => !prev);
   };
 
+  const colors = getCardColors();
+
+  const { refs } = useFloating({
+    open: modalOpen,
+    middleware: [autoPlacement()],
+    whileElementsMounted: autoUpdate,
+  });
+
   return (
-    <article
-      className={`${baseClass}${showRightClass}`}
-      onClick={() => setModalOpen((prev) => !prev)}
-      ref={articleRef}
-    >
-      <div
-        className={`${baseClass}__left-container`}
-        style={{ backgroundColor: bgColor || '#ffd7f6' }}
+    <div className="c-counting-card-wrapper" ref={articleRef}>
+      <article
+        className={`${baseClass}${showRightClass}`}
+        onClick={() => setModalOpen((prev) => !prev)}
+        ref={refs.setReference}
       >
-        <div>
-          <div className={`${baseClass}__title-container`}>
-            <h3
-              className={`${baseClass}__title ${baseClass}__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
-            >
-              {title}
-            </h3>
-            {desc && isCountdown && (
-              <button onClick={handleDesc}>
-                <NoteIcon />
+        <div
+          className={`${baseClass}__left-container`}
+          style={{ backgroundColor: bgColor || '#ffd7f6' }}
+        >
+          <div>
+            <div className={`${baseClass}__title-container`}>
+              <h3
+                className={`${baseClass}__title ${baseClass}__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
+              >
+                {title}
+              </h3>
+              {desc && isCountdown && (
+                <button onClick={handleDesc}>
+                  <NoteIcon />
+                </button>
+              )}
+            </div>
+            {showDesc && desc && isCountdown && (
+              <p className={`c-countdown-card__desc`}>{desc}</p>
+            )}
+            <span className={`${baseClass}__date`}>{formatDate(date)}</span>
+            {!isCountdown && (
+              <div className="c-countup-card__countup">
+                <span className="c-countup-card__countup__num">26</span>
+                <span className="c-countup-card__countup__ext">days</span>
+              </div>
+            )}
+            {!isCountdown && desc && (
+              <button className="c-countup-card__desc-btn" onClick={handleDesc}>
+                <DocumentTextIcon />
               </button>
             )}
           </div>
-          {showDesc && desc && isCountdown && (
-            <p className={`c-countdown-card__desc`}>{desc}</p>
-          )}
-          <span className={`${baseClass}__date`}>{formatDate(date)}</span>
-          {!isCountdown && (
-            <div className="c-countup-card__countup">
-              <span className="c-countup-card__countup__num">26</span>
-              <span className="c-countup-card__countup__ext">days</span>
-            </div>
-          )}
-          {!isCountdown && desc && (
-            <button className="c-countup-card__desc-btn" onClick={handleDesc}>
-              <DocumentTextIcon />
-            </button>
-          )}
         </div>
-      </div>
-      {showRightContainer && (
-        <div
-          className={`${baseClass}__right-container`}
-          style={{ backgroundColor: bgColor || '#ffd7f680' }}
-        >
-          {isCountdown && <CountingOfDays dateToEvent={date} />}
-          {showDesc && desc && !isCountdown && (
-            <p className={`c-countup-card__desc`}>{desc}</p>
-          )}
+        {showRightContainer && (
+          <div
+            className={`${baseClass}__right-container`}
+            style={{ backgroundColor: bgColor || '#ffd7f680' }}
+          >
+            {isCountdown && <CountingOfDays dateToEvent={date} />}
+            {showDesc && desc && !isCountdown && (
+              <p className={`c-countup-card__desc`}>{desc}</p>
+            )}
+          </div>
+        )}
+        <div className={`${baseClass}__checkbox-container`}>
+          <input
+            onClick={(e) => e.stopPropagation()}
+            type="checkbox"
+            onChange={(e) => (e.target.checked ? onSelect() : onDeselect())}
+          />
         </div>
-      )}
-      <div className={`${baseClass}__checkbox-container`}>
-        <input
-          onClick={(e) => e.stopPropagation()}
-          type="checkbox"
-          onChange={(e) => (e.target.checked ? onSelect() : onDeselect())}
-        />
-      </div>
+      </article>
 
       {modalOpen && (
-        <div className={`${baseClass}__modal`}>
-          <span>Edit {title}</span>
-          <input placeholder="Description..." />
-          <input type="date" />
-        </div>
+        <DynamicModal
+          ref={refs.setFloating}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className={`c-dynamic-modal__title`}>
+            Edit <span>{title}</span>
+          </span>
+          <textarea
+            className={`c-dynamic-modal__desc`}
+            placeholder="Description..."
+          />
+          <input className={`c-dynamic-modal__date`} type="date" />
+          <div className={`c-dynamic-modal__colors`}>
+            {colors.map((co) => (
+              <button
+                className={`c-dynamic-modal__colors__color c-dynamic-modal__colors__color--${co.replace('#', '')}`}
+              />
+            ))}
+          </div>
+        </DynamicModal>
       )}
-    </article>
+    </div>
   );
 };
 

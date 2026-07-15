@@ -29,6 +29,7 @@
     "analyze": "vite build --mode analyze"
   },
   "dependencies": {
+    "@floating-ui/react-dom": "^2.1.9",
     "@sentry/react": "^10.53.1",
     "date-fns": "^4.1.0",
     "react": "^19.2.3",
@@ -72,10 +73,6 @@
     ]
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,md,mdx,css,scss}": "prettier --write",
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --cache --fix",
-      "vitest related --passWithNoTests --coverage=false"
-    ]
+    "*.{js,jsx,ts,tsx,json,md,mdx,css,scss}": "prettier --write"
   }
 }

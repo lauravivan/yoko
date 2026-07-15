@@ -46,6 +46,17 @@ const events = [
   },
 ];
 
+const filterOptions = [
+  'This month',
+  'Next month',
+  'In 2 months',
+  'In 3 months',
+  'In 4 months',
+  'In 5 months',
+  'In 6 months',
+  'In more than 6 months',
+];
+
 interface EventsPageProps {
   isEvents?: boolean;
 }
@@ -74,24 +85,19 @@ const EventsPage = ({ isEvents = false }: EventsPageProps) => {
       {events.length > 0 ? (
         <>
           <ListToolbar>
-            <ListToolbar.Item
-              type="filter"
-              options={[
-                'All',
-                'Happening this month',
-                'Happening next month',
-                'Happening in 2 months',
-                'Happening in 3 months',
-                'Happening in 4 months',
-                'Happening in 5 months',
-                'Happening in 6 months',
-                'Happening in more than 6 months',
-              ]}
-            >
-              All
+            <ListToolbar.Item type="filter" currentActive="">
+              <span>When:</span>
+              <ul>
+                {filterOptions?.map((op) => (
+                  <li>{op}</li>
+                ))}
+              </ul>
             </ListToolbar.Item>
-            <ListToolbar.Item type="delete">
-              {`Delete (${selectedCount} selected)`}
+            <ListToolbar.Item
+              type="delete"
+              currentActive={`Delete (${selectedCount} selected)`}
+            >
+              <div></div>
             </ListToolbar.Item>
           </ListToolbar>
           <div className={`${baseClass}__cards`}>

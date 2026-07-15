@@ -60,6 +60,7 @@ body {
 @include meta.load-css('components/utils/divider');
 
 @include meta.load-css('components/display/logo');
+@include meta.load-css('components/display/dynamic-modal');
 
 @include meta.load-css('components/action/toggle-btn');
 @include meta.load-css('components/action/list-toolbar');
