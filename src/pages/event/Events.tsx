@@ -8,40 +8,27 @@ import { useLocation } from 'react-router';
 import useDelete from '@/hooks/useDelete';
 import ListToolbar from '@/components/action/ListToolbar';
 import DefaultButton from '@/components/action/DefaultButton';
+import { CARD_COLORS } from '@/constants/colors';
 
 //mock
 const events = [
   {
+    id: '',
+    color: CARD_COLORS.babyPink,
     title: 'Meu evento',
     desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum explicabo architecto fugiat molestiae vitae suscipit modi voluptatem eligendi. Laudantium rem autem dolor ipsa magnam voluptatibus perspiciatis natus cumque repellendus.',
     date: new Date(),
   },
   {
+    id: '',
+    color: CARD_COLORS.aqua,
     title: 'Meu evento 2',
     date: new Date(),
   },
   {
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-  {
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-  {
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-  {
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-  {
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-  {
-    title: 'Meu evento 2',
+    id: '',
+    color: CARD_COLORS.orange,
+    title: 'Meu evento 3',
     date: new Date(),
   },
 ];
@@ -93,6 +80,9 @@ const EventsPage = ({ isEvents = false }: EventsPageProps) => {
                 ))}
               </ul>
             </ListToolbar.Item>
+            <ListToolbar.Item type="sort" currentActive="">
+              <div></div>
+            </ListToolbar.Item>
             <ListToolbar.Item
               type="delete"
               currentActive={`Delete (${selectedCount} selected)`}
@@ -127,7 +117,7 @@ const EventsPage = ({ isEvents = false }: EventsPageProps) => {
                   title={event.title}
                   desc={event.desc}
                   date={new Date(event.date)}
-                  bgColor=""
+                  bgColor={event.color}
                   key={event.id}
                   onSelect={onSelect}
                   onDeselect={onDeselect}
