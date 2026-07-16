@@ -1,7 +1,6 @@
 @use '../../tokens';
 
-.p-events,
-.p-actions {
+.p-occurrence {
   position: relative;
   height: 100%;
 
@@ -44,29 +43,29 @@
       }
     }
   }
-}
 
-.p-events {
-  &__cards {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-
-.p-actions {
-  &__cards {
-    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  &--events {
+    .p-occurrence__cards {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
   }
 
-  &:has(.c-countup-card--show-desc) {
-    .p-actions__cards {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  &--actions {
+    .p-occurrence__cards {
+      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
     }
 
-    .c-countup-card {
-      width: fit-content;
+    &:has(.c-countup-card--show-desc) {
+      .p-occurrence__cards {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
 
-      &__left-container {
-        flex: none;
+      .c-countup-card {
+        width: fit-content;
+
+        &__left-container {
+          flex: none;
+        }
       }
     }
   }

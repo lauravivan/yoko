@@ -462,7 +462,7 @@ body {
   width: 600px;
   right: 90px;
   z-index: -1;
-  opacity: 0.8;
+  opacity: 0.4;
 }
 
 .c-footer > div > div {
@@ -618,29 +618,25 @@ body {
 /* border width */
 /* opacity */
 /* shadow */
-.p-events,
-.p-actions {
+.p-occurrence {
   position: relative;
   height: 100%;
 }
 
-.p-events__cards,
-.p-actions__cards {
+.p-occurrence__cards {
   display: grid;
   row-gap: 30px;
   column-gap: 40px;
   padding-bottom: 50px;
 }
 
-.p-events__no-data,
-.p-actions__no-data {
+.p-occurrence__no-data {
   display: flex;
   justify-content: center;
   height: 100%;
 }
 
-.p-events__no-data > div,
-.p-actions__no-data > div {
+.p-occurrence__no-data > div {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -648,8 +644,7 @@ body {
   align-items: center;
 }
 
-.p-events .c-list-toolbar__item-wrapper .c-dynamic-modal ul,
-.p-actions .c-list-toolbar__item-wrapper .c-dynamic-modal ul {
+.p-occurrence .c-list-toolbar__item-wrapper .c-dynamic-modal ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -658,30 +653,29 @@ body {
   border-radius: 10px;
 }
 
-.p-events .c-list-toolbar__item-wrapper .c-dynamic-modal ul li,
-.p-actions .c-list-toolbar__item-wrapper .c-dynamic-modal ul li {
+.p-occurrence .c-list-toolbar__item-wrapper .c-dynamic-modal ul li {
   background-color: #f8f8f8;
   border-radius: 5px;
   padding: 5px 10px;
 }
 
-.p-events__cards {
+.p-occurrence--events .p-occurrence__cards {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-.p-actions__cards {
+.p-occurrence--actions .p-occurrence__cards {
   grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
 }
 
-.p-actions:has(.c-countup-card--show-desc) .p-actions__cards {
+.p-occurrence--actions:has(.c-countup-card--show-desc) .p-occurrence__cards {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
-.p-actions:has(.c-countup-card--show-desc) .c-countup-card {
+.p-occurrence--actions:has(.c-countup-card--show-desc) .c-countup-card {
   width: fit-content;
 }
 
-.p-actions:has(.c-countup-card--show-desc) .c-countup-card__left-container {
+.p-occurrence--actions:has(.c-countup-card--show-desc) .c-countup-card__left-container {
   flex: none;
 }
 

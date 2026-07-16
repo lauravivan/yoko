@@ -1,37 +1,15 @@
-import CountingCard from '@/pages/event/components/CountingCard';
-import AddIcon from '@/components/display/icons/Add';
+import CountingCard from './components/CountingCard';
 import { useAuth } from '@/context/AuthContext';
 import useModal from '@/hooks/useModal';
-import useEvent from '@/hooks/useEvent';
 import useStore from '@/store/store';
 import { useLocation } from 'react-router';
 import useDelete from '@/hooks/useDelete';
 import ListToolbar from '@/components/action/ListToolbar';
 import DefaultButton from '@/components/action/DefaultButton';
-import { CARD_COLORS } from '@/constants/colors';
-
-//mock
-const events = [
-  {
-    id: '',
-    color: CARD_COLORS.babyPink,
-    title: 'Meu evento',
-    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo voluptatum explicabo architecto fugiat molestiae vitae suscipit modi voluptatem eligendi. Laudantium rem autem dolor ipsa magnam voluptatibus perspiciatis natus cumque repellendus.',
-    date: new Date(),
-  },
-  {
-    id: '',
-    color: CARD_COLORS.aqua,
-    title: 'Meu evento 2',
-    date: new Date(),
-  },
-  {
-    id: '',
-    color: CARD_COLORS.orange,
-    title: 'Meu evento 3',
-    date: new Date(),
-  },
-];
+import AddButton from '@/components/action/AddButton';
+import useOccurrence from '@/hooks/useOccurrence';
+import { IOccurrence } from '@/types/Occurrence';
+import { OccurrenceEnum } from '@/enum/OccurrenceEnum';
 
 const filterOptions = [
   'This month',
@@ -44,32 +22,40 @@ const filterOptions = [
   'In more than 6 months',
 ];
 
-interface EventsPageProps {
+interface OccurrencePageProps {
   isEvents?: boolean;
 }
 
-const EventsPage = ({ isEvents = false }: EventsPageProps) => {
+const OccurrencePage = ({ isEvents = false }: OccurrencePageProps) => {
   const session = useAuth();
   const location = useLocation();
   const { openModal, handleTitle } = useModal();
   const {
-    createEvent,
-    deleteEvent,
-    getPaginatedEvents,
+    createOccurrence,
+    deleteOccurrence,
+    getPaginatedOccurrences,
     search,
-    updateEventDesc,
-  } = useEvent();
+    updateOccurrenceDesc,
+    getOccurrences,
+  } = useOccurrence();
   const { filter, sort, setEventId } = useStore();
   const { selectedCount, onSelect, onDeselect } = useDelete();
   // const events = getPaginatedEvents(app);
 
-  const baseClass = isEvents ? 'p-events' : 'p-actions';
+  const modifier = isEvents ? 'events' : 'actions';
 
-  const baseAction = isEvents ? 'event' : 'action';
+  const modifierSingular = modifier.replace('s', '');
+
+  const handleCreateOccurrence = () =>
+    createOccurrence(
+      isEvents ? OccurrenceEnum.WAITING : OccurrenceEnum.ONGOING
+    );
+
+  const occurrences = getOccurrences(isEvents);
 
   return (
-    <main className={`${baseClass}`}>
-      {events.length > 0 ? (
+    <main className={`p-occurrence p-occurrence--${modifier}`}>
+      {occurrences.length > 0 ? (
         <>
           <ListToolbar>
             <ListToolbar.Item type="filter" currentActive="">
@@ -90,19 +76,16 @@ const EventsPage = ({ isEvents = false }: EventsPageProps) => {
               <div></div>
             </ListToolbar.Item>
           </ListToolbar>
-          <div className={`${baseClass}__cards`}>
+          <div className={`p-occurrence__cards`}>
             {!search && (
-              <button
-                className="c-add-card"
-                onClick={() => createEvent()}
-                aria-label="Adicionar evento"
-              >
-                <AddIcon />
-              </button>
+              <AddButton
+                onClick={handleCreateOccurrence}
+                aria-label={`Add ${modifierSingular}`}
+              />
             )}
 
-            {events.length > 0 &&
-              events.map((event: IEvent) => (
+            {occurrences.length > 0 &&
+              occurrences.map((event: IOccurrence) => (
                 // <Card
                 //   event={event}
                 //   key={event.id}
@@ -127,24 +110,24 @@ const EventsPage = ({ isEvents = false }: EventsPageProps) => {
           </div>
         </>
       ) : (
-        <div className={`${baseClass}__no-data`}>
+        <div className={`p-occurrence__no-data`}>
           <div>
             <p>
-              It appears you haven't created any {baseAction} yet. Click in{' '}
-              <span className="highlight">'Create {baseAction}'</span> to
-              create.
+              It appears you haven't created any {modifierSingular} yet. Click
+              in <span className="highlight">'Create {modifierSingular}'</span>{' '}
+              to create.
             </p>
-            <DefaultButton onClick={() => createEvent()}>
-              {`Create ${baseAction}`}
+            <DefaultButton onClick={handleCreateOccurrence}>
+              {`Create ${modifierSingular}`}
             </DefaultButton>
           </div>
         </div>
       )}
-      {search && events.length === 0 && (
+      {search && occurrences.length === 0 && (
         <div>Sorry, we couldn't find any results related to your research.</div>
       )}
     </main>
   );
 };
 
-export default EventsPage;
+export default OccurrencePage;

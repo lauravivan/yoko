@@ -77,7 +77,7 @@ body {
 /* pages */
 @include meta.load-css('pages/homepage');
 @include meta.load-css('pages/homepage/components/info-card');
-@include meta.load-css('pages/events');
-@include meta.load-css('pages/events/components/counting-card');
+@include meta.load-css('pages/occurrence');
+@include meta.load-css('pages/occurrence/components/counting-card');
 
 // @include meta.load-css('pages/login');
