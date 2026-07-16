@@ -1,7 +1,7 @@
 import Footer from '@/layouts/components/Footer';
 import Header from '@/layouts/components/Header';
 import useModal from '@/hooks/useModal';
-import useEvent from '@/hooks/useEvent';
+import useEvent from '@/hooks/useOccurrence';
 import useStore from '@/store/store';
 import { useState } from 'react';
 import { Outlet } from 'react-router';

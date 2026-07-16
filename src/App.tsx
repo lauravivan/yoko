@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import AppLayout from './layouts/AppLayout';
-import EventsPage from './pages/event/Events';
+import OccurrencePage from '@/pages/occurrence/Occurrence';
 // import Login from './pages/login';
 // import LoginLayout from './layouts/LoginLayout';
 // import LoginRedirect from './pages/login/redirect';
@@ -17,11 +17,11 @@ const App = () => {
             <Route index element={<Homepage />} />
             <Route
               path={navigate.navigateToEvents().pathname}
-              element={<EventsPage isEvents />}
+              element={<OccurrencePage isEvents />}
             />
             <Route
               path={navigate.navigateToActions().pathname}
-              element={<EventsPage />}
+              element={<OccurrencePage />}
             />
           </Route>
           {/* <Route path={paths.auth.signin._} element={<LoginLayout />}>
