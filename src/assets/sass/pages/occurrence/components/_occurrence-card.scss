@@ -1,17 +1,13 @@
 @use '../../../tokens';
 
-$colors:
-  tokens.$bg-card-aqua, tokens.$bg-card-baby-pink, tokens.$bg-card-brown,
-  tokens.$bg-card-green, tokens.$bg-card-orange, tokens.$bg-card-pink,
-  tokens.$bg-card-purple, tokens.$bg-card-yellow, tokens.$bg-button-error;
-
 .c-countdown-card,
 .c-countup-card {
   display: flex;
   position: relative;
   border-radius: tokens.$border-r-default;
-  border: 1px solid transparent;
+  border: 1px solid tokens.$border-color-dark;
   cursor: pointer;
+  min-height: 115px;
 
   &:hover,
   &:has(.c-countdown-card__checkbox-container input[type='checkbox']:checked),
@@ -24,7 +20,7 @@ $colors:
       right: 5px;
     }
 
-    border-color: tokens.$border-default;
+    opacity: 0.8;
   }
 
   &:has(.c-countdown-card__checkbox-container input[type='checkbox']:checked),
@@ -33,20 +29,39 @@ $colors:
   }
 
   &__left-container {
+    position: relative;
     display: flex;
+    overflow: hidden;
     border-top-left-radius: tokens.$border-r-default;
     border-bottom-left-radius: tokens.$border-r-default;
 
     > div {
       flex: 1;
     }
+
+    &__category-icon {
+      position: absolute;
+      bottom: -5px;
+      right: 15px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    &--Personal {
+      background-color: tokens.$ice-mint;
+    }
   }
 
   &__right-container {
     display: flex;
-    padding: 33px 19px 30px 17px;
     border-top-right-radius: tokens.$border-r-default;
     border-bottom-right-radius: tokens.$border-r-default;
+    border-left: 1px solid tokens.$border-color-dark;
+    background-color: #fff;
+    padding: 33px 19px 30px 17px;
 
     span {
       text-align: center;
@@ -164,40 +179,13 @@ $colors:
   }
 }
 
-.c-counting-card-wrapper {
+.c-occurrence-card-wrapper {
   .c-dynamic-modal {
     display: flex;
     flex-direction: column;
     row-gap: 15px;
     cursor: auto;
     top: 30%;
-
-    &__colors {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-
-      &__color {
-        all: unset;
-        width: 23px;
-        height: 23px;
-        border-radius: tokens.$border-r-full;
-        border: 1px solid tokens.$border-subtle;
-      }
-
-      @each $color in $colors {
-        $hex: str-slice(#{$color}, 2);
-
-        .c-dynamic-modal__colors__color--#{$hex} {
-          background-color: $color;
-
-          &:hover {
-            background-color: rgba($color, 0.8);
-            transform: scale(1.1);
-          }
-        }
-      }
-    }
 
     &__title {
       span {
@@ -206,13 +194,14 @@ $colors:
     }
 
     textarea,
-    input {
+    input,
+    select {
       all: unset;
-      background-color: tokens.$bg-subtle-light;
+      background-color: tokens.$bg-subtle;
       padding: 7px 10px;
       border-radius: tokens.$border-r-soft;
       @include tokens.text-sm();
-      color: tokens.$text-default;
+      color: tokens.$text-color-default;
     }
   }
 }

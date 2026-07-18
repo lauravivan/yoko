@@ -12,18 +12,10 @@ import {
 import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
 import DynamicModal from '@/components/display/DynamicModal';
-import { getCardColors } from '@/helpers/transformers/getCardColors';
 import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
-
-interface CountingCardProps {
-  title: string;
-  date: Date;
-  desc?: string;
-  bgColor: string;
-  onSelect: () => void;
-  onDeselect: () => void;
-  isCountdown?: boolean;
-}
+import { OccurrenceCategoryEnum, OccurrenceEnum } from '@/enum/OccurrenceEnum';
+import PersonalIcon from '@/components/display/icons/categories/Personal';
+import WorkIcon from '@/components/display/icons/categories/Work';
 
 // const getCounting = (date: Date) => {
 //   const now = createUTCDateNow();
@@ -75,33 +67,46 @@ const CountingOfDays = ({ dateToEvent }: { dateToEvent: Date }) => {
   return happened || today || oneDay;
 };
 
-const CountingCard = ({
+const CategoryIcon = ({ category }: { category: OccurrenceCategoryEnum }) => {
+  if (category === OccurrenceCategoryEnum.Personal) return <PersonalIcon />;
+  if (category === OccurrenceCategoryEnum.Work) return <WorkIcon />;
+  return null;
+};
+
+const OccurrenceCard = ({
   title,
   date,
   desc,
-  bgColor,
   onSelect,
   onDeselect,
-  isCountdown = true,
-}: CountingCardProps) => {
+  category,
+  state,
+}: {
+  title: string;
+  date: Date;
+  desc?: string;
+  category: OccurrenceCategoryEnum;
+  onSelect: () => void;
+  onDeselect: () => void;
+  state: OccurrenceEnum;
+}) => {
+  const isEvents = state === OccurrenceEnum.WAITING;
   const [showDesc, setShowDesc] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [showRightContainer, setShowRightContainer] = useState(
-    isCountdown ? true : false
+    isEvents ? true : false
   );
 
   const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
 
-  const baseClass = isCountdown ? 'c-countdown-card' : 'c-countup-card';
+  const baseClass = isEvents ? 'c-countdown-card' : 'c-countup-card';
   const showRightClass = showRightContainer ? ' c-countup-card--show-desc' : '';
 
   const handleDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setShowDesc((prev) => !prev);
-    if (!isCountdown) setShowRightContainer((prev) => !prev);
+    if (!isEvents) setShowRightContainer((prev) => !prev);
   };
-
-  const colors = getCardColors();
 
   const { refs } = useFloating({
     open: modalOpen,
@@ -110,15 +115,14 @@ const CountingCard = ({
   });
 
   return (
-    <div className="c-counting-card-wrapper" ref={articleRef}>
+    <div className="c-occurrence-card-wrapper" ref={articleRef}>
       <article
-        className={`${baseClass}${showRightClass}`}
+        className={`c-occurrence-card ${baseClass}${showRightClass}`}
         onClick={() => setModalOpen((prev) => !prev)}
         ref={refs.setReference}
       >
         <div
-          className={`${baseClass}__left-container`}
-          style={{ backgroundColor: bgColor || '#ffd7f6' }}
+          className={`${baseClass}__left-container ${baseClass}__left-container--${category}`}
         >
           <div>
             <div className={`${baseClass}__title-container`}>
@@ -127,36 +131,36 @@ const CountingCard = ({
               >
                 {title}
               </h3>
-              {desc && isCountdown && (
+              {desc && isEvents && (
                 <button onClick={handleDesc}>
                   <NoteIcon />
                 </button>
               )}
             </div>
-            {showDesc && desc && isCountdown && (
+            {showDesc && desc && isEvents && (
               <p className={`c-countdown-card__desc`}>{desc}</p>
             )}
             <span className={`${baseClass}__date`}>{formatDate(date)}</span>
-            {!isCountdown && (
+            {!isEvents && (
               <div className="c-countup-card__countup">
                 <span className="c-countup-card__countup__num">26</span>
                 <span className="c-countup-card__countup__ext">days</span>
               </div>
             )}
-            {!isCountdown && desc && (
+            {!isEvents && desc && (
               <button className="c-countup-card__desc-btn" onClick={handleDesc}>
                 <DocumentTextIcon />
               </button>
             )}
           </div>
+          <div className={`${baseClass}__left-container__category-icon`}>
+            <CategoryIcon category={category} />
+          </div>
         </div>
         {showRightContainer && (
-          <div
-            className={`${baseClass}__right-container`}
-            style={{ backgroundColor: `${bgColor}80` || '#ffd7f680' }}
-          >
-            {isCountdown && <CountingOfDays dateToEvent={date} />}
-            {showDesc && desc && !isCountdown && (
+          <div className={`${baseClass}__right-container`}>
+            {isEvents && <CountingOfDays dateToEvent={date} />}
+            {showDesc && desc && !isEvents && (
               <p className={`c-countup-card__desc`}>{desc}</p>
             )}
           </div>
@@ -183,17 +187,16 @@ const CountingCard = ({
             placeholder="Description..."
           />
           <input className={`c-dynamic-modal__date`} type="date" />
-          <div className={`c-dynamic-modal__colors`}>
-            {colors.map((co) => (
-              <button
-                className={`c-dynamic-modal__colors__color c-dynamic-modal__colors__color--${co.replace('#', '')}`}
-              />
+          <select>
+            <option disabled>Choose a category</option>
+            {Object.values(OccurrenceCategoryEnum).map((occ) => (
+              <option value={occ}>{occ}</option>
             ))}
-          </div>
+          </select>
         </DynamicModal>
       )}
     </div>
   );
 };
 
-export default CountingCard;
+export default OccurrenceCard;

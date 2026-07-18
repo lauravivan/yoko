@@ -8,26 +8,26 @@
   width: max-content;
 
   &--subtle {
-    background-color: tokens.$bg-button-subtle;
+    background-color: tokens.$bg-subtle;
 
     &:hover {
-      background-color: tokens.$bg-button-subtle-light;
+      background-color: tokens.$bg-subtle-hover;
     }
   }
 
   &--error {
-    background-color: tokens.$bg-button-error;
+    background-color: tokens.$bg-error;
 
     &:hover {
-      background-color: tokens.$bg-button-error-subtle;
+      background-color: tokens.$bg-error-hover;
     }
   }
 
   &--default {
-    background-color: tokens.$bg-button-default;
+    background-color: tokens.$bg-default;
 
     &:hover {
-      background-color: tokens.$bg-button-default-subtle;
+      background-color: tokens.$bg-default-hover;
     }
   }
 }
