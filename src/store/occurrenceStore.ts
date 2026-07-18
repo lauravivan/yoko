@@ -2,9 +2,8 @@ import { storeOccurrences } from '@/helpers/storage/occurrence';
 import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
 import { generateRandomString } from '@/helpers/generators/random';
-import { getCardColors } from '@/helpers/transformers/getCardColors';
 import { IOccurrence } from '@/types/Occurrence';
-import { OccurrenceEnum } from '@/enum/OccurrenceEnum';
+import { OccurrenceCategoryEnum, OccurrenceEnum } from '@/enum/OccurrenceEnum';
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
@@ -26,9 +25,9 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         id: uuidv7(),
         title: 'Unamed',
         desc: '',
-        color: generateRandomString('', getCardColors()),
         date: new Date(),
         state: occurrenceState,
+        category: OccurrenceCategoryEnum.Personal,
       };
 
       const prevOccurrences = [...state.occurrences];

@@ -1,96 +1,63 @@
-$gray-40: #f8f8f8;
-$gray-50: rgb(235, 235, 235, 0.5);
-$gray-90: rgb(235, 235, 235, 0.9);
-$gray: #d5d5d5;
+//base colors: success, error, default, etc. Based on yoko mascot color and sea
+$blue: #b5e0ff;
+$blue-30: rgba($blue, 0.3);
+$blue-50: rgba($blue, 0.5);
+$blue-70: rgba($blue, 0.7);
 
-$blue-30: rgba(#a7daff, 0.3);
-$blue-50: rgba(#a7daff, 0.5);
-$blue-70: rgba(#a7daff, 0.7);
-$blue: #a7daff;
-
-$red-30: rgba(#ff615e, 0.3);
-$red-50: rgba(#ff615e, 0.5);
-$red-70: rgba(#ff615e, 0.7);
 $red: #ff615e;
+$red-10: rgba($red, 0.1);
+$red-30: rgba($red, 0.3);
+$red-50: rgba($red, 0.5);
+$red-70: rgba($red, 0.7);
+
+$green: #b8ddb0;
+$green-30: rgba($green, 0.3);
+$green-50: rgba($green, 0.5);
+$green-70: rgba($green, 0.7);
+
+$gray: #f8f8f8;
+$gray-50: rgba($gray, 0.5);
+$gray-70: rgba($gray, 0.7);
 
 $dark-soft: #313131;
 $dark-md: #262626;
 $dark: #1a1a1a;
 
-$baby-pink-50: rgba(#ffd7f6, 0.5);
-$baby-pink: #ffd7f6;
-
-$aqua-50: rgba(#c6ebee, 0.5);
-$aqua: #c6ebee;
-
-$pink-50: rgba(#ebc6ee, 0.5);
-$pink: #ebc6ee;
-
-$purple-50: rgba(#e0bcff, 0.5);
-$purple: #e0bcff;
-
-$yellow-50: rgba(#ffe99f, 0.5);
-$yellow: #ffe99f;
-
-$orange-50: rgba(#ffb494, 0.5);
-$orange: #ffb494;
-
-$brown-50: rgba(#b59c8a, 0.5);
-$brown: #b59c8a;
-
-$green-50: rgba(#b5e2ba, 0.5);
-$grass: #b8ddb0;
-$green: #b5e2ba;
+//base colors to use with categories
+$ice-mint: #b3fff9;
+$periwinkle: #b3b5ff;
+$pale-lavender: #dab3ff;
+$tea-green: #c1ffb3;
+$pastel-pink: #ffb3d0;
+$baby-blue: $blue;
+$pale-peach: #ffe9b3;
+$melon: #ffbfb3;
+$mint-green: #b3ffcf;
+$light-magenta: #ffb3fa;
+$pale-lime: #ebffb3;
 
 // Background colors
-// Card
-$bg-card-baby-pink: $baby-pink;
-$bg-card-baby-pink-subtle: $baby-pink-50;
-$bg-card-aqua: $aqua;
-$bg-card-aqua-subtle: $aqua-50;
-$bg-card-pink: $pink;
-$bg-card-pink-subtle: $pink-50;
-$bg-card-purple: $purple;
-$bg-card-purple-subtle: $purple-50;
-$bg-card-yellow: $yellow;
-$bg-card-yellow-subtle: $yellow-50;
-$bg-card-orange: $orange;
-$bg-card-orange-subtle: $orange-50;
-$bg-card-brown: $brown;
-$bg-card-brown-subtle: $brown-50;
-$bg-card-green: $green;
-$bg-card-green-subtle: $green-50;
-$bg-card-dark-subtle: $dark-soft;
-$bg-card-dark: $dark;
-$bg-card-red: $red-70;
-$bg-card-red-subtle: $red-50;
-// Button
-$bg-button-error: $red;
-$bg-button-default: $blue;
-$bg-button-subtle: $gray-90;
-$bg-button-default-subtle: $blue-50;
-$bg-button-error-subtle: $red-50;
-$bg-button-subtle-light: $gray-50;
 
-$bg-error-subtle: $red-30;
+$bg-error: $red;
+$bg-error-hover: $red-30;
+
 $bg-default: $blue;
-$bg-default-subtle: $red-50;
-$bg-subtle: $gray-90;
-$bg-subtle-hover: $gray-50;
-$bg-subtle-light: $gray-40;
+$bg-default-hover: $blue-50;
 $bg-default-invert: $blue-30;
-$bg-dark: $dark;
+
+$bg-subtle: $gray;
+$bg-subtle-hover: $gray-70;
 
 // Border colors
-$border-default: $baby-pink-50;
-$border-error: $red;
-$border-success: $grass;
-$border-subtle: $gray-90;
-$border-dark: $dark;
+$border-color-default: $red-10;
+$border-color-error: $red;
+$border-color-success: $green;
+$border-color-subtle: $gray;
+$border-color-dark: $dark;
 
 // Text colors
-$text-default: $dark-md;
-$text-error: $red;
-$text-success: $grass;
-$text-invert: $gray-40;
-$text-highlight: $blue;
+$text-color-default: $dark-md;
+$text-color-error: $red;
+$text-color-success: $green;
+$text-color-invert: $gray;
+$text-color-highlight: $blue;

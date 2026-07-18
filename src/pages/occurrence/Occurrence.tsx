@@ -1,4 +1,4 @@
-import CountingCard from './components/CountingCard';
+import OccurrenceCard from './components/OccurrenceCard';
 import { useAuth } from '@/context/AuthContext';
 import useModal from '@/hooks/useModal';
 import useStore from '@/store/store';
@@ -96,15 +96,15 @@ const OccurrencePage = ({ isEvents = false }: OccurrencePageProps) => {
                 //   handleTitle={handleTitle}
                 //   app={app}
                 // />
-                <CountingCard
+                <OccurrenceCard
                   title={event.title}
                   desc={event.desc}
                   date={new Date(event.date)}
-                  bgColor={event.color}
                   key={event.id}
                   onSelect={onSelect}
                   onDeselect={onDeselect}
-                  isCountdown={isEvents}
+                  category={event.category}
+                  state={event.state}
                 />
               ))}
           </div>
