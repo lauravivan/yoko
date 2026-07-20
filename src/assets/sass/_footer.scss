@@ -1,50 +1,49 @@
 @use './tokens';
 
 .c-footer {
-  > div {
-    padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-    flex-shrink: 0;
-    position: relative;
-    overflow: visible;
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: visible;
+  background-color: #fff;
+  padding: 5px 20px 5px;
+  border-top: 1px solid tokens.$border-color-default;
 
+  > img {
+    position: absolute;
+    bottom: -10px;
+    width: 200px;
+    right: 0px;
+    z-index: -1;
+    opacity: 0.4;
+  }
+
+  @media (min-width: tokens.$tablet-min) {
     > img {
-      position: absolute;
-      bottom: 5px;
-      width: 200px;
-      right: 0px;
-      z-index: -1;
-      opacity: 0.8;
+      bottom: -110px;
+      width: 350px;
     }
+  }
 
-    @media (min-width: tokens.$tablet-min) {
-      > img {
-        bottom: -100px;
-        width: 350px;
-      }
+  @media (min-width: tokens.$desktop-xl-min) {
+    > img {
+      bottom: -230px;
+      width: 600px;
     }
+  }
 
-    @media (min-width: tokens.$desktop-xl-min) {
-      > img {
-        bottom: -220px;
-        width: 600px;
-      }
-    }
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
 
-    > div {
+    @media (min-width: tokens.$desktop-sm-min) {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-end;
-
-      @media (min-width: tokens.$desktop-sm-min) {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-      }
     }
   }
 

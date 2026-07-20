@@ -13,9 +13,6 @@ const InfoCard = ({ title, desc, to, isDisabled = false }: InfoCardProps) => {
       <Link to={to}>
         <h2 className="c-info-card__title">{title}</h2>
         <p className="c-info-card__desc">{desc}</p>
-        <div className="c-info-card__mascot">
-          <img src="/mascot.svg" />
-        </div>
       </Link>
     </article>
   );

@@ -3,11 +3,11 @@
 .c-calendar-view {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 10px;
+  height: 100%;
 
   &__head {
     display: flex;
-    flex: 1;
 
     &__item {
       flex: 1;
@@ -27,14 +27,18 @@
 
   &__body {
     display: flex;
+    flex: 1;
 
     &__item {
+      display: flex;
+      flex-direction: column;
       flex: 1;
 
       > div {
         padding: 10px;
         border: 1px solid tokens.$border-color-dark;
         background-color: #fff;
+        flex: 1;
       }
     }
   }

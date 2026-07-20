@@ -14,46 +14,24 @@
 body {
   max-width: 1800px;
   margin: 0 auto;
-  // &:has(.dark) {
-  //   background-color: var.$dark;
-  //   color: var.$white;
-  // }
 }
 
 .app {
-  padding: 20px 20px 0px;
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
 
-  @media (min-width: tokens.$desktop-sm-min) {
-    padding: 1.4rem 5rem 0;
-  }
-
   &__outlet {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding: 20px 0 100px;
+    padding: 0px 20px;
   }
-
-  // @media (max-width: var.$tablet) {
-  //   padding: var.$spacing-lg var.$spacing-sm;
-  // }
 }
-
-// main {
-//   margin-top: var.$spacing-lg;
-// }
 
 /* tokens */
 @include meta.load-css('tokens');
-
-// @include meta.load-css('modal');
-// @include meta.load-css('cards');
-// @include meta.load-css('animation');
-// @include meta.load-css('color-circle');
 
 /* components */
 @include meta.load-css('components/utils/divider');
@@ -70,9 +48,6 @@ body {
 
 @include meta.load-css('components/cards/add-card');
 
-// @include meta.load-css('components/button/toggle');
-// @include meta.load-css('components/grid');
-
 /* pages */
 @include meta.load-css('pages/homepage');
 @include meta.load-css('pages/homepage/components/info-card');
@@ -83,5 +58,3 @@ body {
 @include meta.load-css('pages/occurrence/components/views/events-view');
 @include meta.load-css('pages/occurrence/components/views/calendar-view');
 @include meta.load-css('pages/occurrence/components/views/actions-view');
-
-// @include meta.load-css('pages/login');

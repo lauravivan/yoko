@@ -3,9 +3,10 @@
 .c-header {
   display: flex;
   column-gap: 20px;
-  padding: 10px;
+  padding: 15px 20px 0px;
   align-items: center;
   flex-shrink: 0;
+  border-bottom: 1px solid tokens.$border-color-default;
 
   &__logo-wrapper {
     display: flex;
@@ -28,81 +29,93 @@
     }
   }
 
-  &__search {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: max-content;
-    background-color: tokens.$bg-subtle;
-    border-radius: tokens.$border-r-default;
-    padding: 10px 20px;
+  &__period {
     flex: 3;
-
-    &:hover {
-      outline: 1px solid tokens.$border-color-dark;
-    }
-
-    input {
-      all: unset;
-      width: 100%;
-    }
+    text-align: center;
+    @include tokens.text-lg();
   }
 
-  &__options {
+  &__right-side {
     display: flex;
-    flex: 1;
-    justify-content: center;
-    position: relative;
+    flex: 2;
+    align-items: center;
 
-    &__menu {
-      > button {
-        all: unset;
+    &__search {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: max-content;
+      background-color: tokens.$bg-subtle;
+      border-radius: tokens.$border-r-default;
+      padding: 10px 20px;
+      flex: 3;
 
-        svg {
-          width: 30px;
-          height: 30px;
-          cursor: pointer;
-        }
+      &:hover {
+        outline: 1px solid tokens.$border-color-dark;
       }
 
-      > ul {
-        position: absolute;
-        right: 0;
-        width: max-content;
-        list-style: none;
-        padding: 9px 52px 8px 12px;
-        background-color: #fff;
-        border: 2px solid tokens.$border-color-default;
-        border-radius: tokens.$border-r-default;
-        row-gap: 5px;
-        z-index: 1000;
-        box-shadow: tokens.$shadow-sm;
+      input {
+        all: unset;
+        width: 100%;
+      }
+    }
 
-        > li > a {
+    &__options {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      position: relative;
+
+      &__menu {
+        > button {
           all: unset;
-          display: block;
 
-          > div:first-of-type {
-            display: flex;
-            align-items: center;
-            @include tokens.text-sm();
-            column-gap: 10px;
-            width: 100%;
-            border-radius: tokens.$border-r-default;
-            padding: 10px 10px 10px 2px;
+          svg {
+            width: 30px;
+            height: 30px;
             cursor: pointer;
+          }
+        }
 
-            &:hover {
-              background-color: tokens.$bg-default-hover;
-            }
+        > ul {
+          position: absolute;
+          right: 0;
+          width: max-content;
+          list-style: none;
+          padding: 9px 52px 8px 12px;
+          background-color: #fff;
+          border: 2px solid tokens.$border-color-default;
+          border-radius: tokens.$border-r-default;
+          row-gap: 5px;
+          z-index: 1000;
+          box-shadow: tokens.$shadow-sm;
 
-            > div {
+          > li > a {
+            all: unset;
+            display: block;
+
+            > div:first-of-type {
               display: flex;
               align-items: center;
+              @include tokens.text-sm();
+              column-gap: 10px;
+              width: 100%;
+              border-radius: tokens.$border-r-default;
+              padding: 10px 10px 10px 2px;
+              cursor: pointer;
 
-              svg {
-                width: 18px;
-                height: 18px;
+              &:hover {
+                background-color: tokens.$bg-default-hover;
+              }
+
+              > div {
+                display: flex;
+                align-items: center;
+
+                svg {
+                  width: 18px;
+                  height: 18px;
+                }
               }
             }
           }
