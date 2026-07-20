@@ -1,10 +1,9 @@
-import { OccurrenceCategoryEnum, OccurrenceEnum } from '@/enum/OccurrenceEnum';
+import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 
 export interface IOccurrence {
   id: string;
   title: string;
   desc?: string;
-  date: Date;
-  state: OccurrenceEnum;
+  isEvent: boolean;
   category: OccurrenceCategoryEnum;
 }

@@ -1,0 +1,41 @@
+@use '../../../../tokens';
+
+.c-calendar-view {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  &__head {
+    display: flex;
+    flex: 1;
+
+    &__item {
+      flex: 1;
+      border: 1px solid tokens.$border-color-dark;
+      padding: 10px;
+      background-color: tokens.$bg-subtle;
+    }
+
+    &__item:nth-child(1) {
+      border-top-left-radius: tokens.$border-r-soft;
+    }
+
+    &__item:last-child {
+      border-top-right-radius: tokens.$border-r-soft;
+    }
+  }
+
+  &__body {
+    display: flex;
+
+    &__item {
+      flex: 1;
+
+      > div {
+        padding: 10px;
+        border: 1px solid tokens.$border-color-dark;
+        background-color: #fff;
+      }
+    }
+  }
+}

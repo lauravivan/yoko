@@ -1,26 +1,23 @@
-import OccurrenceCard from './components/OccurrenceCard';
 import { useAuth } from '@/context/AuthContext';
 import useModal from '@/hooks/useModal';
 import useStore from '@/store/store';
 import { useLocation } from 'react-router';
 import useDelete from '@/hooks/useDelete';
-import ListToolbar from '@/components/action/ListToolbar';
-import DefaultButton from '@/components/action/DefaultButton';
-import AddButton from '@/components/action/AddButton';
 import useOccurrence from '@/hooks/useOccurrence';
-import { IOccurrence } from '@/types/Occurrence';
 import { OccurrenceEnum } from '@/enum/OccurrenceEnum';
+import EventsView from './components/views/EventsView';
+import { useState } from 'react';
+import CalendarView from './components/views/CalendarView';
+import ActionsView from './components/views/ActionsView';
+import CalendarIcon from '@/components/display/icons/views/Calendar';
+import StopWatchIcon from '@/components/display/icons/views/StopWatch';
+import ClockIcon from '@/components/display/icons/views/Clock';
 
-const filterOptions = [
-  'This month',
-  'Next month',
-  'In 2 months',
-  'In 3 months',
-  'In 4 months',
-  'In 5 months',
-  'In 6 months',
-  'In more than 6 months',
-];
+enum ViewsEnum {
+  EVENTS = 'EVENTS',
+  CALENDAR = 'CALENDAR',
+  ACTIONS = 'ACTIONS',
+}
 
 const OccurrencePage = () => {
   const session = useAuth();
@@ -37,6 +34,7 @@ const OccurrencePage = () => {
   const { filter, sort, setEventId } = useStore();
   const { selectedCount, onSelect, onDeselect } = useDelete();
   // const events = getPaginatedEvents(app);
+  const [view, setView] = useState<ViewsEnum>(ViewsEnum.EVENTS);
 
   const modifier = 'events';
 
@@ -47,75 +45,36 @@ const OccurrencePage = () => {
   const occurrences = getOccurrences(true);
 
   return (
-    <main className={`p-occurrence p-occurrence--${modifier}`}>
-      {occurrences.length > 0 ? (
-        <>
-          <ListToolbar>
-            <ListToolbar.Item type="filter" currentActive="">
-              <span>When:</span>
-              <ul>
-                {filterOptions?.map((op) => (
-                  <li>{op}</li>
-                ))}
-              </ul>
-            </ListToolbar.Item>
-            <ListToolbar.Item type="sort" currentActive="">
-              <div></div>
-            </ListToolbar.Item>
-            <ListToolbar.Item
-              type="delete"
-              currentActive={`Delete (${selectedCount} selected)`}
-            >
-              <div></div>
-            </ListToolbar.Item>
-          </ListToolbar>
-          <div className={`p-occurrence__cards`}>
-            {!search && (
-              <AddButton
-                onClick={handleCreateOccurrence}
-                aria-label={`Add ${modifierSingular}`}
-              />
-            )}
-
-            {occurrences.length > 0 &&
-              occurrences.map((event: IOccurrence) => (
-                // <Card
-                //   event={event}
-                //   key={event.id}
-                //   updateEventDesc={updateEventDesc}
-                //   deleteEvent={deleteEvent}
-                //   handleEventId={(eventId: string) => setEventId(eventId)}
-                //   openModal={openModal}
-                //   handleTitle={handleTitle}
-                //   app={app}
-                // />
-                <OccurrenceCard
-                  title={event.title}
-                  desc={event.desc}
-                  date={new Date(event.date)}
-                  key={event.id}
-                  onSelect={onSelect}
-                  onDeselect={onDeselect}
-                  category={event.category}
-                  state={event.state}
-                />
-              ))}
-          </div>
-        </>
-      ) : (
-        <div className={`p-occurrence__no-data`}>
-          <div>
-            <p>
-              It appears you haven't created any {modifierSingular} yet. Click
-              in <span className="highlight">'Create {modifierSingular}'</span>{' '}
-              to create.
-            </p>
-            <DefaultButton onClick={handleCreateOccurrence}>
-              {`Create ${modifierSingular}`}
-            </DefaultButton>
-          </div>
-        </div>
-      )}
+    <main className="p-occurrence">
+      <div className="p-occurrence__tabs">
+        <button
+          className={`p-occurrence__tabs__tab p-occurrence__tabs__tab${view === ViewsEnum.EVENTS ? '--active' : ''}`}
+          onClick={() => setView(ViewsEnum.EVENTS)}
+          title="Events"
+          aria-label="Go to events view"
+        >
+          <ClockIcon />
+        </button>
+        <button
+          className={`p-occurrence__tabs__tab p-occurrence__tabs__tab${view === ViewsEnum.CALENDAR ? '--active' : ''}`}
+          onClick={() => setView(ViewsEnum.CALENDAR)}
+          title="Calendar"
+          aria-label="Go to calendar view"
+        >
+          <CalendarIcon />
+        </button>
+        <button
+          className={`p-occurrence__tabs__tab p-occurrence__tabs__tab${view === ViewsEnum.ACTIONS ? '--active' : ''}`}
+          onClick={() => setView(ViewsEnum.ACTIONS)}
+          title="Actions"
+          aria-label="Go to actions view"
+        >
+          <StopWatchIcon />
+        </button>
+      </div>
+      {view === ViewsEnum.EVENTS && <EventsView></EventsView>}
+      {view === ViewsEnum.CALENDAR && <CalendarView></CalendarView>}
+      {view === ViewsEnum.ACTIONS && <ActionsView></ActionsView>}
       {search && occurrences.length === 0 && (
         <div>Sorry, we couldn't find any results related to your research.</div>
       )}
