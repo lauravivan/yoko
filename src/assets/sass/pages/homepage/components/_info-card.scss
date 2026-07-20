@@ -2,18 +2,19 @@
 
 .c-info-card {
   display: flex;
-  background-color: tokens.$bg-subtle;
+  background-color: rgba(tokens.$bg-default, 0.8);
   border-radius: tokens.$border-r-soft;
-  padding: 20px 20px 10px;
+  padding: 20px 20px;
   cursor: pointer;
   border: 1px solid tokens.$border-color-dark;
   transition: background-color 0.3s;
+  min-height: 130px;
 
   &:hover {
-    background-color: tokens.$bg-default;
+    background-color: tokens.$bg-subtle;
 
     .c-info-card__title {
-      background-color: #fff;
+      background-color: tokens.$bg-default;
     }
   }
 
@@ -26,8 +27,8 @@
 
   &__title {
     @include tokens.text-base-highlight();
-    margin-bottom: 5px;
-    background-color: tokens.$bg-default;
+    margin-bottom: 10px;
+    background-color: tokens.$bg-subtle;
     width: max-content;
     border-radius: tokens.$border-r-soft;
     padding: 2px 5px;
@@ -37,29 +38,11 @@
   &__desc {
     @include tokens.text-sm();
   }
-
-  &__mascot {
-    display: flex;
-    align-items: end;
-    margin: auto;
-    height: 100%;
-
-    img {
-      width: 40px;
-      height: 40px;
-    }
-  }
 }
 
 .c-info-card--disabled {
-  background-color: tokens.$bg-subtle;
-
-  .c-info-card__title {
-    background-color: tokens.$bg-subtle;
-  }
-
   &:hover {
-    background-color: tokens.$bg-subtle;
+    background-color: rgba(tokens.$bg-default, 0.8);
 
     .c-info-card__title {
       background-color: tokens.$bg-subtle;

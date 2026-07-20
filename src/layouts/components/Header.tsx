@@ -92,36 +92,40 @@ const Header = ({ toggleTheme, handleSearch, search }: HeaderProps) => {
               {timeOfDay.icon()}
             </ToggleButton>
           </div>
-          <span>Hey there.</span>
         </div>
       </div>
-      <form className="c-header__search" method="get">
-        <input
-          placeholder="Search for a specific date..."
-          onChange={handleChange}
-          id="search"
-          name="search"
-          value={search}
-        />
-        {search.length > 0 ? (
-          <button type="button" onClick={cleanSearch}>
-            <BsX />
-          </button>
-        ) : (
-          <BsSearch />
-        )}
-      </form>
-      <div className="c-header__options">
-        <div className="c-header__options__menu">
-          <button type="button" onClick={handleMenu}>
-            <MenuIcon />
-          </button>
-          {menuOpen && (
-            <ul>
-              <MenuItem icon={<StopWatchIcon />}>My recurring actions</MenuItem>
-              <MenuItem icon={<ClockIcon />}>My events</MenuItem>
-            </ul>
+      <span className="c-header__period">Hey there.</span>
+      <div className="c-header__right-side">
+        <form className="c-header__right-side__search" method="get">
+          <input
+            placeholder="Search for a specific date..."
+            onChange={handleChange}
+            id="search"
+            name="search"
+            value={search}
+          />
+          {search.length > 0 ? (
+            <button type="button" onClick={cleanSearch}>
+              <BsX />
+            </button>
+          ) : (
+            <BsSearch />
           )}
+        </form>
+        <div className="c-header__right-side__options">
+          <div className="c-header__right-side__options__menu">
+            <button type="button" onClick={handleMenu}>
+              <MenuIcon />
+            </button>
+            {menuOpen && (
+              <ul>
+                <MenuItem icon={<StopWatchIcon />}>
+                  My recurring actions
+                </MenuItem>
+                <MenuItem icon={<ClockIcon />}>My events</MenuItem>
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </header>
