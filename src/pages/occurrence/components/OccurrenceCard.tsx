@@ -80,13 +80,15 @@ const OccurrenceCard = ({
   onDeselect,
   category,
   isEvent,
+  startDate,
 }: {
   title: string;
-  desc?: string;
+  desc: string | null;
   category: OccurrenceCategoryEnum;
   onSelect: () => void;
   onDeselect: () => void;
   isEvent: boolean;
+  startDate: Date;
 }) => {
   const [showDesc, setShowDesc] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -137,7 +139,9 @@ const OccurrenceCard = ({
             {showDesc && desc && isEvent && (
               <p className={`c-countdown-card__desc`}>{desc}</p>
             )}
-            {/* <span className={`${baseClass}__date`}>{formatDate(date)}</span> */}
+            <span className={`${baseClass}__date`}>
+              {formatDate(startDate)}
+            </span>
             {!isEvent && (
               <div className="c-countup-card__countup">
                 <span className="c-countup-card__countup__num">26</span>
@@ -156,7 +160,7 @@ const OccurrenceCard = ({
         </div>
         {showRightContainer && (
           <div className={`${baseClass}__right-container`}>
-            {/* {isEvent && <CountingOfDays dateToEvent={date} />} */}
+            {isEvent && <CountingOfDays dateToEvent={startDate} />}
             {showDesc && desc && !isEvent && (
               <p className={`c-countup-card__desc`}>{desc}</p>
             )}
