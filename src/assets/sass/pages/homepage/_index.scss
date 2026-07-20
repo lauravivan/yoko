@@ -11,11 +11,16 @@
     flex: 1;
 
     h1 {
+      background-color: tokens.$bg-subtle;
+      padding: 0px 20px 0px 10px;
+      border-radius: tokens.$border-r-soft;
       @include tokens.text-xl-highlight();
+      font-size: 45px;
     }
 
     h3 {
       @include tokens.text-base();
+      font-size: 19px;
     }
   }
 
