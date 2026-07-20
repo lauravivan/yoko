@@ -3,19 +3,21 @@
 .p-homepage {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 35px;
-  column-gap: 50px;
+  gap: 10px;
 
-  @media (min-width: tokens.$desktop-sm-min) {
+  @media (min-width: tokens.$tablet-min) {
     grid-template-columns: repeat(2, 1fr);
+    margin: 50px auto 0px;
+    max-width: 75%;
+  }
+
+  @media (min-width: tokens.$desktop-lg-min) {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 50px auto 0px;
+    max-width: 70%;
 
     .c-info-card {
-      max-width: 400px;
-    }
-
-    .c-info-card:nth-child(1),
-    .c-info-card:nth-child(3) {
-      margin-left: auto;
+      height: 200px;
     }
   }
 }

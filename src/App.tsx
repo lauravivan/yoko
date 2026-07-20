@@ -16,11 +16,7 @@ const App = () => {
           <Route element={<AppLayout />}>
             <Route index element={<Homepage />} />
             <Route
-              path={navigate.navigateToEvents().pathname}
-              element={<OccurrencePage isEvents />}
-            />
-            <Route
-              path={navigate.navigateToActions().pathname}
+              path={navigate.navigateToOccurrences().pathname}
               element={<OccurrencePage />}
             />
           </Route>
