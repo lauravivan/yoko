@@ -22,11 +22,7 @@ const filterOptions = [
   'In more than 6 months',
 ];
 
-interface OccurrencePageProps {
-  isEvents?: boolean;
-}
-
-const OccurrencePage = ({ isEvents = false }: OccurrencePageProps) => {
+const OccurrencePage = () => {
   const session = useAuth();
   const location = useLocation();
   const { openModal, handleTitle } = useModal();
@@ -42,16 +38,13 @@ const OccurrencePage = ({ isEvents = false }: OccurrencePageProps) => {
   const { selectedCount, onSelect, onDeselect } = useDelete();
   // const events = getPaginatedEvents(app);
 
-  const modifier = isEvents ? 'events' : 'actions';
+  const modifier = 'events';
 
   const modifierSingular = modifier.replace('s', '');
 
-  const handleCreateOccurrence = () =>
-    createOccurrence(
-      isEvents ? OccurrenceEnum.WAITING : OccurrenceEnum.ONGOING
-    );
+  const handleCreateOccurrence = () => createOccurrence(OccurrenceEnum.WAITING);
 
-  const occurrences = getOccurrences(isEvents);
+  const occurrences = getOccurrences(true);
 
   return (
     <main className={`p-occurrence p-occurrence--${modifier}`}>

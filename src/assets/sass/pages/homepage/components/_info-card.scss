@@ -2,18 +2,19 @@
 
 .c-info-card {
   display: flex;
-  background-color: tokens.$bg-default;
+  background-color: tokens.$bg-subtle;
   border-radius: tokens.$border-r-soft;
-  padding: 20px 30px 10px;
+  padding: 20px 20px 10px;
   cursor: pointer;
-  min-height: 150px;
-
-  &--disabled {
-    background-color: tokens.$bg-subtle;
-  }
+  border: 1px solid tokens.$border-color-dark;
+  transition: background-color 0.3s;
 
   &:hover {
-    background-color: tokens.$bg-subtle;
+    background-color: tokens.$bg-default;
+
+    .c-info-card__title {
+      background-color: #fff;
+    }
   }
 
   a {
@@ -26,6 +27,11 @@
   &__title {
     @include tokens.text-base-highlight();
     margin-bottom: 5px;
+    background-color: tokens.$bg-default;
+    width: max-content;
+    border-radius: tokens.$border-r-soft;
+    padding: 2px 5px;
+    transition: background-color 0.3s;
   }
 
   &__desc {
@@ -34,13 +40,29 @@
 
   &__mascot {
     display: flex;
-    align-items: center;
-    margin: 0 auto;
+    align-items: end;
+    margin: auto;
     height: 100%;
 
     img {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.c-info-card--disabled {
+  background-color: tokens.$bg-subtle;
+
+  .c-info-card__title {
+    background-color: tokens.$bg-subtle;
+  }
+
+  &:hover {
+    background-color: tokens.$bg-subtle;
+
+    .c-info-card__title {
+      background-color: tokens.$bg-subtle;
     }
   }
 }

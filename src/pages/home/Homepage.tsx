@@ -5,28 +5,26 @@ const Homepage = () => {
   return (
     <main className="p-homepage">
       <InfoCard
-        title="Events"
-        desc="Access all your important events and keep track on 
+        title="Occurrences"
+        desc="Access all your important events and recurring actions and keep track on 
 their counting days"
-        to={navigation.navigateToEvents()}
+        to={navigation.navigateToOccurrences()}
       />
       <InfoCard
-        title="Recurring actions"
-        desc="Access all your important events and keep track on 
-their counting days"
-        to={navigation.navigateToActions()}
+        title="Notes"
+        desc="Access all your annotations"
+        to="#"
+        isDisabled
       />
       <InfoCard
-        title="Notes and tasks"
-        desc="Access all your important events and keep track on 
-their counting days"
+        title="Tasks"
+        desc="Access all your daily tasks"
         to="#"
         isDisabled
       />
       <InfoCard
         title="Mood history"
-        desc="Access all your important events and keep track on 
-their counting days"
+        desc="Access your mood history and get mood analysis"
         to="#"
         isDisabled
       />

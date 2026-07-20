@@ -10,6 +10,5 @@ interface RouteConfig {
 }
 
 export default {
-  navigateToEvents: (): RouteConfig => ({ pathname: '/events' }),
-  navigateToActions: (): RouteConfig => ({ pathname: '/recurring-actions' }),
+  navigateToOccurrences: (): RouteConfig => ({ pathname: '/occurrences' }),
 } as const;
