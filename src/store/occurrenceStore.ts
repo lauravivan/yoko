@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
 import { generateRandomString } from '@/helpers/generators/random';
 import { IOccurrence } from '@/types/Occurrence';
-import { OccurrenceCategoryEnum, OccurrenceEnum } from '@/enum/OccurrenceEnum';
+import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
@@ -28,6 +28,9 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         desc: '',
         isEvent,
         category: OccurrenceCategoryEnum.Personal,
+        goalId: null,
+        startDate: new Date(),
+        endDate: new Date(),
       };
 
       const prevOccurrences = [...state.occurrences];

@@ -77,6 +77,7 @@ const EventsView = () => {
                   onDeselect={onDeselect}
                   category={event.category}
                   isEvent={event.isEvent}
+                  startDate={event.startDate}
                 />
               ))}
           </div>
