@@ -32,6 +32,7 @@ body {
 
 /* tokens */
 @include meta.load-css('tokens');
+@include meta.load-css('animation');
 
 /* components */
 @include meta.load-css('components/utils/divider');

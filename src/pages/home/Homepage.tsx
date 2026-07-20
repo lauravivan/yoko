@@ -6,7 +6,7 @@ const Homepage = () => {
     <main className="p-homepage">
       <div className="p-homepage__intro">
         <div>
-          <h1>Welcome to Yoko!</h1>
+          <h1 className="animation-typing">Welcome to Yoko!</h1>
           <h3>Pick a card to get started.</h3>
         </div>
       </div>
