@@ -14,6 +14,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 /* breakpoints */
 /* border radius */
 /* border width */
@@ -128,11 +130,6 @@ body {
   min-height: 0;
   overflow-y: auto;
   padding: 20px 0 100px;
-}
-
-.highlight {
-  color: #b5e0ff;
-  font-weight: 700;
 }
 
 /* tokens */
@@ -663,29 +660,35 @@ body {
 /* opacity */
 /* shadow */
 .p-occurrence {
+  display: flex;
+  flex-direction: column;
   position: relative;
   height: 100%;
 }
 
-.p-occurrence__cards {
-  display: grid;
-  row-gap: 30px;
-  column-gap: 40px;
-  padding-bottom: 50px;
+.p-occurrence__tabs {
+  display: flex;
+  column-gap: 10px;
+  margin-left: auto;
 }
 
-.p-occurrence__no-data {
-  display: flex;
-  justify-content: center;
-  height: 100%;
+.p-occurrence__tabs svg {
+  width: 30px;
+  height: 30px;
 }
 
-.p-occurrence__no-data > div {
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  justify-items: center;
-  align-items: center;
+.p-occurrence__tabs__tab {
+  all: unset;
+  border: 1px solid #1a1a1a;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  background-color: #f8f8f8;
+}
+
+.p-occurrence__tabs__tab--active, .p-occurrence__tabs__tab:hover {
+  background-color: #b5e0ff;
 }
 
 .p-occurrence .c-list-toolbar__item-wrapper .c-dynamic-modal ul {
@@ -701,14 +704,6 @@ body {
   background-color: #f8f8f8;
   border-radius: 5px;
   padding: 5px 10px;
-}
-
-.p-occurrence--events .p-occurrence__cards {
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-
-.p-occurrence--actions .p-occurrence__cards {
-  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
 }
 
 .p-occurrence--actions:has(.c-countup-card--show-desc) .p-occurrence__cards {
@@ -961,6 +956,91 @@ body {
   font-size: 13px;
   line-height: 1.5;
   color: #262626;
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-not-found {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.c-not-found > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.c-not-found__highlight {
+  color: #b5e0ff;
+  font-weight: 700;
+}
+
+.c-events-view__cards {
+  display: grid;
+  row-gap: 30px;
+  column-gap: 40px;
+  padding-bottom: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
+.c-calendar-view {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.c-calendar-view__head {
+  display: flex;
+  flex: 1;
+}
+
+.c-calendar-view__head__item {
+  flex: 1;
+  border: 1px solid #1a1a1a;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+
+.c-calendar-view__head__item:nth-child(1) {
+  border-top-left-radius: 5px;
+}
+
+.c-calendar-view__head__item:last-child {
+  border-top-right-radius: 5px;
+}
+
+.c-calendar-view__body {
+  display: flex;
+}
+
+.c-calendar-view__body__item {
+  flex: 1;
+}
+
+.c-calendar-view__body__item > div {
+  padding: 10px;
+  border: 1px solid #1a1a1a;
+  background-color: #fff;
+}
+
+.c-actions-view__cards {
+  display: grid;
+  row-gap: 30px;
+  column-gap: 40px;
+  padding-bottom: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
 }
 
 /*# sourceMappingURL=main.css.map */

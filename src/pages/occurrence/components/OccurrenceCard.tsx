@@ -75,37 +75,34 @@ const CategoryIcon = ({ category }: { category: OccurrenceCategoryEnum }) => {
 
 const OccurrenceCard = ({
   title,
-  date,
   desc,
   onSelect,
   onDeselect,
   category,
-  state,
+  isEvent,
 }: {
   title: string;
-  date: Date;
   desc?: string;
   category: OccurrenceCategoryEnum;
   onSelect: () => void;
   onDeselect: () => void;
-  state: OccurrenceEnum;
+  isEvent: boolean;
 }) => {
-  const isEvents = state === OccurrenceEnum.WAITING;
   const [showDesc, setShowDesc] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [showRightContainer, setShowRightContainer] = useState(
-    isEvents ? true : false
+    isEvent ? true : false
   );
 
   const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
 
-  const baseClass = isEvents ? 'c-countdown-card' : 'c-countup-card';
+  const baseClass = isEvent ? 'c-countdown-card' : 'c-countup-card';
   const showRightClass = showRightContainer ? ' c-countup-card--show-desc' : '';
 
   const handleDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setShowDesc((prev) => !prev);
-    if (!isEvents) setShowRightContainer((prev) => !prev);
+    if (!isEvent) setShowRightContainer((prev) => !prev);
   };
 
   const { refs } = useFloating({
@@ -131,23 +128,23 @@ const OccurrenceCard = ({
               >
                 {title}
               </h3>
-              {desc && isEvents && (
+              {desc && isEvent && (
                 <button onClick={handleDesc}>
                   <NoteIcon />
                 </button>
               )}
             </div>
-            {showDesc && desc && isEvents && (
+            {showDesc && desc && isEvent && (
               <p className={`c-countdown-card__desc`}>{desc}</p>
             )}
-            <span className={`${baseClass}__date`}>{formatDate(date)}</span>
-            {!isEvents && (
+            {/* <span className={`${baseClass}__date`}>{formatDate(date)}</span> */}
+            {!isEvent && (
               <div className="c-countup-card__countup">
                 <span className="c-countup-card__countup__num">26</span>
                 <span className="c-countup-card__countup__ext">days</span>
               </div>
             )}
-            {!isEvents && desc && (
+            {!isEvent && desc && (
               <button className="c-countup-card__desc-btn" onClick={handleDesc}>
                 <DocumentTextIcon />
               </button>
@@ -159,8 +156,8 @@ const OccurrenceCard = ({
         </div>
         {showRightContainer && (
           <div className={`${baseClass}__right-container`}>
-            {isEvents && <CountingOfDays dateToEvent={date} />}
-            {showDesc && desc && !isEvents && (
+            {/* {isEvent && <CountingOfDays dateToEvent={date} />} */}
+            {showDesc && desc && !isEvent && (
               <p className={`c-countup-card__desc`}>{desc}</p>
             )}
           </div>

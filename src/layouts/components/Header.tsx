@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router';
 // import SignOutIcon from './icons/SignOut';
 // import SignInIcon from './icons/SignIn';
 import DefaultLogo from '@/components/display/DefaultLogo';
-import StopWatchIcon from '@/components/display/icons/StopWatch';
+import StopWatchIcon from '@/components/display/icons/views/StopWatch';
 // import Grid from '../Grid';
 // import { paths } from '@/contants/paths';
 // import TaskIcon from './icons/Task';
@@ -13,7 +13,7 @@ import StopWatchIcon from '@/components/display/icons/StopWatch';
 import ToggleButton from '@/components/action/ToggleButton';
 import MenuIcon from '@/components/display/icons/Menu';
 import Divider from '@/components/utils/Divider';
-import ClockIcon from '@/components/display/icons/Clock';
+import ClockIcon from '@/components/display/icons/views/Clock';
 import navigation from '@/navigation';
 import getTimeOfDay from '@/helpers/time/getTimeOfDay';
 

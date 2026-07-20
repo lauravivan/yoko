@@ -7,26 +7,26 @@ import { OccurrenceCategoryEnum, OccurrenceEnum } from '@/enum/OccurrenceEnum';
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
-  createOccurrence: (state: OccurrenceEnum) => void;
+  createOccurrence: (isEvent?: boolean) => void;
   updateOccurrenceDesc: (id: string, newDesc: string) => void;
-  updateOccurrenceColor: (id: string, newColor: string) => void;
   updateOccurrenceDate: (id: string, newDate: Date) => void;
   deleteOccurrence: (id: string) => void;
   setOccurrences: (search: string, filter: string, sort: string) => void;
   saveOccurrences: (occurrences: IOccurrence[]) => void;
-  getOccurrences: (isEvents: boolean) => IOccurrence[];
+  getOccurrences: () => IOccurrence[];
+  getEvents: () => IOccurrence[];
+  getActions: () => IOccurrence[];
 }
 
 const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
   occurrences: [],
-  createOccurrence: (occurrenceState: OccurrenceEnum) =>
+  createOccurrence: (isEvent: boolean = true) =>
     set((state) => {
       const occurrence: IOccurrence = {
         id: uuidv7(),
         title: 'Unamed',
         desc: '',
-        date: new Date(),
-        state: occurrenceState,
+        isEvent,
         category: OccurrenceCategoryEnum.Personal,
       };
 
@@ -58,30 +58,13 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: prevOccurrences,
       };
     }),
-  updateOccurrenceColor: (id: string, newColor: string) =>
-    set((state) => {
-      const prevOccurrences = [...state.occurrences];
-
-      for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.color = newColor;
-        }
-      }
-
-      storeOccurrences(prevOccurrences);
-
-      return {
-        ...state,
-        occurrences: prevOccurrences,
-      };
-    }),
   updateOccurrenceDate: (id: string, newDate: Date) =>
     set((state) => {
       const prevOccurrences = [...state.occurrences];
 
       for (const e of prevOccurrences) {
         if (e.id === id) {
-          e.date = newDate;
+          // e.date = newDate;
         }
       }
 
@@ -116,15 +99,9 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
     set(() => ({
       occurrences,
     })),
-  getOccurrences: (isEvents: boolean) => {
-    if (isEvents)
-      return get().occurrences.filter(
-        (occ) => occ.state === OccurrenceEnum.WAITING
-      );
-    return get().occurrences.filter(
-      (occ) => occ.state !== OccurrenceEnum.WAITING
-    );
-  },
+  getOccurrences: () => get().occurrences,
+  getEvents: () => get().occurrences.filter((occ) => occ.isEvent),
+  getActions: () => get().occurrences.filter((occ) => !occ.isEvent),
 }));
 
 export default useOccurrenceStore;

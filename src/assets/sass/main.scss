@@ -43,11 +43,6 @@ body {
   // }
 }
 
-.highlight {
-  color: tokens.$text-color-highlight;
-  font-weight: 700;
-}
-
 // main {
 //   margin-top: var.$spacing-lg;
 // }
@@ -81,7 +76,12 @@ body {
 /* pages */
 @include meta.load-css('pages/homepage');
 @include meta.load-css('pages/homepage/components/info-card');
+
 @include meta.load-css('pages/occurrence');
 @include meta.load-css('pages/occurrence/components/occurrence-card');
+@include meta.load-css('pages/occurrence/components/not-found');
+@include meta.load-css('pages/occurrence/components/views/events-view');
+@include meta.load-css('pages/occurrence/components/views/calendar-view');
+@include meta.load-css('pages/occurrence/components/views/actions-view');
 
 // @include meta.load-css('pages/login');

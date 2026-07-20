@@ -1,27 +1,34 @@
 @use '../../tokens';
 
 .p-occurrence {
+  display: flex;
+  flex-direction: column;
   position: relative;
   height: 100%;
 
-  &__cards {
-    display: grid;
-    row-gap: 30px;
-    column-gap: 40px;
-    padding-bottom: 50px;
-  }
-
-  &__no-data {
+  &__tabs {
     display: flex;
-    justify-content: center;
-    height: 100%;
+    column-gap: 10px;
+    margin-left: auto;
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      row-gap: 20px;
-      justify-items: center;
-      align-items: center;
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    &__tab {
+      all: unset;
+      border: 1px solid tokens.$border-color-dark;
+      padding: 5px 10px;
+      border-radius: tokens.$border-r-default;
+      cursor: pointer;
+      transition: background-color 0.5s;
+      background-color: tokens.$bg-subtle;
+
+      &--active,
+      &:hover {
+        background-color: tokens.$bg-default;
+      }
     }
   }
 
@@ -44,17 +51,7 @@
     }
   }
 
-  &--events {
-    .p-occurrence__cards {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-  }
-
   &--actions {
-    .p-occurrence__cards {
-      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-    }
-
     &:has(.c-countup-card--show-desc) {
       .p-occurrence__cards {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
