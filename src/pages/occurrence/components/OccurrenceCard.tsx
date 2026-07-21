@@ -110,6 +110,7 @@ const OccurrenceCard = ({
     handleDescUpdateOnBlur,
     titleEditMode,
     handleStartDateUpdateOnBlur,
+    handleCategoryUpdateOnBlur,
   } = useOccurrenceForm({ occurrenceId: id });
 
   const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
@@ -245,13 +246,15 @@ const OccurrenceCard = ({
           <input
             className={`c-dynamic-modal__date`}
             type="date"
-            onChange={handleStartDateUpdateOnBlur}
+            onBlur={handleStartDateUpdateOnBlur}
             defaultValue={formatDateForInput(startDate)}
           />
-          <select>
+          <select onChange={handleCategoryUpdateOnBlur}>
             <option disabled>Choose a category</option>
             {Object.values(OccurrenceCategoryEnum).map((occ) => (
-              <option value={occ}>{occ}</option>
+              <option key={occ} value={occ}>
+                {occ}
+              </option>
             ))}
           </select>
         </DynamicModal>

@@ -1,3 +1,4 @@
+import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 import useOccurrenceStore from '@/store/occurrenceStore';
 import { useRef, useState } from 'react';
 
@@ -8,6 +9,7 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
     updateOccurrenceTitle,
     updateOccurrenceDesc,
     updateOccurrenceStartDate,
+    updateOccurrenceCategory,
   } = useOccurrenceStore();
   const [titleEditMode, setTitleEditMode] = useState(false);
 
@@ -50,6 +52,20 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
     updateOccurrenceStartDate(occurrenceId, new Date(e.target.value));
   };
 
+  const handleCategoryUpdateOnBlur = (
+    e: React.FocusEvent<HTMLSelectElement>
+  ) => {
+    const isValidCategory = Object.values(OccurrenceCategoryEnum).some(
+      (c) => c === e.target.options[e.target.selectedIndex].value
+    );
+    updateOccurrenceCategory(
+      occurrenceId,
+      isValidCategory
+        ? (e.target.value as OccurrenceCategoryEnum)
+        : OccurrenceCategoryEnum.Personal
+    );
+  };
+
   return {
     titleRef,
     descRef,
@@ -60,6 +76,7 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
     handleDescUpdateOnBlur,
     handleStartDateUpdateOnBlur,
     titleEditMode,
+    handleCategoryUpdateOnBlur,
   };
 };
 

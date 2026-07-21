@@ -10,6 +10,10 @@ interface OccurrenceStoreState {
   updateOccurrenceTitle: (id: string, newTitle: string) => void;
   updateOccurrenceDesc: (id: string, newDesc: string) => void;
   updateOccurrenceStartDate: (id: string, newDate: Date) => void;
+  updateOccurrenceCategory: (
+    id: string,
+    newCategory: OccurrenceCategoryEnum
+  ) => void;
   deleteOccurrence: (id: string) => void;
   setOccurrences: (search: string, filter: string, sort: string) => void;
   saveOccurrences: (occurrences: IOccurrence[]) => void;
@@ -85,6 +89,23 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
       for (const e of prevOccurrences) {
         if (e.id === id) {
           e.startDate = newDate;
+        }
+      }
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
+  updateOccurrenceCategory: (id: string, newCategory: OccurrenceCategoryEnum) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.category = newCategory;
         }
       }
 
