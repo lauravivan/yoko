@@ -1,21 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 /* 1. Use a more-intuitive box-sizing model */
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 /* breakpoints */
 /* border radius */
 /* border width */
@@ -102,7 +102,7 @@ h6 {
 
 :root {
   color: #262626;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -217,7 +217,8 @@ body {
   }
 }
 @keyframes blink {
-  from, to {
+  from,
+  to {
     border-color: transparent;
   }
   50% {
@@ -229,7 +230,9 @@ body {
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  animation: typing 2.5s steps(35, end) forwards, blink 0.2s step-end infinite;
+  animation:
+    typing 2.5s steps(35, end) forwards,
+    blink 0.2s step-end infinite;
 }
 
 /* components */
@@ -275,7 +278,7 @@ body {
 }
 
 .logo__appname {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -368,7 +371,7 @@ body {
 }
 
 .c-list-toolbar__item-wrapper .c-dynamic-modal__title {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -449,7 +452,7 @@ body {
 .c-header__period {
   flex: 3;
   text-align: center;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 21px;
   line-height: 1.5;
@@ -520,7 +523,7 @@ body {
 .c-header__right-side__options__menu > ul > li > a > div:first-of-type {
   display: flex;
   align-items: center;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -540,7 +543,13 @@ body {
   align-items: center;
 }
 
-.c-header__right-side__options__menu > ul > li > a > div:first-of-type > div svg {
+.c-header__right-side__options__menu
+  > ul
+  > li
+  > a
+  > div:first-of-type
+  > div
+  svg {
   width: 18px;
   height: 18px;
 }
@@ -627,7 +636,7 @@ body {
 }
 
 .c-footer__data span {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -680,7 +689,7 @@ body {
   background-color: #f8f8f8;
   padding: 0px 20px 0px 10px;
   border-radius: 5px;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -688,7 +697,7 @@ body {
 }
 
 .p-homepage__intro h3 {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -740,7 +749,7 @@ body {
 }
 
 .c-info-card__title {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -753,7 +762,7 @@ body {
 }
 
 .c-info-card__desc {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -801,7 +810,8 @@ body {
   background-color: #f8f8f8;
 }
 
-.p-occurrence__tabs__tab--active, .p-occurrence__tabs__tab:hover {
+.p-occurrence__tabs__tab--active,
+.p-occurrence__tabs__tab:hover {
   background-color: #b5e0ff;
 }
 
@@ -828,7 +838,8 @@ body {
   width: fit-content;
 }
 
-.p-occurrence--actions:has(.c-countup-card--show-desc) .c-countup-card__left-container {
+.p-occurrence--actions:has(.c-countup-card--show-desc)
+  .c-countup-card__left-container {
   flex: none;
 }
 
@@ -850,7 +861,8 @@ body {
   border-bottom-right-radius: unset;
 }
 
-.c-countup-card__title-container, .c-countup-card__date {
+.c-countup-card__title-container,
+.c-countup-card__date {
   justify-self: center;
   display: block;
 }
@@ -866,7 +878,7 @@ body {
 
 .c-countup-card__countup__num {
   margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -874,7 +886,7 @@ body {
 
 .c-countup-card__countup__ext {
   margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -901,7 +913,9 @@ body {
   height: 100%;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card:hover .c-occurrence-card__checkbox-container {
+.c-occurrence-card-wrapper
+  .c-occurrence-card:hover
+  .c-occurrence-card__checkbox-container {
   display: block;
 }
 
@@ -912,7 +926,10 @@ body {
   right: 5px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card:has(.c-occurrence-card__checkbox-container > input:checked) {
+.c-occurrence-card-wrapper
+  .c-occurrence-card:has(
+    .c-occurrence-card__checkbox-container > input:checked
+  ) {
   border-width: 2px;
 }
 
@@ -942,68 +959,126 @@ body {
   right: 15px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__category-icon svg {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__category-icon
+  svg {
   width: 30px;
   height: 30px;
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container--Personal {
-  background-color: #b3fff9;
+  background-color: #ccf0ec;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Work {
+  background-color: #ccccf0;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Study {
+  background-color: #dbccf0;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Finance {
+  background-color: #d8f0cc;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Family {
+  background-color: #f0ccd8;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Travel {
+  background-color: #cce1f0;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Home {
+  background-color: #f0e7cc;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Health {
+  background-color: #f0d2cc;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Reading {
+  background-color: #ccf0de;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Social {
+  background-color: #edccf0;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Hobby {
+  background-color: #e7f0cc;
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container {
-  width: fit-content;
+  width: 100%;
   display: flex;
+  align-items: center;
   column-gap: 5px;
   position: relative;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  button {
   all: unset;
   cursor: pointer;
-  position: absolute;
-  right: -10px;
-  bottom: 0;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button svg {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  button:hover {
+  transform: scale(1.2);
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  button
+  svg {
   width: 30px;
   height: 30px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container__input {
   all: unset;
   color: #262626;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
   margin: 0;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input::placeholder {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container__input::placeholder {
   color: #262626;
   opacity: 0.8;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input--desc-hidden {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container__input--desc-hidden {
   flex: 2;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__title {
-  font-family: "Quicksand", sans-serif;
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container__title {
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  width: 80%;
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__desc {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.5;
@@ -1028,9 +1103,18 @@ body {
   padding: 33px 19px 30px 17px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__right-container span {
+.c-occurrence-card-wrapper .c-occurrence-card__right-container__counting {
   text-align: center;
   align-self: center;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__right-container__counting--highlight {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  font-size: 20px;
 }
 
 .c-occurrence-card-wrapper .c-dynamic-modal {
@@ -1042,7 +1126,7 @@ body {
 }
 
 .c-occurrence-card-wrapper .c-dynamic-modal__title span {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -1055,7 +1139,7 @@ body {
   background-color: #f8f8f8;
   padding: 7px 10px;
   border-radius: 5px;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -1096,8 +1180,7 @@ body {
 
 .c-events-view__cards {
   display: grid;
-  row-gap: 30px;
-  column-gap: 20px;
+  gap: 20px;
   padding-bottom: 50px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }

@@ -24,17 +24,17 @@ $dark-md: #262626;
 $dark: #1a1a1a;
 
 //base colors to use with categories
-$ice-mint: #b3fff9;
-$periwinkle: #b3b5ff;
-$pale-lavender: #dab3ff;
-$tea-green: #c1ffb3;
-$pastel-pink: #ffb3d0;
-$baby-blue: $blue;
-$pale-peach: #ffe9b3;
-$melon: #ffbfb3;
-$mint-green: #b3ffcf;
-$light-magenta: #ffb3fa;
-$pale-lime: #ebffb3;
+$ice-mint: #ccf0ec;
+$periwinkle: #ccccf0;
+$pale-lavender: #dbccf0;
+$tea-green: #d8f0cc;
+$pastel-pink: #f0ccd8;
+$baby-blue: #cce1f0;
+$pale-peach: #f0e7cc;
+$melon: #f0d2cc;
+$mint-green: #ccf0de;
+$light-magenta: #edccf0;
+$pale-lime: #e7f0cc;
 
 // Background colors
 
@@ -49,6 +49,18 @@ $bg-subtle: $gray;
 $bg-subtle-hover: $gray-70;
 
 $bg-dark: $dark;
+
+$bg-cat-personal: $ice-mint;
+$bg-cat-work: $periwinkle;
+$bg-cat-study: $pale-lavender;
+$bg-cat-finance: $tea-green;
+$bg-cat-family: $pastel-pink;
+$bg-cat-travel: $baby-blue;
+$bg-cat-home: $pale-peach;
+$bg-cat-health: $melon;
+$bg-cat-reading: $mint-green;
+$bg-cat-social: $light-magenta;
+$bg-cat-hobby: $pale-lime;
 
 // Border colors
 $border-color-default: $red-10;

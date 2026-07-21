@@ -18,6 +18,15 @@ import PersonalIcon from '@/components/display/icons/categories/Personal';
 import WorkIcon from '@/components/display/icons/categories/Work';
 import Divider from '@/components/utils/Divider';
 import useOccurrenceForm from '../hooks/useOccurrenceForm';
+import FamilyIcon from '@/components/display/icons/categories/Family';
+import FinanceIcon from '@/components/display/icons/categories/Finance';
+import HealthIcon from '@/components/display/icons/categories/Health';
+import HobbyIcon from '@/components/display/icons/categories/Hobby';
+import HomeIcon from '@/components/display/icons/categories/Home';
+import ReadingIcon from '@/components/display/icons/categories/Reading';
+import SocialIcon from '@/components/display/icons/categories/Social';
+import StudyIcon from '@/components/display/icons/categories/Study';
+import TravelIcon from '@/components/display/icons/categories/Travel';
 
 // const getCounting = (date: Date) => {
 //   const now = createUTCDateNow();
@@ -54,23 +63,38 @@ const CountingOfDays = ({ dateToEvent }: { dateToEvent: Date }) => {
     new Date().setHours(0, 1)
   );
 
-  const happened = difference < 0 && (
-    <span>
-      Already <br /> happened
+  return (
+    <span className="c-occurrence-card__right-container__counting">
+      {difference < 0 && (
+        <>
+          Already <br /> happened
+        </>
+      )}
+      {difference === 0 && <>It's today!!</>}
+      {difference > 0 && (
+        <>
+          In{' '}
+          <span className="c-occurrence-card__right-container__counting--highlight">
+            {difference}
+          </span>{' '}
+          {difference === 1 ? 'day' : 'days'}
+        </>
+      )}
     </span>
   );
-  const today = difference === 0 && <span>It's today!!</span>;
-  const oneDay = difference > 0 && (
-    <span>
-      In {difference} {difference === 1 ? 'day' : 'days'}{' '}
-    </span>
-  );
-
-  return happened || today || oneDay;
 };
 
 const CategoryIcon = ({ category }: { category: OccurrenceCategoryEnum }) => {
   if (category === OccurrenceCategoryEnum.Personal) return <PersonalIcon />;
+  if (category === OccurrenceCategoryEnum.Family) return <FamilyIcon />;
+  if (category === OccurrenceCategoryEnum.Finance) return <FinanceIcon />;
+  if (category === OccurrenceCategoryEnum.Health) return <HealthIcon />;
+  if (category === OccurrenceCategoryEnum.Hobby) return <HobbyIcon />;
+  if (category === OccurrenceCategoryEnum.Home) return <HomeIcon />;
+  if (category === OccurrenceCategoryEnum.Reading) return <ReadingIcon />;
+  if (category === OccurrenceCategoryEnum.Social) return <SocialIcon />;
+  if (category === OccurrenceCategoryEnum.Study) return <StudyIcon />;
+  if (category === OccurrenceCategoryEnum.Travel) return <TravelIcon />;
   if (category === OccurrenceCategoryEnum.Work) return <WorkIcon />;
   return null;
 };
@@ -145,6 +169,11 @@ const OccurrenceCard = ({
             <div
               className={`c-occurrence-card__left-container__title-container`}
             >
+              {desc && isEvent && !titleEditMode && (
+                <button onClick={handleDesc}>
+                  <NoteIcon />
+                </button>
+              )}
               {titleEditMode && (
                 <input
                   className={`c-occurrence-card__left-container__title-container__input c-occurrence-card__left-container__title-container__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
@@ -165,11 +194,6 @@ const OccurrenceCard = ({
                 >
                   {title}
                 </h3>
-              )}
-              {desc && isEvent && !titleEditMode && (
-                <button onClick={handleDesc}>
-                  <NoteIcon />
-                </button>
               )}
             </div>
             {showDesc && desc && isEvent && (
@@ -249,8 +273,10 @@ const OccurrenceCard = ({
             onBlur={handleStartDateUpdateOnBlur}
             defaultValue={formatDateForInput(startDate)}
           />
-          <select onChange={handleCategoryUpdateOnBlur}>
-            <option disabled>Choose a category</option>
+          <select defaultValue={category} onChange={handleCategoryUpdateOnBlur}>
+            <option value="" disabled>
+              Choose a category
+            </option>
             {Object.values(OccurrenceCategoryEnum).map((occ) => (
               <option key={occ} value={occ}>
                 {occ}

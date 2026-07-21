@@ -114,18 +114,60 @@
         background-color: tokens.$ice-mint;
       }
 
+      &--Work {
+        background-color: tokens.$periwinkle;
+      }
+
+      &--Study {
+        background-color: tokens.$pale-lavender;
+      }
+
+      &--Finance {
+        background-color: tokens.$tea-green;
+      }
+
+      &--Family {
+        background-color: tokens.$pastel-pink;
+      }
+
+      &--Travel {
+        background-color: tokens.$baby-blue;
+      }
+
+      &--Home {
+        background-color: tokens.$pale-peach;
+      }
+
+      &--Health {
+        background-color: tokens.$melon;
+      }
+
+      &--Reading {
+        background-color: tokens.$mint-green;
+      }
+
+      &--Social {
+        background-color: tokens.$light-magenta;
+      }
+
+      &--Hobby {
+        background-color: tokens.$pale-lime;
+      }
+
       &__title-container {
-        width: fit-content;
+        width: 100%;
         display: flex;
+        align-items: center;
         column-gap: 5px;
         position: relative;
 
         button {
           all: unset;
           cursor: pointer;
-          position: absolute;
-          right: -10px;
-          bottom: 0;
+
+          &:hover {
+            transform: scale(1.2);
+          }
 
           svg {
             width: 30px;
@@ -152,7 +194,10 @@
 
         &__title {
           @include tokens.text-base-highlight();
-          word-break: break-all;
+          overflow-wrap: break-word;
+          word-break: break-word;
+          white-space: pre-wrap;
+          width: 80%;
         }
       }
 
@@ -179,9 +224,14 @@
       background-color: #fff;
       padding: 33px 19px 30px 17px;
 
-      span {
+      &__counting {
         text-align: center;
         align-self: center;
+
+        &--highlight {
+          @include tokens.text-base-highlight();
+          font-size: 20px;
+        }
       }
     }
   }
