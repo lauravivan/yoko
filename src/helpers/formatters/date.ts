@@ -4,7 +4,7 @@ export function formatDate(date: Date) {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
-  }).formatToParts(date);
+  }).formatToParts(new Date(date));
 
   const obter = (tipo) => partes.find((p) => p.type === tipo)?.value;
 

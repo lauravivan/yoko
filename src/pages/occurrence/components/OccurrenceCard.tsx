@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import NoteIcon from '@/components/display/icons/Note';
 import { formatDate } from '@/helpers/formatters/date';
 import {
@@ -13,9 +13,10 @@ import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
 import DynamicModal from '@/components/display/DynamicModal';
 import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
-import { OccurrenceCategoryEnum, OccurrenceEnum } from '@/enum/OccurrenceEnum';
+import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 import PersonalIcon from '@/components/display/icons/categories/Personal';
 import WorkIcon from '@/components/display/icons/categories/Work';
+import useOccurrenceStore from '@/store/occurrenceStore';
 
 // const getCounting = (date: Date) => {
 //   const now = createUTCDateNow();
@@ -48,7 +49,7 @@ import WorkIcon from '@/components/display/icons/categories/Work';
 
 const CountingOfDays = ({ dateToEvent }: { dateToEvent: Date }) => {
   const difference = differenceInCalendarDays(
-    dateToEvent.setHours(23, 59),
+    new Date(dateToEvent).setHours(23, 59),
     new Date().setHours(0, 1)
   );
 
@@ -74,6 +75,7 @@ const CategoryIcon = ({ category }: { category: OccurrenceCategoryEnum }) => {
 };
 
 const OccurrenceCard = ({
+  id,
   title,
   desc,
   onSelect,
@@ -82,6 +84,7 @@ const OccurrenceCard = ({
   isEvent,
   startDate,
 }: {
+  id: string;
   title: string;
   desc: string | null;
   category: OccurrenceCategoryEnum;
@@ -95,11 +98,15 @@ const OccurrenceCard = ({
   const [showRightContainer, setShowRightContainer] = useState(
     isEvent ? true : false
   );
+  const [titleEditMode, setTitleEditMode] = useState(false);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const { updateOccurrenceTitle } = useOccurrenceStore();
 
   const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
 
-  const baseClass = isEvent ? 'c-countdown-card' : 'c-countup-card';
-  const showRightClass = showRightContainer ? ' c-countup-card--show-desc' : '';
+  const showRightClass = showRightContainer
+    ? ' c-occurrence-card--show-desc'
+    : '';
 
   const handleDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -113,23 +120,59 @@ const OccurrenceCard = ({
     whileElementsMounted: autoUpdate,
   });
 
+  const handleTitleUpdateOnKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (e.key === 'Enter' && titleRef.current) {
+      updateOccurrenceTitle(id, titleRef.current.value);
+      titleRef.current.blur();
+      setTitleEditMode(false);
+    }
+  };
+
+  const handleTitleUpdateOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    updateOccurrenceTitle(id, e.target.value);
+    setTitleEditMode(false);
+  };
+
+  const handleTitleEditMode = (e: React.MouseEvent<HTMLHeadingElement>) => {
+    e.stopPropagation();
+    setTitleEditMode(true);
+  };
+
   return (
     <div className="c-occurrence-card-wrapper" ref={articleRef}>
       <article
-        className={`c-occurrence-card ${baseClass}${showRightClass}`}
+        className={`c-occurrence-card${showRightClass}`}
         onClick={() => setModalOpen((prev) => !prev)}
         ref={refs.setReference}
       >
         <div
-          className={`${baseClass}__left-container ${baseClass}__left-container--${category}`}
+          className={`c-occurrence-card__left-container c-occurrence-card__left-container--${category}`}
         >
           <div>
-            <div className={`${baseClass}__title-container`}>
-              <h3
-                className={`${baseClass}__title ${baseClass}__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
-              >
-                {title}
-              </h3>
+            <div className={`c-occurrence-card__title-container`}>
+              {titleEditMode && (
+                <input
+                  className={`c-occurrence-card__title-container__input c-occurrence-card__title-container__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
+                  placeholder={title}
+                  onClick={(e) => e.stopPropagation()}
+                  onKeyDown={handleTitleUpdateOnKeyDown}
+                  ref={titleRef}
+                  defaultValue={title}
+                  onBlur={handleTitleUpdateOnBlur}
+                  maxLength={50}
+                  title={title}
+                />
+              )}
+              {!titleEditMode && (
+                <h3
+                  className={`c-occurrence-card__title-container__title c-occurrence-card__title-container__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
+                  onClick={handleTitleEditMode}
+                >
+                  {title}
+                </h3>
+              )}
               {desc && isEvent && (
                 <button onClick={handleDesc}>
                   <NoteIcon />
@@ -137,36 +180,39 @@ const OccurrenceCard = ({
               )}
             </div>
             {showDesc && desc && isEvent && (
-              <p className={`c-countdown-card__desc`}>{desc}</p>
+              <p className={`c-occurrence-card__desc`}>{desc}</p>
             )}
-            <span className={`${baseClass}__date`}>
+            <span className={`c-occurrence-card__date`}>
               {formatDate(startDate)}
             </span>
             {!isEvent && (
-              <div className="c-countup-card__countup">
-                <span className="c-countup-card__countup__num">26</span>
-                <span className="c-countup-card__countup__ext">days</span>
+              <div className="c-occurrence-card__countup">
+                <span className="c-occurrence-card__countup__num">26</span>
+                <span className="c-occurrence-card__countup__ext">days</span>
               </div>
             )}
             {!isEvent && desc && (
-              <button className="c-countup-card__desc-btn" onClick={handleDesc}>
+              <button
+                className="c-occurrence-card__desc-btn"
+                onClick={handleDesc}
+              >
                 <DocumentTextIcon />
               </button>
             )}
           </div>
-          <div className={`${baseClass}__left-container__category-icon`}>
+          <div className={`c-occurrence-card__left-container__category-icon`}>
             <CategoryIcon category={category} />
           </div>
         </div>
         {showRightContainer && (
-          <div className={`${baseClass}__right-container`}>
+          <div className={`c-occurrence-card__right-container`}>
             {isEvent && <CountingOfDays dateToEvent={startDate} />}
             {showDesc && desc && !isEvent && (
-              <p className={`c-countup-card__desc`}>{desc}</p>
+              <p className={`c-occurrence-card__desc`}>{desc}</p>
             )}
           </div>
         )}
-        <div className={`${baseClass}__checkbox-container`}>
+        <div className={`c-occurrence-card__checkbox-container`}>
           <input
             onClick={(e) => e.stopPropagation()}
             type="checkbox"

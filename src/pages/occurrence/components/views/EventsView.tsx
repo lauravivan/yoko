@@ -70,6 +70,7 @@ const EventsView = () => {
                 //   app={app}
                 // />
                 <OccurrenceCard
+                  id={event.id}
                   title={event.title}
                   desc={event.desc}
                   key={event.id}

@@ -8,6 +8,7 @@ import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
   createOccurrence: (isEvent?: boolean) => void;
+  updateOccurrenceTitle: (id: string, newTitle: string) => void;
   updateOccurrenceDesc: (id: string, newDesc: string) => void;
   updateOccurrenceDate: (id: string, newDate: Date) => void;
   deleteOccurrence: (id: string) => void;
@@ -36,6 +37,23 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
       const prevOccurrences = [...state.occurrences];
 
       prevOccurrences.unshift(occurrence);
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
+  updateOccurrenceTitle: (id: string, newTitle: string) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.title = newTitle;
+        }
+      }
 
       storeOccurrences(prevOccurrences);
 

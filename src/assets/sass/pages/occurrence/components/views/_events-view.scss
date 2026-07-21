@@ -6,4 +6,19 @@
     padding-bottom: 50px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
+
+  .c-occurrence-card {
+    &__left-container {
+      padding: 12px;
+      flex: 2;
+
+      > div {
+        align-content: flex-end;
+      }
+    }
+
+    &__right-container {
+      flex: 1;
+    }
+  }
 }

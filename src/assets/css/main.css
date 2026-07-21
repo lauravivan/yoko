@@ -848,202 +848,6 @@ body {
 /* border width */
 /* opacity */
 /* shadow */
-.c-countdown-card,
-.c-countup-card {
-  display: flex;
-  position: relative;
-  border-radius: 10px;
-  border: 1px solid #1a1a1a;
-  cursor: pointer;
-  min-height: 115px;
-}
-
-.c-countdown-card:hover .c-countdown-card__checkbox-container,
-.c-countdown-card:hover .c-countup-card__checkbox-container,
-.c-countdown-card:has(
-    .c-countdown-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countdown-card__checkbox-container,
-.c-countdown-card:has(
-    .c-countdown-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countup-card__checkbox-container,
-.c-countdown-card:has(
-    .c-countup-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countdown-card__checkbox-container,
-.c-countdown-card:has(
-    .c-countup-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countup-card__checkbox-container,
-.c-countup-card:hover .c-countdown-card__checkbox-container,
-.c-countup-card:hover .c-countup-card__checkbox-container,
-.c-countup-card:has(
-    .c-countdown-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countdown-card__checkbox-container,
-.c-countup-card:has(
-    .c-countdown-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countup-card__checkbox-container,
-.c-countup-card:has(
-    .c-countup-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countdown-card__checkbox-container,
-.c-countup-card:has(
-    .c-countup-card__checkbox-container input[type='checkbox']:checked
-  )
-  .c-countup-card__checkbox-container {
-  display: block;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-
-.c-countdown-card:hover,
-.c-countdown-card:has(
-  .c-countdown-card__checkbox-container input[type='checkbox']:checked
-),
-.c-countdown-card:has(
-  .c-countup-card__checkbox-container input[type='checkbox']:checked
-),
-.c-countup-card:hover,
-.c-countup-card:has(
-  .c-countdown-card__checkbox-container input[type='checkbox']:checked
-),
-.c-countup-card:has(
-  .c-countup-card__checkbox-container input[type='checkbox']:checked
-) {
-  opacity: 0.8;
-}
-
-.c-countdown-card:has(
-  .c-countdown-card__checkbox-container input[type='checkbox']:checked
-),
-.c-countdown-card:has(
-  .c-countup-card__checkbox-container input[type='checkbox']:checked
-),
-.c-countup-card:has(
-  .c-countdown-card__checkbox-container input[type='checkbox']:checked
-),
-.c-countup-card:has(
-  .c-countup-card__checkbox-container input[type='checkbox']:checked
-) {
-  border-width: 2px;
-}
-
-.c-countdown-card__left-container,
-.c-countup-card__left-container {
-  position: relative;
-  display: flex;
-  overflow: hidden;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.c-countdown-card__left-container > div,
-.c-countup-card__left-container > div {
-  flex: 1;
-}
-
-.c-countdown-card__left-container__category-icon,
-.c-countup-card__left-container__category-icon {
-  position: absolute;
-  bottom: -5px;
-  right: 15px;
-}
-
-.c-countdown-card__left-container__category-icon svg,
-.c-countup-card__left-container__category-icon svg {
-  width: 30px;
-  height: 30px;
-}
-
-.c-countdown-card__left-container--Personal,
-.c-countup-card__left-container--Personal {
-  background-color: #b3fff9;
-}
-
-.c-countdown-card__right-container,
-.c-countup-card__right-container {
-  display: flex;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-left: 1px solid #1a1a1a;
-  background-color: #fff;
-  padding: 33px 19px 30px 17px;
-}
-
-.c-countdown-card__right-container span,
-.c-countup-card__right-container span {
-  text-align: center;
-  align-self: center;
-}
-
-.c-countdown-card__title-container,
-.c-countup-card__title-container {
-  width: fit-content;
-  display: flex;
-  column-gap: 5px;
-}
-
-.c-countdown-card__title-container button,
-.c-countup-card__title-container button {
-  all: unset;
-  cursor: pointer;
-}
-
-.c-countdown-card__title-container button svg,
-.c-countup-card__title-container button svg {
-  width: 20px;
-  height: 20px;
-}
-
-.c-countdown-card__desc,
-.c-countup-card__desc {
-  font-size: 10px;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.c-countdown-card__title,
-.c-countup-card__title {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.c-countdown-card__title--desc-hidden,
-.c-countup-card__title--desc-hidden {
-  flex: 2;
-}
-
-.c-countdown-card__date,
-.c-countup-card__date {
-  font-weight: 300;
-  font-size: 12px;
-}
-
-.c-countdown-card__checkbox-container,
-.c-countup-card__checkbox-container {
-  display: none;
-}
-
-.c-countdown-card__left-container {
-  padding: 12px;
-  flex: 2;
-}
-
-.c-countdown-card__left-container > div {
-  align-content: flex-end;
-}
-
-.c-countdown-card__right-container {
-  flex: 1;
-}
-
 .c-countup-card__left-container {
   padding: 10px 20px;
   align-items: center;
@@ -1098,6 +902,141 @@ body {
 .c-countup-card__desc-btn svg {
   width: 20px;
   height: 20px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card {
+  display: flex;
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid #1a1a1a;
+  min-height: 115px;
+  height: 100%;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card:hover
+  .c-occurrence-card__checkbox-container {
+  display: block;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__checkbox-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card:has(
+    .c-occurrence-card__checkbox-container > input:checked
+  ) {
+  border-width: 2px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container > div {
+  flex: 1;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__category-icon {
+  position: absolute;
+  bottom: -5px;
+  right: 15px;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__category-icon
+  svg {
+  width: 30px;
+  height: 30px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container--Personal {
+  background-color: #b3fff9;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__right-container {
+  display: flex;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 1px solid #1a1a1a;
+  background-color: #fff;
+  padding: 33px 19px 30px 17px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__right-container span {
+  text-align: center;
+  align-self: center;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__title-container {
+  width: fit-content;
+  display: flex;
+  column-gap: 5px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__title-container button {
+  all: unset;
+  cursor: pointer;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__title-container button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__title-container__input {
+  all: unset;
+  color: #262626;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__title-container__input::placeholder {
+  color: #262626;
+  opacity: 0.8;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__title-container__input--desc-hidden {
+  flex: 2;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__title-container__title {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__desc {
+  font-size: 10px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__date {
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__checkbox-container {
+  display: none;
 }
 
 .c-occurrence-card-wrapper .c-dynamic-modal {
@@ -1159,6 +1098,19 @@ body {
   column-gap: 20px;
   padding-bottom: 50px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.c-events-view .c-occurrence-card__left-container {
+  padding: 12px;
+  flex: 2;
+}
+
+.c-events-view .c-occurrence-card__left-container > div {
+  align-content: flex-end;
+}
+
+.c-events-view .c-occurrence-card__right-container {
+  flex: 1;
 }
 
 /* breakpoints */
