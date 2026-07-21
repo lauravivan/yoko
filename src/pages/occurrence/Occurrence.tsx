@@ -1,10 +1,3 @@
-import { useAuth } from '@/context/AuthContext';
-import useModal from '@/hooks/useModal';
-import useStore from '@/store/store';
-import { useLocation } from 'react-router';
-import useDelete from '@/hooks/useDelete';
-import useOccurrence from '@/hooks/useOccurrence';
-import { OccurrenceEnum } from '@/enum/OccurrenceEnum';
 import EventsView from './components/views/EventsView';
 import { useState } from 'react';
 import CalendarView from './components/views/CalendarView';
@@ -20,29 +13,7 @@ enum ViewsEnum {
 }
 
 const OccurrencePage = () => {
-  const session = useAuth();
-  const location = useLocation();
-  const { openModal, handleTitle } = useModal();
-  const {
-    createOccurrence,
-    deleteOccurrence,
-    getPaginatedOccurrences,
-    search,
-    updateOccurrenceDesc,
-    getOccurrences,
-  } = useOccurrence();
-  const { filter, sort, setEventId } = useStore();
-  const { selectedCount, onSelect, onDeselect } = useDelete();
-  // const events = getPaginatedEvents(app);
   const [view, setView] = useState<ViewsEnum>(ViewsEnum.EVENTS);
-
-  const modifier = 'events';
-
-  const modifierSingular = modifier.replace('s', '');
-
-  const handleCreateOccurrence = () => createOccurrence(OccurrenceEnum.WAITING);
-
-  const occurrences = getOccurrences(true);
 
   return (
     <main className="p-occurrence">
@@ -72,12 +43,12 @@ const OccurrencePage = () => {
           <StopWatchIcon />
         </button>
       </div>
-      {view === ViewsEnum.EVENTS && <EventsView></EventsView>}
-      {view === ViewsEnum.CALENDAR && <CalendarView></CalendarView>}
-      {view === ViewsEnum.ACTIONS && <ActionsView></ActionsView>}
-      {search && occurrences.length === 0 && (
+      {view === ViewsEnum.EVENTS && <EventsView />}
+      {view === ViewsEnum.CALENDAR && <CalendarView />}
+      {view === ViewsEnum.ACTIONS && <ActionsView />}
+      {/* {search && occurrences.length === 0 && (
         <div>Sorry, we couldn't find any results related to your research.</div>
-      )}
+      )} */}
     </main>
   );
 };

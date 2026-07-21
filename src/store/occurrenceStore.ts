@@ -1,15 +1,19 @@
 import { storeOccurrences } from '@/helpers/storage/occurrence';
 import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
-import { generateRandomString } from '@/helpers/generators/random';
 import { IOccurrence } from '@/types/Occurrence';
 import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
   createOccurrence: (isEvent?: boolean) => void;
+  updateOccurrenceTitle: (id: string, newTitle: string) => void;
   updateOccurrenceDesc: (id: string, newDesc: string) => void;
-  updateOccurrenceDate: (id: string, newDate: Date) => void;
+  updateOccurrenceStartDate: (id: string, newDate: Date) => void;
+  updateOccurrenceCategory: (
+    id: string,
+    newCategory: OccurrenceCategoryEnum
+  ) => void;
   deleteOccurrence: (id: string) => void;
   setOccurrences: (search: string, filter: string, sort: string) => void;
   saveOccurrences: (occurrences: IOccurrence[]) => void;
@@ -44,6 +48,23 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: prevOccurrences,
       };
     }),
+  updateOccurrenceTitle: (id: string, newTitle: string) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.title = newTitle;
+        }
+      }
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
   updateOccurrenceDesc: (id: string, newDesc: string) =>
     set((state) => {
       const prevOccurrences = [...state.occurrences];
@@ -61,13 +82,30 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: prevOccurrences,
       };
     }),
-  updateOccurrenceDate: (id: string, newDate: Date) =>
+  updateOccurrenceStartDate: (id: string, newDate: Date) =>
     set((state) => {
       const prevOccurrences = [...state.occurrences];
 
       for (const e of prevOccurrences) {
         if (e.id === id) {
-          // e.date = newDate;
+          e.startDate = newDate;
+        }
+      }
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
+  updateOccurrenceCategory: (id: string, newCategory: OccurrenceCategoryEnum) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.category = newCategory;
         }
       }
 
