@@ -70,6 +70,7 @@
     }
 
     &__checkbox-container {
+      display: none;
       position: absolute;
       top: 5px;
       right: 5px;
@@ -85,6 +86,14 @@
       overflow: hidden;
       border-top-left-radius: tokens.$border-r-default;
       border-bottom-left-radius: tokens.$border-r-default;
+
+      .c-divider {
+        background-color: tokens.$bg-dark;
+        min-width: 100px;
+        max-width: 100px;
+        height: 2px;
+        margin: 4px 0 10px;
+      }
 
       > div {
         flex: 1;
@@ -104,6 +113,62 @@
       &--Personal {
         background-color: tokens.$ice-mint;
       }
+
+      &__title-container {
+        width: fit-content;
+        display: flex;
+        column-gap: 5px;
+        position: relative;
+
+        button {
+          all: unset;
+          cursor: pointer;
+          position: absolute;
+          right: -10px;
+          bottom: 0;
+
+          svg {
+            width: 30px;
+            height: 30px;
+          }
+        }
+
+        &__input {
+          all: unset;
+          color: tokens.$text-color-default;
+          @include tokens.text-base-highlight();
+          margin: 0;
+
+          &::placeholder {
+            color: tokens.$text-color-default;
+            opacity: 0.8;
+            @include tokens.text-base-highlight();
+          }
+
+          &--desc-hidden {
+            flex: 2;
+          }
+        }
+
+        &__title {
+          @include tokens.text-base-highlight();
+          word-break: break-all;
+        }
+      }
+
+      &__desc {
+        @include tokens.text-xs();
+        overflow-wrap: break-word;
+        word-break: break-word;
+        margin-bottom: 20px;
+        white-space: pre-wrap;
+        overflow-x: hidden;
+      }
+
+      &__date {
+        font-weight: 300;
+        font-size: 12px;
+      }
     }
 
     &__right-container {
@@ -118,59 +183,6 @@
         text-align: center;
         align-self: center;
       }
-    }
-
-    &__title-container {
-      width: fit-content;
-      display: flex;
-      column-gap: 5px;
-
-      button {
-        all: unset;
-        cursor: pointer;
-
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-
-      &__input {
-        all: unset;
-        color: tokens.$text-color-default;
-        @include tokens.text-base-highlight();
-        margin: 0;
-
-        &::placeholder {
-          color: tokens.$text-color-default;
-          opacity: 0.8;
-          @include tokens.text-base-highlight();
-        }
-
-        &--desc-hidden {
-          flex: 2;
-        }
-      }
-
-      &__title {
-        @include tokens.text-base-highlight();
-        word-break: break-all;
-      }
-    }
-
-    &__desc {
-      font-size: 10px;
-      overflow-wrap: break-word;
-      word-break: break-word;
-    }
-
-    &__date {
-      font-weight: 300;
-      font-size: 12px;
-    }
-
-    &__checkbox-container {
-      display: none;
     }
   }
 
@@ -196,6 +208,14 @@
       border-radius: tokens.$border-r-soft;
       @include tokens.text-sm();
       color: tokens.$text-color-default;
+    }
+
+    textarea {
+      padding: 10px;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      white-space: pre-wrap;
+      height: max-content;
     }
   }
 }
