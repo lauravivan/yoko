@@ -806,6 +806,7 @@ body {
 .p-occurrence {
   display: flex;
   flex-direction: column;
+  row-gap: 10px;
   position: relative;
   height: 100%;
   padding: 15px;
@@ -928,7 +929,6 @@ body {
   position: relative;
   border-radius: 10px;
   border: 1px solid #1a1a1a;
-  min-height: 115px;
   height: 100%;
 }
 
@@ -1182,11 +1182,7 @@ body {
   display: grid;
   gap: 20px;
   padding-bottom: 50px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
-
-.c-events-view__cards:has(.c-occurrence-card__left-container__desc) {
-  grid-template-columns: repeat(auto-fill, minmax(320, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
 }
 
 .c-events-view .c-occurrence-card__left-container {
