@@ -2,12 +2,25 @@
 
 .p-homepage {
   display: flex;
+  flex-direction: column;
   height: 100%;
+  padding-top: 40px;
+  row-gap: 40px;
+
+  @media (min-width: tokens.$desktop-sm-min) {
+    flex-direction: row;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  @media (min-width: tokens.$desktop-lg-min) {
+    padding-right: 40px;
+    padding-left: 20px;
+  }
 
   &__intro {
     display: flex;
     align-items: center;
-    margin-left: 30px;
     flex: 1;
 
     h1 {
@@ -15,12 +28,19 @@
       padding: 0px 20px 0px 10px;
       border-radius: tokens.$border-r-soft;
       @include tokens.text-xl-highlight();
-      font-size: 45px;
+      font-size: 35px;
+
+      @media (min-width: tokens.$desktop-lg-min) {
+        @include tokens.text-xl-highlight();
+      }
     }
 
     h3 {
       @include tokens.text-base();
-      font-size: 19px;
+
+      @media (min-width: tokens.$desktop-lg-min) {
+        @include tokens.text-lg();
+      }
     }
   }
 
@@ -29,10 +49,11 @@
     grid-template-columns: 1fr;
     gap: 10px;
     flex: 1;
+    padding-bottom: 40px;
 
     @media (min-width: tokens.$tablet-min) {
       grid-template-columns: repeat(2, 1fr);
-      margin: auto 40px auto auto;
+      margin: auto;
     }
   }
 }
