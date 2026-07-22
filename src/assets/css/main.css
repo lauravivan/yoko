@@ -666,13 +666,28 @@ body {
 /* shadow */
 .p-homepage {
   display: flex;
+  flex-direction: column;
   height: 100%;
+  padding-top: 40px;
+  row-gap: 40px;
 }
 
+@media (min-width: 769px) {
+  .p-homepage {
+    flex-direction: row;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+@media (min-width: 1280px) {
+  .p-homepage {
+    padding-right: 40px;
+    padding-left: 20px;
+  }
+}
 .p-homepage__intro {
   display: flex;
   align-items: center;
-  margin-left: 30px;
   flex: 1;
 }
 
@@ -684,28 +699,44 @@ body {
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
-  font-size: 45px;
+  font-size: 35px;
 }
 
+@media (min-width: 1280px) {
+  .p-homepage__intro h1 {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.5;
+  }
+}
 .p-homepage__intro h3 {
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  font-size: 19px;
 }
 
+@media (min-width: 1280px) {
+  .p-homepage__intro h3 {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 1.5;
+  }
+}
 .p-homepage__cards {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
   flex: 1;
+  padding-bottom: 40px;
 }
 
 @media (min-width: 481px) {
   .p-homepage__cards {
     grid-template-columns: repeat(2, 1fr);
-    margin: auto 40px auto auto;
+    margin: auto;
   }
 }
 /* breakpoints */
@@ -850,8 +881,7 @@ body {
   border-bottom-right-radius: unset;
 }
 
-.c-countup-card__title-container,
-.c-countup-card__date {
+.c-countup-card__title-container, .c-countup-card__date {
   justify-self: center;
   display: block;
 }
@@ -867,7 +897,7 @@ body {
 
 .c-countup-card__countup__num {
   margin: 0 auto;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -875,7 +905,7 @@ body {
 
 .c-countup-card__countup__ext {
   margin: 0 auto;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -902,9 +932,7 @@ body {
   height: 100%;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card:hover
-  .c-occurrence-card__checkbox-container {
+.c-occurrence-card-wrapper .c-occurrence-card:hover .c-occurrence-card__checkbox-container {
   display: block;
 }
 
@@ -915,10 +943,7 @@ body {
   right: 5px;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card:has(
-    .c-occurrence-card__checkbox-container > input:checked
-  ) {
+.c-occurrence-card-wrapper .c-occurrence-card:has(.c-occurrence-card__checkbox-container > input:checked) {
   border-width: 2px;
 }
 
@@ -948,9 +973,7 @@ body {
   right: 15px;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__category-icon
-  svg {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__category-icon svg {
   width: 30px;
   height: 30px;
 }
@@ -1007,56 +1030,45 @@ body {
   position: relative;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container
-  button {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button {
   all: unset;
   cursor: pointer;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container
-  button:hover {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button:hover {
   transform: scale(1.2);
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container
-  button
-  svg {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button svg {
   width: 30px;
   height: 30px;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container__input {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input {
   all: unset;
   color: #262626;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
   margin: 0;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container__input::placeholder {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input::placeholder {
   color: #262626;
   opacity: 0.8;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container__input--desc-hidden {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input--desc-hidden {
   flex: 2;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__left-container__title-container__title {
-  font-family: 'Quicksand', sans-serif;
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__title {
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -1067,7 +1079,7 @@ body {
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__desc {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.5;
@@ -1097,9 +1109,8 @@ body {
   align-self: center;
 }
 
-.c-occurrence-card-wrapper
-  .c-occurrence-card__right-container__counting--highlight {
-  font-family: 'Quicksand', sans-serif;
+.c-occurrence-card-wrapper .c-occurrence-card__right-container__counting--highlight {
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
