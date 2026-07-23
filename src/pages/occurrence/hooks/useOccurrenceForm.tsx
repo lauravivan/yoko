@@ -3,7 +3,7 @@ import useOccurrenceStore from '@/store/occurrenceStore';
 import { useRef, useState } from 'react';
 
 const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
-  const titleRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLTextAreaElement>(null);
   const descRef = useRef<HTMLTextAreaElement>(null);
   const {
     updateOccurrenceTitle,
@@ -14,7 +14,7 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
   const [titleEditMode, setTitleEditMode] = useState(false);
 
   const handleTitleUpdateOnKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     if (e.key === 'Enter' && titleRef.current) {
       updateOccurrenceTitle(occurrenceId, titleRef.current.value);
@@ -23,7 +23,9 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
     }
   };
 
-  const handleTitleUpdateOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleTitleUpdateOnBlur = (
+    e: React.FocusEvent<HTMLTextAreaElement>
+  ) => {
     updateOccurrenceTitle(occurrenceId, e.target.value);
     setTitleEditMode(false);
   };
@@ -56,7 +58,10 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
     e: React.FocusEvent<HTMLSelectElement>
   ) => {
     const isValidCategory = Object.values(OccurrenceCategoryEnum).some(
-      (c) => c === e.target.options[e.target.selectedIndex].value
+      (c) =>
+        c ===
+        (e.target.options[e.target.selectedIndex]
+          .value as OccurrenceCategoryEnum)
     );
     updateOccurrenceCategory(
       occurrenceId,

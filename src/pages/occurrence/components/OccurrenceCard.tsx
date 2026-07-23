@@ -1,14 +1,7 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import NoteIcon from '@/components/display/icons/Note';
 import { formatDate, formatDateForInput } from '@/helpers/formatters/date';
-import {
-  addMonths,
-  addYears,
-  differenceInCalendarDays,
-  differenceInDays,
-  differenceInMonths,
-  differenceInYears,
-} from 'date-fns';
+import { differenceInCalendarDays } from 'date-fns';
 import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
 import DynamicModal from '@/components/display/DynamicModal';
@@ -28,6 +21,7 @@ import SocialIcon from '@/components/display/icons/categories/Social';
 import StudyIcon from '@/components/display/icons/categories/Study';
 import TravelIcon from '@/components/display/icons/categories/Travel';
 
+/* eslint-disable sonarjs/no-commented-code */
 // const getCounting = (date: Date) => {
 //   const now = createUTCDateNow();
 //   const years = differenceInYears(now, date);
@@ -56,6 +50,7 @@ import TravelIcon from '@/components/display/icons/categories/Travel';
 
 //   return `It has been 0 days`;
 // };
+/* eslint-enable sonarjs/no-commented-code */
 
 const CountingOfDays = ({ dateToEvent }: { dateToEvent: Date }) => {
   const difference = differenceInCalendarDays(
@@ -70,7 +65,7 @@ const CountingOfDays = ({ dateToEvent }: { dateToEvent: Date }) => {
           Already <br /> happened
         </>
       )}
-      {difference === 0 && <>It's today!!</>}
+      {difference === 0 && <>It&apos;s today!!</>}
       {difference > 0 && (
         <>
           In{' '}
@@ -157,6 +152,7 @@ const OccurrenceCard = ({
 
   return (
     <div className="c-occurrence-card-wrapper" ref={articleRef}>
+      {}
       <article
         className={`c-occurrence-card${showRightClass}`}
         onClick={() => setModalOpen((prev) => !prev)}
@@ -166,17 +162,14 @@ const OccurrenceCard = ({
           className={`c-occurrence-card__left-container c-occurrence-card__left-container--${category}`}
         >
           <div>
-            <div
-              className={`c-occurrence-card__left-container__title-container`}
-            >
+            <div className="c-occurrence-card__left-container__title-container">
               {desc && isEvent && !titleEditMode && (
                 <button onClick={handleDesc}>
                   <NoteIcon />
                 </button>
               )}
               {titleEditMode && (
-                <input
-                  className={`c-occurrence-card__left-container__title-container__input c-occurrence-card__left-container__title-container__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
+                <textarea
                   placeholder={title}
                   onClick={(e) => e.stopPropagation()}
                   onKeyDown={handleTitleUpdateOnKeyDown}
@@ -184,12 +177,13 @@ const OccurrenceCard = ({
                   defaultValue={title}
                   onBlur={handleTitleUpdateOnBlur}
                   maxLength={50}
-                  title={title}
+                  rows={3}
+                  autoFocus
                 />
               )}
               {!titleEditMode && (
                 <h3
-                  className={`c-occurrence-card__left-container__title-container__title c-occurrence-card__left-container__title-container__title--${showDesc ? 'desc-shown' : 'desc-hidden'}`}
+                  className="c-occurrence-card__left-container__title-container__title"
                   onClick={handleTitleEditMode}
                 >
                   {title}
@@ -199,12 +193,12 @@ const OccurrenceCard = ({
             {showDesc && desc && isEvent && (
               <>
                 <Divider />
-                <p className={`c-occurrence-card__left-container__desc`}>
+                <p className="c-occurrence-card__left-container__desc">
                   {desc}
                 </p>
               </>
             )}
-            <span className={`c-occurrence-card__left-container__date`}>
+            <span className="c-occurrence-card__left-container__date">
               {formatDate(startDate)}
             </span>
             {!isEvent && (
@@ -226,21 +220,19 @@ const OccurrenceCard = ({
               </button>
             )}
           </div>
-          <div className={`c-occurrence-card__left-container__category-icon`}>
+          <div className="c-occurrence-card__left-container__category-icon">
             <CategoryIcon category={category} />
           </div>
         </div>
         {showRightContainer && (
-          <div className={`c-occurrence-card__right-container`}>
+          <div className="c-occurrence-card__right-container">
             {isEvent && <CountingOfDays dateToEvent={startDate} />}
             {showDesc && desc && !isEvent && (
-              <p className={`c-occurrence-card__right-container__desc`}>
-                {desc}
-              </p>
+              <p className="c-occurrence-card__right-container__desc">{desc}</p>
             )}
           </div>
         )}
-        <div className={`c-occurrence-card__checkbox-container`}>
+        <div className="c-occurrence-card__checkbox-container">
           <input
             onClick={(e) => e.stopPropagation()}
             type="checkbox"
@@ -250,40 +242,47 @@ const OccurrenceCard = ({
       </article>
 
       {modalOpen && (
-        <DynamicModal
-          ref={refs.setFloating}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span className={`c-dynamic-modal__title`}>
-            Edit <span>{title}</span>
-          </span>
-          <textarea
-            className={`c-dynamic-modal__desc`}
-            placeholder={desc ? desc : 'Description...'}
-            onKeyDown={handleDescUpdateOnKeyDown}
-            onBlur={handleDescUpdateOnBlur}
-            ref={descRef}
-            maxLength={250}
-            rows={4}
-            defaultValue={desc ? desc : 'Description...'}
-          />
-          <input
-            className={`c-dynamic-modal__date`}
-            type="date"
-            onBlur={handleStartDateUpdateOnBlur}
-            defaultValue={formatDateForInput(startDate)}
-          />
-          <select defaultValue={category} onChange={handleCategoryUpdateOnBlur}>
-            <option value="" disabled>
-              Choose a category
-            </option>
-            {Object.values(OccurrenceCategoryEnum).map((occ) => (
-              <option key={occ} value={occ}>
-                {occ}
+        <>
+          {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
+          <DynamicModal
+            ref={refs.setFloating}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="c-dynamic-modal__title">
+              Edit <span>{title}</span>
+            </span>
+            <textarea
+              className="c-dynamic-modal__desc"
+              placeholder={desc ?? 'Description...'}
+              onKeyDown={handleDescUpdateOnKeyDown}
+              onBlur={handleDescUpdateOnBlur}
+              ref={descRef}
+              maxLength={250}
+              rows={4}
+              defaultValue={desc ?? 'Description...'}
+            />
+            <input
+              className="c-dynamic-modal__date"
+              type="date"
+              onBlur={handleStartDateUpdateOnBlur}
+              defaultValue={formatDateForInput(startDate)}
+            />
+            <select
+              defaultValue={category}
+              onChange={handleCategoryUpdateOnBlur}
+            >
+              <option value="" disabled>
+                Choose a category
               </option>
-            ))}
-          </select>
-        </DynamicModal>
+              {Object.values(OccurrenceCategoryEnum).map((occ) => (
+                <option key={occ} value={occ}>
+                  {occ}
+                </option>
+              ))}
+            </select>
+          </DynamicModal>
+          {/* eslint-enable react-hooks/refs */}
+        </>
       )}
     </div>
   );

@@ -1044,27 +1044,28 @@ body {
   height: 30px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container textarea {
   all: unset;
-  color: #262626;
+  color: rgba(38, 38, 38, 0.9);
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  overflow-x: hidden;
+  width: 100%;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input::placeholder {
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container textarea::placeholder {
   color: #262626;
   opacity: 0.8;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
-}
-
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__input--desc-hidden {
-  flex: 2;
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__title {
