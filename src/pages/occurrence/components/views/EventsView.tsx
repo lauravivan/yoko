@@ -1,10 +1,7 @@
 import AddButton from '@/components/action/AddButton';
-import DefaultButton from '@/components/action/DefaultButton';
 import ListToolbar from '@/components/action/ListToolbar';
-import { OccurrenceEnum } from '@/enum/OccurrenceEnum';
 import useDelete from '@/hooks/useDelete';
-import useOccurrence from '@/hooks/useOccurrence';
-import { IOccurrence } from '@/types/Occurrence';
+import { type IOccurrence } from '@/types/Occurrence';
 import OccurrenceCard from '../OccurrenceCard';
 import NotFound from '../NotFound';
 import useOccurrenceStore from '@/store/occurrenceStore';
@@ -37,7 +34,7 @@ const EventsView = () => {
               <span>When:</span>
               <ul>
                 {filterOptions?.map((op) => (
-                  <li>{op}</li>
+                  <li key={op}>{op}</li>
                 ))}
               </ul>
             </ListToolbar.Item>
@@ -59,16 +56,6 @@ const EventsView = () => {
 
             {events.length > 0 &&
               events.map((event: IOccurrence) => (
-                // <Card
-                //   event={event}
-                //   key={event.id}
-                //   updateEventDesc={updateEventDesc}
-                //   deleteEvent={deleteEvent}
-                //   handleEventId={(eventId: string) => setEventId(eventId)}
-                //   openModal={openModal}
-                //   handleTitle={handleTitle}
-                //   app={app}
-                // />
                 <OccurrenceCard
                   id={event.id}
                   title={event.title}
