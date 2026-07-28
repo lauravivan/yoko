@@ -1,10 +1,13 @@
 import EventsView from './components/views/EventsView';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CalendarView from './components/views/CalendarView';
 import ActionsView from './components/views/ActionsView';
 import CalendarIcon from '@/components/display/icons/views/Calendar';
 import StopWatchIcon from '@/components/display/icons/views/StopWatch';
 import ClockIcon from '@/components/display/icons/views/Clock';
+import { useAuth } from '@/context/AuthContext';
+import useOccurrenceStore from '@/store/occurrenceStore';
+import { getStoredOccurrences } from '@/helpers/storage/occurrence';
 
 enum ViewsEnum {
   EVENTS = 'EVENTS',
@@ -13,7 +16,18 @@ enum ViewsEnum {
 }
 
 const OccurrencePage = () => {
+  const { signed } = useAuth();
+  const { setOccurrences } = useOccurrenceStore();
   const [view, setView] = useState<ViewsEnum>(ViewsEnum.EVENTS);
+
+  useEffect(() => {
+    //eslint-disable-next-line no-empty
+    if (signed) {
+    } else {
+      const occ = getStoredOccurrences();
+      setOccurrences(occ);
+    }
+  }, []);
 
   return (
     <main className="p-occurrence">
@@ -46,6 +60,7 @@ const OccurrencePage = () => {
       {view === ViewsEnum.EVENTS && <EventsView />}
       {view === ViewsEnum.CALENDAR && <CalendarView />}
       {view === ViewsEnum.ACTIONS && <ActionsView />}
+      {/* eslint-disable-next-line sonarjs/no-commented-code */}
       {/* {search && occurrences.length === 0 && (
         <div>Sorry, we couldn't find any results related to your research.</div>
       )} */}

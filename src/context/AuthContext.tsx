@@ -1,9 +1,9 @@
-import React, {
+import {
   createContext,
   useState,
   useEffect,
   useContext,
-  ReactNode,
+  type ReactNode,
 } from 'react';
 
 interface User {
@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(false);
   }, []);
 
+  /* eslint-disable @typescript-eslint/require-await */
   const login = async (email: string, password: string): Promise<void> => {
     try {
       setLoading(true);
@@ -58,6 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setLoading(false);
     }
   };
+  /* eslint-enable @typescript-eslint/require-await */
 
   const logout = (): void => {
     setUser(null);

@@ -1,7 +1,7 @@
 import { storeOccurrences } from '@/helpers/storage/occurrence';
 import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
-import { IOccurrence } from '@/types/Occurrence';
+import { type IOccurrence } from '@/types/Occurrence';
 import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 
 interface OccurrenceStoreState {
@@ -15,8 +15,7 @@ interface OccurrenceStoreState {
     newCategory: OccurrenceCategoryEnum
   ) => void;
   deleteOccurrence: (id: string) => void;
-  setOccurrences: (search: string, filter: string, sort: string) => void;
-  saveOccurrences: (occurrences: IOccurrence[]) => void;
+  setOccurrences: (occurrences: IOccurrence[]) => void;
   getOccurrences: () => IOccurrence[];
   getEvents: () => IOccurrence[];
   getActions: () => IOccurrence[];
@@ -24,7 +23,7 @@ interface OccurrenceStoreState {
 
 const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
   occurrences: [],
-  createOccurrence: (isEvent: boolean = true) =>
+  createOccurrence: (isEvent = true) =>
     set((state) => {
       const occurrence: IOccurrence = {
         id: uuidv7(),
@@ -126,17 +125,7 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: newOccurrences,
       };
     }),
-  setOccurrences: (search: string, filter: string, sort: string) =>
-    set((state) => {
-      const occ = [...state.occurrences];
-      return search
-        ? {
-            ...state,
-            occurrences: occ,
-          }
-        : state;
-    }),
-  saveOccurrences: (occurrences: IOccurrence[]) =>
+  setOccurrences: (occurrences: IOccurrence[]) =>
     set(() => ({
       occurrences,
     })),
