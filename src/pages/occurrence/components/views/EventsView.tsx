@@ -5,6 +5,9 @@ import { type IOccurrence } from '@/types/Occurrence';
 import OccurrenceCard from '../OccurrenceCard';
 import NotFound from '../NotFound';
 import useOccurrenceStore from '@/store/occurrenceStore';
+import TwentyFourHourIcon from '@/components/display/icons/toolbar/24Hour';
+import { useState } from 'react';
+import TwentyFourHourDisabledIcon from '@/components/display/icons/toolbar/24HourDisabled';
 
 const filterOptions = [
   'This month',
@@ -20,6 +23,7 @@ const filterOptions = [
 const EventsView = () => {
   const { createOccurrence, getEvents } = useOccurrenceStore();
   const { selectedCount, onSelect, onDeselect } = useDelete();
+  const [is24Hour, setIs24Hour] = useState(true);
 
   const events = getEvents();
 
@@ -47,6 +51,15 @@ const EventsView = () => {
             >
               <div></div>
             </ListToolbar.Item>
+            <ListToolbar.Item
+              type="toggle"
+              ToggleIcon={
+                is24Hour ? TwentyFourHourDisabledIcon : TwentyFourHourIcon
+              }
+              currentActive=""
+              onToggle={() => setIs24Hour((prev) => !prev)}
+              toggleTitle="Set hour format"
+            />
           </ListToolbar>
           <div className="c-events-view__cards">
             <AddButton
@@ -65,7 +78,11 @@ const EventsView = () => {
                   onDeselect={onDeselect}
                   category={event.category}
                   isEvent={event.isEvent}
-                  startDate={event.startDate}
+                  dateOfOccurrence={event.dateOfOccurrence}
+                  startTime={event.startTime}
+                  endTime={event.endTime}
+                  allDay={event.allDay}
+                  is24Hour={is24Hour}
                 />
               ))}
           </div>

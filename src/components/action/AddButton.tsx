@@ -1,8 +1,6 @@
 import AddIcon from '@/components/display/icons/Add';
 
-interface AddButton extends React.HTMLAttributes<HTMLButtonElement> {}
-
-const AddButton = (props: AddButton) => {
+const AddButton = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button className="c-add-card" {...props}>
       <AddIcon />

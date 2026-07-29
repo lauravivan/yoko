@@ -55,6 +55,11 @@
 }
 
 .c-occurrence-card-wrapper {
+  .c-dynamic-modal {
+    top: 10%;
+    display: flex;
+  }
+
   .c-occurrence-card {
     display: flex;
     position: relative;
@@ -101,7 +106,7 @@
       &__category-icon {
         position: absolute;
         bottom: -5px;
-        right: 15px;
+        right: 5px;
 
         svg {
           width: 30px;
@@ -210,9 +215,18 @@
         overflow-x: hidden;
       }
 
-      &__date {
-        font-weight: 300;
-        font-size: 12px;
+      &__datetime-container {
+        display: flex;
+        flex-direction: column;
+        font-weight: 400;
+
+        &__date {
+          font-size: 13px;
+        }
+
+        &__time {
+          font-size: 12px;
+        }
       }
     }
 
@@ -234,38 +248,64 @@
         }
       }
     }
-  }
 
-  .c-dynamic-modal {
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-    cursor: auto;
-    top: 30%;
+    &__edit-form {
+      display: flex;
+      flex-direction: column;
+      row-gap: 15px;
+      cursor: auto;
+      flex: 1;
 
-    &__title {
-      span {
-        @include tokens.text-base-highlight();
+      &__title {
+        span {
+          @include tokens.text-base-highlight();
+          overflow-wrap: break-word;
+          word-break: break-word;
+          white-space: pre-wrap;
+          overflow-x: hidden;
+        }
       }
-    }
 
-    textarea,
-    input,
-    select {
-      all: unset;
-      background-color: tokens.$bg-subtle;
-      padding: 7px 10px;
-      border-radius: tokens.$border-r-soft;
-      @include tokens.text-sm();
-      color: tokens.$text-color-default;
-    }
+      &__date-wrapper {
+        display: flex;
+        align-items: center;
+        column-gap: 30px;
+      }
 
-    textarea {
-      padding: 10px;
-      overflow-wrap: break-word;
-      word-break: break-word;
-      white-space: pre-wrap;
-      height: max-content;
+      textarea,
+      input[type='date'],
+      input[type='time'],
+      select {
+        all: unset;
+        background-color: tokens.$bg-subtle;
+        padding: 7px 10px;
+        border-radius: tokens.$border-r-soft;
+        @include tokens.text-sm();
+        color: tokens.$text-color-default;
+      }
+
+      textarea {
+        padding: 10px;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        white-space: pre-wrap;
+        height: max-content;
+      }
+
+      &__all-day {
+        display: flex;
+        column-gap: 5px;
+      }
+
+      &__times {
+        display: flex;
+        column-gap: 10px;
+        flex: 1;
+
+        input[type='time'] {
+          flex: 1;
+        }
+      }
     }
   }
 }

@@ -8,8 +8,11 @@ interface OccurrenceStoreState {
   occurrences: IOccurrence[];
   createOccurrence: (isEvent?: boolean) => void;
   updateOccurrenceTitle: (id: string, newTitle: string) => void;
-  updateOccurrenceDesc: (id: string, newDesc: string) => void;
-  updateOccurrenceStartDate: (id: string, newDate: Date) => void;
+  updateOccurrenceDesc: (id: string, newDesc: string | null) => void;
+  updateOccurrenceDate: (id: string, newDate: Date) => void;
+  updateAllDay: (id: string, allDay: boolean) => void;
+  updateOccurrenceStartTime: (id: string, newStartTime: string | null) => void;
+  updateOccurrenceEndTime: (id: string, newEndTime: string | null) => void;
   updateOccurrenceCategory: (
     id: string,
     newCategory: OccurrenceCategoryEnum
@@ -32,13 +35,32 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         isEvent,
         category: OccurrenceCategoryEnum.Personal,
         goalId: null,
-        startDate: new Date(),
-        endDate: new Date(),
+        dateOfOccurrence: new Date(),
+        startTime: null,
+        endTime: null,
+        allDay: true,
       };
 
       const prevOccurrences = [...state.occurrences];
 
       prevOccurrences.unshift(occurrence);
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
+  updateAllDay: (id: string, allDay: boolean) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.allDay = allDay;
+        }
+      }
 
       storeOccurrences(prevOccurrences);
 
@@ -64,7 +86,7 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: prevOccurrences,
       };
     }),
-  updateOccurrenceDesc: (id: string, newDesc: string) =>
+  updateOccurrenceDesc: (id: string, newDesc: string | null) =>
     set((state) => {
       const prevOccurrences = [...state.occurrences];
 
@@ -81,13 +103,47 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: prevOccurrences,
       };
     }),
-  updateOccurrenceStartDate: (id: string, newDate: Date) =>
+  updateOccurrenceDate: (id: string, newDate: Date) =>
     set((state) => {
       const prevOccurrences = [...state.occurrences];
 
       for (const e of prevOccurrences) {
         if (e.id === id) {
-          e.startDate = newDate;
+          e.dateOfOccurrence = newDate;
+        }
+      }
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
+  updateOccurrenceStartTime: (id: string, newTime: string | null) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.startTime = newTime;
+        }
+      }
+
+      storeOccurrences(prevOccurrences);
+
+      return {
+        ...state,
+        occurrences: prevOccurrences,
+      };
+    }),
+  updateOccurrenceEndTime: (id: string, newTime: string | null) =>
+    set((state) => {
+      const prevOccurrences = [...state.occurrences];
+
+      for (const e of prevOccurrences) {
+        if (e.id === id) {
+          e.endTime = newTime;
         }
       }
 

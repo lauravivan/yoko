@@ -1,18 +1,19 @@
-interface DefaultButtonProps {
-  type?: 'error' | 'subtle' | 'default';
+interface DefaultButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  styleType?: 'error' | 'subtle' | 'default';
   children: string;
-  onClick: () => void;
 }
 
 const DefaultButton = ({
-  type = 'default',
+  styleType = 'default',
   children,
   onClick,
+  ...props
 }: DefaultButtonProps) => {
   return (
     <button
-      className={`c-default-button c-default-button--${type}`}
+      className={`c-default-button c-default-button--${styleType}`}
       onClick={onClick}
+      {...props}
     >
       {children}
     </button>
