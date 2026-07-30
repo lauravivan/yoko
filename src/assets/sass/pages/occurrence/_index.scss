@@ -52,20 +52,4 @@
       }
     }
   }
-
-  &--actions {
-    &:has(.c-countup-card--show-desc) {
-      .p-occurrence__cards {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      }
-
-      .c-countup-card {
-        width: fit-content;
-
-        &__left-container {
-          flex: none;
-        }
-      }
-    }
-  }
 }

@@ -1,59 +1,5 @@
 @use '../../../tokens';
 
-.c-countup-card {
-  &__left-container {
-    padding: 10px 20px;
-    align-items: center;
-    flex: 1;
-    border-top-right-radius: tokens.$border-r-default;
-    border-bottom-right-radius: tokens.$border-r-default;
-  }
-
-  &--show-desc {
-    .c-countup-card__left-container {
-      border-top-right-radius: unset;
-      border-bottom-right-radius: unset;
-    }
-  }
-
-  &__title-container,
-  &__date {
-    justify-self: center;
-    display: block;
-  }
-
-  &__right-container {
-    flex: 2;
-  }
-
-  &__countup {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__countup__num {
-    margin: 0 auto;
-    @include tokens.text-xl-highlight();
-  }
-
-  &__countup__ext {
-    margin: 0 auto;
-    @include tokens.text-base();
-  }
-
-  &__desc-btn {
-    all: unset;
-    cursor: pointer;
-    position: absolute;
-    bottom: 10px;
-
-    svg {
-      width: 20px;
-      height: 20px;
-    }
-  }
-}
-
 .c-occurrence-card-wrapper {
   .c-dynamic-modal {
     top: 10%;

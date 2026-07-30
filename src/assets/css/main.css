@@ -16,6 +16,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 /* breakpoints */
 /* border radius */
 /* border width */
@@ -861,78 +862,11 @@ body {
   padding: 5px 10px;
 }
 
-.p-occurrence--actions:has(.c-countup-card--show-desc) .p-occurrence__cards {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.p-occurrence--actions:has(.c-countup-card--show-desc) .c-countup-card {
-  width: fit-content;
-}
-
-.p-occurrence--actions:has(.c-countup-card--show-desc) .c-countup-card__left-container {
-  flex: none;
-}
-
 /* breakpoints */
 /* border radius */
 /* border width */
 /* opacity */
 /* shadow */
-.c-countup-card__left-container {
-  padding: 10px 20px;
-  align-items: center;
-  flex: 1;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.c-countup-card--show-desc .c-countup-card__left-container {
-  border-top-right-radius: unset;
-  border-bottom-right-radius: unset;
-}
-
-.c-countup-card__title-container, .c-countup-card__date {
-  justify-self: center;
-  display: block;
-}
-
-.c-countup-card__right-container {
-  flex: 2;
-}
-
-.c-countup-card__countup {
-  display: flex;
-  flex-direction: column;
-}
-
-.c-countup-card__countup__num {
-  margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 1.5;
-}
-
-.c-countup-card__countup__ext {
-  margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.c-countup-card__desc-btn {
-  all: unset;
-  cursor: pointer;
-  position: absolute;
-  bottom: 10px;
-}
-
-.c-countup-card__desc-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
 .c-occurrence-card-wrapper .c-dynamic-modal {
   top: 10%;
   display: flex;
@@ -1301,12 +1235,95 @@ body {
   flex: 1;
 }
 
+/* breakpoints */
+/* border radius */
+/* border width */
+/* opacity */
+/* shadow */
 .c-actions-view__cards {
   display: grid;
-  row-gap: 30px;
-  column-gap: 40px;
+  gap: 20px;
   padding-bottom: 50px;
-  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.c-actions-view:has(.c-occurrence-card--show-desc) .c-actions-view__cards {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.c-actions-view:has(.c-occurrence-card--show-desc) .c-occurrence-card {
+  width: fit-content;
+}
+
+.c-actions-view:has(.c-occurrence-card--show-desc) .c-occurrence-card__left-container {
+  flex: none;
+}
+
+.c-actions-view .c-occurrence-card__left-container {
+  padding: 10px 20px;
+  align-items: center;
+  flex: 1;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.c-actions-view .c-occurrence-card__left-container__title-container, .c-actions-view .c-occurrence-card__left-container__datetime-container {
+  justify-content: center;
+  text-align: center;
+}
+
+.c-actions-view .c-occurrence-card__left-container__title-container {
+  flex: 1;
+}
+
+.c-actions-view .c-occurrence-card__left-container__title-container__title {
+  flex: 1;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.c-actions-view .c-occurrence-card__left-container__desc-btn {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+}
+
+.c-actions-view .c-occurrence-card__left-container__desc-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.c-actions-view .c-occurrence-card__left-container__countup {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-actions-view .c-occurrence-card__left-container__countup__num {
+  margin: 0 auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.5;
+}
+
+.c-actions-view .c-occurrence-card__left-container__countup__ext {
+  margin: 0 auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.c-actions-view .c-occurrence-card--show-desc .c-occurrence-card__left-container {
+  border-top-right-radius: unset;
+  border-bottom-right-radius: unset;
+}
+
+.c-actions-view .c-occurrence-card__right-container {
+  flex: 2;
 }
 
 /*# sourceMappingURL=main.css.map */
