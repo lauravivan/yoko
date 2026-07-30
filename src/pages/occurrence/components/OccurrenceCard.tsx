@@ -10,7 +10,10 @@ import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
 import DynamicModal from '@/components/display/DynamicModal';
 import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
-import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
+import {
+  OccurrenceCategoryEnum,
+  OccurrenceEndsTypeEnum,
+} from '@/enum/OccurrenceEnum';
 import PersonalIcon from '@/components/display/icons/categories/Personal';
 import WorkIcon from '@/components/display/icons/categories/Work';
 import Divider from '@/components/utils/Divider';
@@ -25,6 +28,8 @@ import SocialIcon from '@/components/display/icons/categories/Social';
 import StudyIcon from '@/components/display/icons/categories/Study';
 import TravelIcon from '@/components/display/icons/categories/Travel';
 import DefaultButton from '@/components/action/DefaultButton';
+import { WeekDayEnum } from '@/enum/DayEnum';
+import { type IOccurrence } from '@/types/Occurrence';
 
 /* eslint-disable sonarjs/no-commented-code */
 // const getCounting = (date: Date) => {
@@ -100,36 +105,20 @@ const CategoryIcon = ({ category }: { category: OccurrenceCategoryEnum }) => {
 };
 
 const OccurrenceCard = ({
-  id,
-  title,
-  desc,
   onSelect,
   onDeselect,
-  category,
-  isEvent,
-  dateOfOccurrence,
-  endTime,
-  startTime,
-  allDay,
+  occurrence,
   is24Hour,
 }: {
-  id: string;
-  title: string;
-  desc: string | null;
-  category: OccurrenceCategoryEnum;
   onSelect: () => void;
   onDeselect: () => void;
-  isEvent: boolean;
-  dateOfOccurrence: Date;
-  startTime: string | null;
-  endTime: string | null;
-  allDay: boolean;
+  occurrence: IOccurrence;
   is24Hour: boolean;
 }) => {
   const [showDesc, setShowDesc] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [showRightContainer, setShowRightContainer] = useState(
-    isEvent ? true : false
+    occurrence.isEvent ? true : false
   );
 
   const {
@@ -148,9 +137,32 @@ const OccurrenceCard = ({
     handleSubmit,
     submittedSuccessfully,
     clearForm,
+    weekDayRepetitionRefs,
+    monthRepetition,
+    weekRepetition,
+    handleMonthRepetition,
+    handleWeekRepetition,
+    handleYearRepetition,
+    handleMonthRepetitionSpace,
+    handleWeekRepetitionSpace,
+    handleYearRepetitionSpace,
+    monthRepetitionSpace,
+    weekRepetitionSpace,
+    endsType,
+    handleEndsType,
+    qntOccurrencesTillEndRef,
+    endDateOfOccurrenceRef,
   } = useOccurrenceForm({
-    occurrenceId: id,
-    allDay,
+    occurrenceId: occurrence.id,
+    allDay: occurrence.allDay,
+    isEvent: occurrence.isEvent,
+    endsTypeDefault: occurrence.endsType ?? OccurrenceEndsTypeEnum.Never,
+    monthRepetitionDefault: occurrence.monthRepetition ?? 0,
+    monthRepetitionSpaceDefault: occurrence.monthRepetitionSpace ?? 0,
+    weekRepetitionDefault: occurrence.weekRepetition ?? 0,
+    weekRepetitionSpaceDefault: occurrence.weekRepetitionSpace ?? 0,
+    yearRepetitionDefault: occurrence.yearRepetition ?? 0,
+    yearRepetitionSpaceDefault: occurrence.yearRepetitionSpace ?? 0,
   });
 
   const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
@@ -162,7 +174,7 @@ const OccurrenceCard = ({
   const handleDesc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setShowDesc((prev) => !prev);
-    if (!isEvent) setShowRightContainer((prev) => !prev);
+    if (!occurrence.isEvent) setShowRightContainer((prev) => !prev);
   };
 
   const { refs } = useFloating({
@@ -186,22 +198,22 @@ const OccurrenceCard = ({
         ref={refs.setReference}
       >
         <div
-          className={`c-occurrence-card__left-container c-occurrence-card__left-container--${category}`}
+          className={`c-occurrence-card__left-container c-occurrence-card__left-container--${occurrence.category}`}
         >
           <div>
             <div className="c-occurrence-card__left-container__title-container">
-              {desc && isEvent && !titleEditMode && (
+              {occurrence.desc && occurrence.isEvent && !titleEditMode && (
                 <button onClick={handleDesc}>
                   <NoteIcon />
                 </button>
               )}
               {titleEditMode && (
                 <textarea
-                  placeholder={title}
+                  placeholder={occurrence.title}
                   onClick={(e) => e.stopPropagation()}
                   onKeyDown={handleTitleUpdateOnKeyDown}
                   ref={titleRef}
-                  defaultValue={title}
+                  defaultValue={occurrence.title}
                   onBlur={handleTitleUpdateOnBlur}
                   maxLength={50}
                   rows={3}
@@ -213,30 +225,39 @@ const OccurrenceCard = ({
                   className="c-occurrence-card__left-container__title-container__title"
                   onClick={handleTitleEditMode}
                 >
-                  {title}
+                  {occurrence.title}
                 </h3>
               )}
             </div>
-            {showDesc && desc && isEvent && (
+            {showDesc && occurrence.desc && occurrence.isEvent && (
               <>
                 <Divider />
                 <p className="c-occurrence-card__left-container__desc">
-                  {desc}
+                  {occurrence.desc}
                 </p>
               </>
             )}
             <div className="c-occurrence-card__left-container__datetime-container">
               <span className="c-occurrence-card__left-container__datetime-container__date">
-                {formatDate(dateOfOccurrence)}
+                {formatDate(occurrence.dateOfOccurrence)}
               </span>
-              {startTime && endTime && (
+              {occurrence.startTime && occurrence.endTime && (
                 <span className="c-occurrence-card__left-container__datetime-container__time">
-                  {formatHour(dateOfOccurrence, startTime, is24Hour)} -{' '}
-                  {formatHour(dateOfOccurrence, endTime, is24Hour)}
+                  {formatHour(
+                    occurrence.dateOfOccurrence,
+                    occurrence.startTime,
+                    is24Hour
+                  )}{' '}
+                  -{' '}
+                  {formatHour(
+                    occurrence.dateOfOccurrence,
+                    occurrence.endTime,
+                    is24Hour
+                  )}
                 </span>
               )}
             </div>
-            {!isEvent && (
+            {!occurrence.isEvent && (
               <div className="c-occurrence-card__left-container__countup">
                 <span className="c-occurrence-card__left-container__countup__num">
                   26
@@ -246,7 +267,7 @@ const OccurrenceCard = ({
                 </span>
               </div>
             )}
-            {!isEvent && desc && (
+            {!occurrence.isEvent && occurrence.desc && (
               <button
                 className="c-occurrence-card__left-container__desc-btn"
                 onClick={handleDesc}
@@ -256,14 +277,18 @@ const OccurrenceCard = ({
             )}
           </div>
           <div className="c-occurrence-card__left-container__category-icon">
-            <CategoryIcon category={category} />
+            <CategoryIcon category={occurrence.category} />
           </div>
         </div>
         {showRightContainer && (
           <div className="c-occurrence-card__right-container">
-            {isEvent && <Countdown dateToEvent={dateOfOccurrence} />}
-            {showDesc && desc && !isEvent && (
-              <p className="c-occurrence-card__right-container__desc">{desc}</p>
+            {occurrence.isEvent && (
+              <Countdown dateToEvent={occurrence.dateOfOccurrence} />
+            )}
+            {showDesc && occurrence.desc && !occurrence.isEvent && (
+              <p className="c-occurrence-card__right-container__desc">
+                {occurrence.desc}
+              </p>
             )}
           </div>
         )}
@@ -288,19 +313,19 @@ const OccurrenceCard = ({
               onSubmit={handleSubmit}
             >
               <span className="c-occurrence-card__edit-form__title">
-                Edit <span>{title}</span>
+                Edit <span>{occurrence.title}</span>
               </span>
               {/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */}
               <textarea
                 className="c-occurrence-card__edit-form__desc"
-                placeholder={desc || 'Description...'}
+                placeholder={occurrence.desc || 'Description...'}
                 ref={descRef}
                 maxLength={250}
                 rows={4}
-                defaultValue={desc ?? 'Description...'}
+                defaultValue={occurrence.desc ?? 'Description...'}
               />
               {/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */}
-              <select defaultValue={category} ref={categoryRef}>
+              <select defaultValue={occurrence.category} ref={categoryRef}>
                 <option value="" disabled>
                   Choose a category
                 </option>
@@ -313,15 +338,16 @@ const OccurrenceCard = ({
               <div className="c-occurrence-card__edit-form__date-wrapper">
                 <input
                   type="date"
-                  defaultValue={formatDateForInput(dateOfOccurrence)}
+                  defaultValue={formatDateForInput(occurrence.dateOfOccurrence)}
                   ref={dateOfOccurrenceRef}
                 />
                 <div className="c-occurrence-card__edit-form__all-day">
                   <input
                     name="all-day"
+                    id="all-day"
                     type="checkbox"
                     onChange={handleAllDay}
-                    defaultChecked={allDay}
+                    defaultChecked={occurrence.allDay}
                   />
                   <label htmlFor="all-day">All day</label>
                 </div>
@@ -331,14 +357,197 @@ const OccurrenceCard = ({
                   <input
                     type="time"
                     ref={startTimeRef}
-                    defaultValue={startTime ?? '00:00'}
+                    defaultValue={occurrence.startTime ?? '00:00'}
                   />
                   <input
                     type="time"
                     ref={endTimeRef}
-                    defaultValue={endTime ?? '00:00'}
+                    defaultValue={occurrence.endTime ?? '00:00'}
                   />
                 </div>
+              )}
+              {!occurrence.isEvent && (
+                <>
+                  <div className="c-occurrence-card__edit-form__weekday-rep">
+                    {Object.keys(WeekDayEnum).map((item) => (
+                      <div key={item}>
+                        <input
+                          type="checkbox"
+                          name="weekday-repetition"
+                          ref={weekDayRepetitionRefs}
+                          id={item}
+                          value={item}
+                          defaultChecked={occurrence.weekDayRepetition.some(
+                            (wdr) => wdr === (item as WeekDayEnum)
+                          )}
+                        />
+                        <label htmlFor={item}>{item}</label>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="c-occurrence-card__edit-form__rep">
+                    <span>Repeat every: </span>
+                    <div>
+                      <div>
+                        <input
+                          type="number"
+                          id="repeat-week"
+                          name="repeat-week"
+                          defaultValue={occurrence.weekRepetition ?? 0}
+                          min={0}
+                          disabled={monthRepetition > 0}
+                          onChange={(e) =>
+                            handleWeekRepetition(parseInt(e.target.value))
+                          }
+                        />
+                        <label htmlFor="repeat-week">week</label>
+                      </div>
+                      <div>
+                        <input
+                          type="number"
+                          id="repeat-month"
+                          name="repeat-month"
+                          defaultValue={occurrence.monthRepetition ?? 0}
+                          min={0}
+                          disabled={weekRepetition > 0}
+                          onChange={(e) =>
+                            handleMonthRepetition(parseInt(e.target.value))
+                          }
+                        />
+                        <label htmlFor="repeat-month">month</label>
+                      </div>
+                      <div>
+                        <input
+                          type="number"
+                          id="repeat-year"
+                          name="repeat-year"
+                          defaultValue={occurrence.yearRepetition ?? 0}
+                          min={0}
+                          onChange={(e) =>
+                            handleYearRepetition(parseInt(e.target.value))
+                          }
+                        />
+                        <label htmlFor="repeat-year">year</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="c-occurrence-card__edit-form__rep-space">
+                    <span>Repetition space: </span>
+                    <div>
+                      <div>
+                        <input
+                          id="repeat-week-space"
+                          name="repeat-week-space"
+                          type="number"
+                          defaultValue={occurrence.weekRepetitionSpace ?? 0}
+                          min={0}
+                          disabled={weekRepetitionSpace > 0}
+                          onChange={(e) =>
+                            handleWeekRepetitionSpace(parseInt(e.target.value))
+                          }
+                        />
+                        <label htmlFor="repeat-week-space">week</label>
+                      </div>
+                      <div>
+                        <input
+                          id="repeat-month-space"
+                          name="repeat-month-space"
+                          type="number"
+                          defaultValue={occurrence.monthRepetitionSpace ?? 0}
+                          min={0}
+                          disabled={monthRepetitionSpace > 0}
+                          onChange={(e) =>
+                            handleMonthRepetitionSpace(parseInt(e.target.value))
+                          }
+                        />
+                        <label htmlFor="repeat-month-space">month</label>
+                      </div>
+                      <div>
+                        <input
+                          id="repeat-year-space"
+                          name="repeat-year-space"
+                          type="number"
+                          defaultValue={occurrence.yearRepetitionSpace ?? 0}
+                          min={0}
+                          onChange={(e) =>
+                            handleYearRepetitionSpace(parseInt(e.target.value))
+                          }
+                        />
+                        <label htmlFor="repeat-year-space">year</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="c-occurrence-card__edit-form__ends">
+                    <span>When it ends: </span>
+                    <div>
+                      <input
+                        type="radio"
+                        name="ends"
+                        onChange={() =>
+                          handleEndsType(OccurrenceEndsTypeEnum.Never)
+                        }
+                        id="ends-never"
+                        defaultChecked={
+                          occurrence.endsType ===
+                            OccurrenceEndsTypeEnum.Never || !occurrence.endsType
+                        }
+                      />
+                      <label htmlFor="ends-never">
+                        {OccurrenceEndsTypeEnum.Never}
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="ends"
+                        id="ends-on"
+                        defaultChecked={
+                          occurrence.endsType === OccurrenceEndsTypeEnum.On
+                        }
+                        onChange={() =>
+                          handleEndsType(OccurrenceEndsTypeEnum.On)
+                        }
+                      />
+                      <label htmlFor="ends-on">
+                        {OccurrenceEndsTypeEnum.On}
+                      </label>
+                      <input
+                        type="date"
+                        disabled={endsType !== OccurrenceEndsTypeEnum.On}
+                        ref={endDateOfOccurrenceRef}
+                        defaultValue={formatDateForInput(
+                          occurrence.endDateOfOccurrence
+                        )}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="ends"
+                        id="ends-after"
+                        onChange={() =>
+                          handleEndsType(OccurrenceEndsTypeEnum.After)
+                        }
+                        defaultChecked={
+                          occurrence.endsType === OccurrenceEndsTypeEnum.After
+                        }
+                      />
+                      <label htmlFor="ends-after">
+                        {OccurrenceEndsTypeEnum.After}
+                      </label>
+                      <input
+                        type="number"
+                        defaultValue={occurrence.qntOccurrencesTillEnd ?? 0}
+                        min={0}
+                        name="qnt-occurrences"
+                        id="qnt-occurrences"
+                        ref={qntOccurrencesTillEndRef}
+                        disabled={endsType !== OccurrenceEndsTypeEnum.After}
+                      />
+                      <label htmlFor="qnt-occurrences">occurrences</label>
+                    </div>
+                  </div>
+                </>
               )}
               <DefaultButton type="submit">Save</DefaultButton>
             </form>

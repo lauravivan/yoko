@@ -43,30 +43,12 @@ const ActionsView = () => {
 
             {actions.length > 0 &&
               actions.map((action: IOccurrence) => (
-                // <Card
-                //   event={event}
-                //   key={event.id}
-                //   updateEventDesc={updateEventDesc}
-                //   deleteEvent={deleteEvent}
-                //   handleEventId={(eventId: string) => setEventId(eventId)}
-                //   openModal={openModal}
-                //   handleTitle={handleTitle}
-                //   app={app}
-                // />
                 <OccurrenceCard
-                  title={action.title}
-                  desc={action.desc}
+                  occurrence={action}
                   key={action.id}
                   onSelect={onSelect}
                   onDeselect={onDeselect}
-                  category={action.category}
-                  isEvent={action.isEvent}
-                  dateOfOccurrence={action.dateOfOccurrence}
-                  id={action.id}
                   is24Hour={action.allDay}
-                  allDay={action.allDay}
-                  endTime={action.endTime}
-                  startTime={action.startTime}
                 />
               ))}
           </div>

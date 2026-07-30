@@ -70,18 +70,10 @@ const EventsView = () => {
             {events.length > 0 &&
               events.map((event: IOccurrence) => (
                 <OccurrenceCard
-                  id={event.id}
-                  title={event.title}
-                  desc={event.desc}
+                  occurrence={event}
                   key={event.id}
                   onSelect={onSelect}
                   onDeselect={onDeselect}
-                  category={event.category}
-                  isEvent={event.isEvent}
-                  dateOfOccurrence={event.dateOfOccurrence}
-                  startTime={event.startTime}
-                  endTime={event.endTime}
-                  allDay={event.allDay}
                   is24Hour={is24Hour}
                 />
               ))}

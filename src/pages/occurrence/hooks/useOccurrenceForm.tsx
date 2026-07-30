@@ -1,32 +1,67 @@
-import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
+import { type WeekDayEnum } from '@/enum/DayEnum';
+import {
+  OccurrenceCategoryEnum,
+  OccurrenceEndsTypeEnum,
+} from '@/enum/OccurrenceEnum';
 import useOccurrenceStore from '@/store/occurrenceStore';
-import { useRef, useState } from 'react';
+import { type IOccurrence } from '@/types/Occurrence';
+import { useEffect, useRef, useState } from 'react';
 
 const useOccurrenceForm = ({
   occurrenceId,
   allDay,
+  isEvent,
+  endsTypeDefault,
+  monthRepetitionDefault,
+  monthRepetitionSpaceDefault,
+  weekRepetitionDefault,
+  weekRepetitionSpaceDefault,
+  yearRepetitionDefault,
+  yearRepetitionSpaceDefault,
 }: {
   occurrenceId: string;
   allDay: boolean;
+  isEvent: boolean;
+  endsTypeDefault: OccurrenceEndsTypeEnum;
+  monthRepetitionDefault: number;
+  yearRepetitionDefault: number;
+  weekRepetitionDefault: number;
+  weekRepetitionSpaceDefault: number;
+  yearRepetitionSpaceDefault: number;
+  monthRepetitionSpaceDefault: number;
 }) => {
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const descRef = useRef<HTMLTextAreaElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
   const dateOfOccurrenceRef = useRef<HTMLInputElement>(null);
+  const endDateOfOccurrenceRef = useRef<HTMLInputElement>(null);
+  const qntOccurrencesTillEndRef = useRef<HTMLInputElement>(null);
+  const weekDayRepetitionRef = useRef<HTMLInputElement[]>([]);
   const startTimeRef = useRef<HTMLInputElement>(null);
   const endTimeRef = useRef<HTMLInputElement>(null);
-  const {
-    updateOccurrenceTitle,
-    updateOccurrenceDesc,
-    updateOccurrenceDate,
-    updateOccurrenceStartTime,
-    updateOccurrenceEndTime,
-    updateOccurrenceCategory,
-    updateAllDay,
-  } = useOccurrenceStore();
+  const { updateOccurrence, updateOccurrenceTitle } = useOccurrenceStore();
   const [titleEditMode, setTitleEditMode] = useState(false);
   const [isAllDay, setIsAllDay] = useState(allDay);
   const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
+  const [weekRepetition, setWeekRepetition] = useState(weekRepetitionDefault);
+  const [monthRepetition, setMonthRepetition] = useState(
+    monthRepetitionDefault
+  );
+  const [yearRepetition, setYearRepetition] = useState(yearRepetitionDefault);
+  const [weekRepetitionSpace, setWeekRepetitionSpace] = useState(
+    weekRepetitionSpaceDefault
+  );
+  const [monthRepetitionSpace, setMonthRepetitionSpace] = useState(
+    monthRepetitionSpaceDefault
+  );
+  const [yearRepetitionSpace, setYearRepetitionSpace] = useState(
+    yearRepetitionSpaceDefault
+  );
+  const [endsType, setEndsType] = useState(endsTypeDefault);
+
+  useEffect(() => {
+    weekDayRepetitionRef.current = [];
+  }, []);
 
   const handleTitleUpdateOnKeyDown = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
@@ -52,12 +87,22 @@ const useOccurrenceForm = ({
 
   const handleAllDay = () => setIsAllDay((prev) => !prev);
 
+  const weekDayRepetitionRefs = (el: HTMLInputElement) => {
+    if (el && !weekDayRepetitionRef.current.includes(el)) {
+      weekDayRepetitionRef.current.push(el);
+    }
+  };
+
+  /* eslint-disable sonarjs/cognitive-complexity */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (descRef.current) {
-      updateOccurrenceDesc(occurrenceId, descRef.current.value);
-    }
+    const occ = {} as IOccurrence;
+
+    occ.id = occurrenceId;
+    occ.isEvent = isEvent;
+
+    if (descRef.current) occ.desc = descRef.current.value;
 
     if (categoryRef.current) {
       const isValidCategory = Object.values(OccurrenceCategoryEnum).some(
@@ -66,38 +111,67 @@ const useOccurrenceForm = ({
           (categoryRef.current?.options[categoryRef.current.selectedIndex]
             .value as OccurrenceCategoryEnum)
       );
-      updateOccurrenceCategory(
-        occurrenceId,
-        isValidCategory
-          ? (categoryRef.current.value as OccurrenceCategoryEnum)
-          : OccurrenceCategoryEnum.Personal
-      );
+
+      occ.category = isValidCategory
+        ? (categoryRef.current.value as OccurrenceCategoryEnum)
+        : OccurrenceCategoryEnum.Personal;
     }
 
-    if (dateOfOccurrenceRef.current) {
-      updateOccurrenceDate(
-        occurrenceId,
-        new Date(dateOfOccurrenceRef.current.value)
-      );
-    }
+    if (dateOfOccurrenceRef.current)
+      occ.dateOfOccurrence = new Date(dateOfOccurrenceRef.current.value);
 
-    updateAllDay(occurrenceId, isAllDay);
+    occ.allDay = isAllDay;
 
     if (isAllDay) {
-      updateOccurrenceStartTime(occurrenceId, null);
-      updateOccurrenceEndTime(occurrenceId, null);
+      occ.startTime = null;
+      occ.endTime = null;
     } else {
-      if (startTimeRef.current) {
-        updateOccurrenceStartTime(occurrenceId, startTimeRef.current.value);
-      }
-
-      if (endTimeRef.current) {
-        updateOccurrenceEndTime(occurrenceId, endTimeRef.current.value);
-      }
+      if (startTimeRef.current) occ.startTime = startTimeRef.current.value;
+      if (endTimeRef.current) occ.endTime = endTimeRef.current.value;
     }
 
+    if (weekDayRepetitionRef.current) {
+      const weekDayRep: WeekDayEnum[] = [];
+
+      weekDayRepetitionRef.current.forEach((weekDayRef) => {
+        if (weekDayRef.checked)
+          weekDayRep.push(weekDayRef.value as WeekDayEnum);
+      });
+
+      occ.weekDayRepetition = weekDayRep;
+    }
+
+    occ.weekRepetition = weekRepetition;
+    occ.monthRepetition = monthRepetition;
+    occ.yearRepetition = yearRepetition;
+    occ.weekRepetitionSpace = weekRepetitionSpace;
+    occ.monthRepetitionSpace = monthRepetitionSpace;
+    occ.yearRepetitionSpace = yearRepetitionSpace;
+
+    occ.endsType = endsType;
+
+    if (endsType === OccurrenceEndsTypeEnum.On) {
+      if (endDateOfOccurrenceRef.current)
+        occ.endDateOfOccurrence = new Date(
+          endDateOfOccurrenceRef.current.value
+        );
+    } else {
+      occ.endDateOfOccurrence = occ.dateOfOccurrence;
+    }
+
+    if (endsType === OccurrenceEndsTypeEnum.After) {
+      if (qntOccurrencesTillEndRef.current)
+        occ.qntOccurrencesTillEnd = parseInt(
+          qntOccurrencesTillEndRef.current.value
+        );
+    } else {
+      occ.qntOccurrencesTillEnd = 0;
+    }
+
+    updateOccurrence(occ);
     setSubmittedSuccessfully(true);
   };
+  /* eslint-enable sonarjs/cognitive-complexity */
 
   const clearForm = () => {
     setSubmittedSuccessfully(false);
@@ -110,15 +184,32 @@ const useOccurrenceForm = ({
     dateOfOccurrenceRef,
     startTimeRef,
     endTimeRef,
+    endDateOfOccurrenceRef,
+    qntOccurrencesTillEndRef,
+    weekDayRepetitionRefs,
     handleTitleUpdateOnKeyDown,
     handleTitleUpdateOnBlur,
     handleTitleEditMode,
+    weekRepetition,
+    monthRepetition,
+    yearRepetition,
+    weekRepetitionSpace,
+    monthRepetitionSpace,
+    yearRepetitionSpace,
     titleEditMode,
     isAllDay,
+    endsType,
     handleAllDay,
     handleSubmit,
     submittedSuccessfully,
     clearForm,
+    handleMonthRepetition: setMonthRepetition,
+    handleYearRepetition: setYearRepetition,
+    handleWeekRepetition: setWeekRepetition,
+    handleMonthRepetitionSpace: setMonthRepetitionSpace,
+    handleYearRepetitionSpace: setYearRepetitionSpace,
+    handleWeekRepetitionSpace: setWeekRepetitionSpace,
+    handleEndsType: setEndsType,
   };
 };
 
