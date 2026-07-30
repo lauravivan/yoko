@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NoteIcon from '@/components/display/icons/Note';
-import { formatDate, formatDateForInput } from '@/helpers/formatters/date';
+import {
+  formatDate,
+  formatDateForInput,
+  formatHour,
+} from '@/helpers/formatters/date';
 import { differenceInCalendarDays } from 'date-fns';
 import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
@@ -20,6 +24,7 @@ import ReadingIcon from '@/components/display/icons/categories/Reading';
 import SocialIcon from '@/components/display/icons/categories/Social';
 import StudyIcon from '@/components/display/icons/categories/Study';
 import TravelIcon from '@/components/display/icons/categories/Travel';
+import DefaultButton from '@/components/action/DefaultButton';
 
 /* eslint-disable sonarjs/no-commented-code */
 // const getCounting = (date: Date) => {
@@ -52,10 +57,10 @@ import TravelIcon from '@/components/display/icons/categories/Travel';
 // };
 /* eslint-enable sonarjs/no-commented-code */
 
-const CountingOfDays = ({ dateToEvent }: { dateToEvent: Date }) => {
+const Countdown = ({ dateToEvent }: { dateToEvent: Date }) => {
   const difference = differenceInCalendarDays(
-    new Date(dateToEvent).setHours(23, 59),
-    new Date().setHours(0, 1)
+    new Date(dateToEvent).toISOString().slice(0, 10),
+    new Date().toISOString().slice(0, 10)
   );
 
   return (
@@ -102,7 +107,11 @@ const OccurrenceCard = ({
   onDeselect,
   category,
   isEvent,
-  startDate,
+  dateOfOccurrence,
+  endTime,
+  startTime,
+  allDay,
+  is24Hour,
 }: {
   id: string;
   title: string;
@@ -111,7 +120,11 @@ const OccurrenceCard = ({
   onSelect: () => void;
   onDeselect: () => void;
   isEvent: boolean;
-  startDate: Date;
+  dateOfOccurrence: Date;
+  startTime: string | null;
+  endTime: string | null;
+  allDay: boolean;
+  is24Hour: boolean;
 }) => {
   const [showDesc, setShowDesc] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -120,17 +133,25 @@ const OccurrenceCard = ({
   );
 
   const {
-    handleDescUpdateOnKeyDown,
     handleTitleEditMode,
     handleTitleUpdateOnBlur,
     handleTitleUpdateOnKeyDown,
     descRef,
     titleRef,
-    handleDescUpdateOnBlur,
+    categoryRef,
+    dateOfOccurrenceRef,
     titleEditMode,
-    handleStartDateUpdateOnBlur,
-    handleCategoryUpdateOnBlur,
-  } = useOccurrenceForm({ occurrenceId: id });
+    startTimeRef,
+    endTimeRef,
+    handleAllDay,
+    isAllDay,
+    handleSubmit,
+    submittedSuccessfully,
+    clearForm,
+  } = useOccurrenceForm({
+    occurrenceId: id,
+    allDay,
+  });
 
   const articleRef = useClickOutside<HTMLDivElement>(() => setModalOpen(false));
 
@@ -150,9 +171,15 @@ const OccurrenceCard = ({
     whileElementsMounted: autoUpdate,
   });
 
+  useEffect(() => {
+    if (submittedSuccessfully) {
+      setModalOpen((prev) => !prev);
+      clearForm();
+    }
+  }, [submittedSuccessfully]);
+
   return (
     <div className="c-occurrence-card-wrapper" ref={articleRef}>
-      {}
       <article
         className={`c-occurrence-card${showRightClass}`}
         onClick={() => setModalOpen((prev) => !prev)}
@@ -198,9 +225,17 @@ const OccurrenceCard = ({
                 </p>
               </>
             )}
-            <span className="c-occurrence-card__left-container__date">
-              {formatDate(startDate)}
-            </span>
+            <div className="c-occurrence-card__left-container__datetime-container">
+              <span className="c-occurrence-card__left-container__datetime-container__date">
+                {formatDate(dateOfOccurrence)}
+              </span>
+              {startTime && endTime && (
+                <span className="c-occurrence-card__left-container__datetime-container__time">
+                  {formatHour(dateOfOccurrence, startTime, is24Hour)} -{' '}
+                  {formatHour(dateOfOccurrence, endTime, is24Hour)}
+                </span>
+              )}
+            </div>
             {!isEvent && (
               <div className="c-occurrence-card__left-container__countup">
                 <span className="c-occurrence-card__left-container__countup__num">
@@ -226,7 +261,7 @@ const OccurrenceCard = ({
         </div>
         {showRightContainer && (
           <div className="c-occurrence-card__right-container">
-            {isEvent && <CountingOfDays dateToEvent={startDate} />}
+            {isEvent && <Countdown dateToEvent={dateOfOccurrence} />}
             {showDesc && desc && !isEvent && (
               <p className="c-occurrence-card__right-container__desc">{desc}</p>
             )}
@@ -248,38 +283,65 @@ const OccurrenceCard = ({
             ref={refs.setFloating}
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="c-dynamic-modal__title">
-              Edit <span>{title}</span>
-            </span>
-            <textarea
-              className="c-dynamic-modal__desc"
-              placeholder={desc ?? 'Description...'}
-              onKeyDown={handleDescUpdateOnKeyDown}
-              onBlur={handleDescUpdateOnBlur}
-              ref={descRef}
-              maxLength={250}
-              rows={4}
-              defaultValue={desc ?? 'Description...'}
-            />
-            <input
-              className="c-dynamic-modal__date"
-              type="date"
-              onBlur={handleStartDateUpdateOnBlur}
-              defaultValue={formatDateForInput(startDate)}
-            />
-            <select
-              defaultValue={category}
-              onChange={handleCategoryUpdateOnBlur}
+            <form
+              className="c-occurrence-card__edit-form"
+              onSubmit={handleSubmit}
             >
-              <option value="" disabled>
-                Choose a category
-              </option>
-              {Object.values(OccurrenceCategoryEnum).map((occ) => (
-                <option key={occ} value={occ}>
-                  {occ}
+              <span className="c-occurrence-card__edit-form__title">
+                Edit <span>{title}</span>
+              </span>
+              {/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */}
+              <textarea
+                className="c-occurrence-card__edit-form__desc"
+                placeholder={desc || 'Description...'}
+                ref={descRef}
+                maxLength={250}
+                rows={4}
+                defaultValue={desc ?? 'Description...'}
+              />
+              {/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */}
+              <select defaultValue={category} ref={categoryRef}>
+                <option value="" disabled>
+                  Choose a category
                 </option>
-              ))}
-            </select>
+                {Object.values(OccurrenceCategoryEnum).map((occ) => (
+                  <option key={occ} value={occ}>
+                    {occ}
+                  </option>
+                ))}
+              </select>
+              <div className="c-occurrence-card__edit-form__date-wrapper">
+                <input
+                  type="date"
+                  defaultValue={formatDateForInput(dateOfOccurrence)}
+                  ref={dateOfOccurrenceRef}
+                />
+                <div className="c-occurrence-card__edit-form__all-day">
+                  <input
+                    name="all-day"
+                    type="checkbox"
+                    onChange={handleAllDay}
+                    defaultChecked={allDay}
+                  />
+                  <label htmlFor="all-day">All day</label>
+                </div>
+              </div>
+              {!isAllDay && (
+                <div className="c-occurrence-card__edit-form__times">
+                  <input
+                    type="time"
+                    ref={startTimeRef}
+                    defaultValue={startTime ?? '00:00'}
+                  />
+                  <input
+                    type="time"
+                    ref={endTimeRef}
+                    defaultValue={endTime ?? '00:00'}
+                  />
+                </div>
+              )}
+              <DefaultButton type="submit">Save</DefaultButton>
+            </form>
           </DynamicModal>
           {/* eslint-enable react-hooks/refs */}
         </>

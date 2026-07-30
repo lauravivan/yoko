@@ -2,16 +2,31 @@ import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 import useOccurrenceStore from '@/store/occurrenceStore';
 import { useRef, useState } from 'react';
 
-const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
+const useOccurrenceForm = ({
+  occurrenceId,
+  allDay,
+}: {
+  occurrenceId: string;
+  allDay: boolean;
+}) => {
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const descRef = useRef<HTMLTextAreaElement>(null);
+  const categoryRef = useRef<HTMLSelectElement>(null);
+  const dateOfOccurrenceRef = useRef<HTMLInputElement>(null);
+  const startTimeRef = useRef<HTMLInputElement>(null);
+  const endTimeRef = useRef<HTMLInputElement>(null);
   const {
     updateOccurrenceTitle,
     updateOccurrenceDesc,
-    updateOccurrenceStartDate,
+    updateOccurrenceDate,
+    updateOccurrenceStartTime,
+    updateOccurrenceEndTime,
     updateOccurrenceCategory,
+    updateAllDay,
   } = useOccurrenceStore();
   const [titleEditMode, setTitleEditMode] = useState(false);
+  const [isAllDay, setIsAllDay] = useState(allDay);
+  const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
 
   const handleTitleUpdateOnKeyDown = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
@@ -35,53 +50,75 @@ const useOccurrenceForm = ({ occurrenceId }: { occurrenceId: string }) => {
     setTitleEditMode(true);
   };
 
-  const handleDescUpdateOnKeyDown = (
-    e: React.KeyboardEvent<HTMLTextAreaElement>
-  ) => {
-    if (e.key === 'Enter' && !e.shiftKey && descRef.current) {
+  const handleAllDay = () => setIsAllDay((prev) => !prev);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (descRef.current) {
       updateOccurrenceDesc(occurrenceId, descRef.current.value);
-      descRef.current.blur();
     }
+
+    if (categoryRef.current) {
+      const isValidCategory = Object.values(OccurrenceCategoryEnum).some(
+        (c) =>
+          c ===
+          (categoryRef.current?.options[categoryRef.current.selectedIndex]
+            .value as OccurrenceCategoryEnum)
+      );
+      updateOccurrenceCategory(
+        occurrenceId,
+        isValidCategory
+          ? (categoryRef.current.value as OccurrenceCategoryEnum)
+          : OccurrenceCategoryEnum.Personal
+      );
+    }
+
+    if (dateOfOccurrenceRef.current) {
+      updateOccurrenceDate(
+        occurrenceId,
+        new Date(dateOfOccurrenceRef.current.value)
+      );
+    }
+
+    updateAllDay(occurrenceId, isAllDay);
+
+    if (isAllDay) {
+      updateOccurrenceStartTime(occurrenceId, null);
+      updateOccurrenceEndTime(occurrenceId, null);
+    } else {
+      if (startTimeRef.current) {
+        updateOccurrenceStartTime(occurrenceId, startTimeRef.current.value);
+      }
+
+      if (endTimeRef.current) {
+        updateOccurrenceEndTime(occurrenceId, endTimeRef.current.value);
+      }
+    }
+
+    setSubmittedSuccessfully(true);
   };
 
-  const handleDescUpdateOnBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-    updateOccurrenceDesc(occurrenceId, e.target.value);
-  };
-
-  const handleStartDateUpdateOnBlur = (
-    e: React.FocusEvent<HTMLInputElement>
-  ) => {
-    updateOccurrenceStartDate(occurrenceId, new Date(e.target.value));
-  };
-
-  const handleCategoryUpdateOnBlur = (
-    e: React.FocusEvent<HTMLSelectElement>
-  ) => {
-    const isValidCategory = Object.values(OccurrenceCategoryEnum).some(
-      (c) =>
-        c ===
-        (e.target.options[e.target.selectedIndex]
-          .value as OccurrenceCategoryEnum)
-    );
-    updateOccurrenceCategory(
-      occurrenceId,
-      isValidCategory
-        ? (e.target.value as OccurrenceCategoryEnum)
-        : OccurrenceCategoryEnum.Personal
-    );
+  const clearForm = () => {
+    setSubmittedSuccessfully(false);
   };
 
   return {
     titleRef,
     descRef,
-    handleDescUpdateOnKeyDown,
+    categoryRef,
+    dateOfOccurrenceRef,
+    startTimeRef,
+    endTimeRef,
     handleTitleUpdateOnKeyDown,
     handleTitleUpdateOnBlur,
     handleTitleEditMode,
-    handleDescUpdateOnBlur,
-    handleStartDateUpdateOnBlur,
     titleEditMode,
-    handleCategoryUpdateOnBlur,
+    isAllDay,
+    handleAllDay,
+    handleSubmit,
+    submittedSuccessfully,
+    clearForm,
   };
 };
 

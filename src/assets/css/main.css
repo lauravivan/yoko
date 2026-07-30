@@ -340,24 +340,8 @@ body {
   position: relative;
 }
 
-.c-list-toolbar__item__btn {
-  all: unset;
+.c-list-toolbar__item-wrapper {
   display: flex;
-  column-gap: 5px;
-  align-items: center;
-  background-color: #f8f8f8;
-  cursor: pointer;
-  padding: 10px 15px;
-  border-radius: 10px;
-}
-
-.c-list-toolbar__item__btn svg {
-  width: 19px;
-  height: 19px;
-}
-
-.c-list-toolbar__item__btn:hover {
-  background-color: rgba(248, 248, 248, 0.7);
 }
 
 .c-list-toolbar__item-wrapper .c-dynamic-modal {
@@ -372,6 +356,31 @@ body {
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
+}
+
+.c-list-toolbar__item-wrapper__item {
+  display: flex;
+}
+
+.c-list-toolbar__item-wrapper__item__btn {
+  all: unset;
+  flex: 1;
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.c-list-toolbar__item-wrapper__item__btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.c-list-toolbar__item-wrapper__item__btn:hover {
+  background-color: rgba(248, 248, 248, 0.7);
 }
 
 /* breakpoints */
@@ -924,6 +933,11 @@ body {
   height: 20px;
 }
 
+.c-occurrence-card-wrapper .c-dynamic-modal {
+  top: 10%;
+  display: flex;
+}
+
 .c-occurrence-card-wrapper .c-occurrence-card {
   display: flex;
   position: relative;
@@ -970,7 +984,7 @@ body {
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__category-icon {
   position: absolute;
   bottom: -5px;
-  right: 15px;
+  right: 5px;
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__category-icon svg {
@@ -1091,8 +1105,17 @@ body {
   overflow-x: hidden;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__date {
-  font-weight: 300;
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__datetime-container {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__datetime-container__date {
+  font-size: 13px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__left-container__datetime-container__time {
   font-size: 12px;
 }
 
@@ -1118,24 +1141,35 @@ body {
   font-size: 20px;
 }
 
-.c-occurrence-card-wrapper .c-dynamic-modal {
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
   cursor: auto;
-  top: 30%;
+  flex: 1;
 }
 
-.c-occurrence-card-wrapper .c-dynamic-modal__title span {
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__title span {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  overflow-x: hidden;
 }
 
-.c-occurrence-card-wrapper .c-dynamic-modal textarea,
-.c-occurrence-card-wrapper .c-dynamic-modal input,
-.c-occurrence-card-wrapper .c-dynamic-modal select {
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__date-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form textarea,
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type=date],
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type=time],
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form select {
   all: unset;
   background-color: #f8f8f8;
   padding: 7px 10px;
@@ -1147,12 +1181,27 @@ body {
   color: #262626;
 }
 
-.c-occurrence-card-wrapper .c-dynamic-modal textarea {
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form textarea {
   padding: 10px;
   overflow-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
   height: max-content;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__all-day {
+  display: flex;
+  column-gap: 5px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__times {
+  display: flex;
+  column-gap: 10px;
+  flex: 1;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__times input[type=time] {
+  flex: 1;
 }
 
 /* breakpoints */
