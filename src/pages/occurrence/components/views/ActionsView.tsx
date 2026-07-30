@@ -2,7 +2,7 @@ import AddButton from '@/components/action/AddButton';
 import ListToolbar from '@/components/action/ListToolbar';
 import useDelete from '@/hooks/useDelete';
 import useOccurrenceStore from '@/store/occurrenceStore';
-import { IOccurrence } from '@/types/Occurrence';
+import { type IOccurrence } from '@/types/Occurrence';
 import OccurrenceCard from '../OccurrenceCard';
 import NotFound from '../NotFound';
 
@@ -61,6 +61,12 @@ const ActionsView = () => {
                   onDeselect={onDeselect}
                   category={action.category}
                   isEvent={action.isEvent}
+                  dateOfOccurrence={action.dateOfOccurrence}
+                  id={action.id}
+                  is24Hour={action.allDay}
+                  allDay={action.allDay}
+                  endTime={action.endTime}
+                  startTime={action.startTime}
                 />
               ))}
           </div>

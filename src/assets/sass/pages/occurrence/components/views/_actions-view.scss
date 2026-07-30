@@ -1,9 +1,87 @@
+@use '../../../../tokens';
+
 .c-actions-view {
   &__cards {
     display: grid;
-    row-gap: 30px;
-    column-gap: 40px;
+    gap: 20px;
     padding-bottom: 50px;
-    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  &:has(.c-occurrence-card--show-desc) {
+    .c-actions-view__cards {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .c-occurrence-card {
+      width: fit-content;
+
+      &__left-container {
+        flex: none;
+      }
+    }
+  }
+
+  .c-occurrence-card {
+    &__left-container {
+      padding: 10px 20px;
+      align-items: center;
+      flex: 1;
+      border-top-right-radius: tokens.$border-r-default;
+      border-bottom-right-radius: tokens.$border-r-default;
+
+      &__title-container,
+      &__datetime-container {
+        justify-content: center;
+        text-align: center;
+      }
+
+      &__title-container {
+        flex: 1;
+
+        &__title {
+          flex: 1;
+          @include tokens.text-lg-highlight();
+        }
+      }
+
+      &__desc-btn {
+        all: unset;
+        cursor: pointer;
+        position: absolute;
+        bottom: 10px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      &__countup {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__countup__num {
+        margin: 0 auto;
+        @include tokens.text-xl-highlight();
+      }
+
+      &__countup__ext {
+        margin: 0 auto;
+        @include tokens.text-base();
+      }
+    }
+
+    &--show-desc {
+      .c-occurrence-card__left-container {
+        border-top-right-radius: unset;
+        border-bottom-right-radius: unset;
+      }
+    }
+
+    &__right-container {
+      flex: 2;
+    }
   }
 }
