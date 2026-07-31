@@ -1,6 +1,8 @@
 @use '../../../../tokens';
 
 .c-actions-view {
+  padding: 10px 10px 4px 0px;
+
   &__cards {
     display: grid;
     gap: 20px;

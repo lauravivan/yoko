@@ -29,3 +29,6 @@ docs/build
 docs/node_modules
 
 .eslintcache
+
+main.css
+main.css.map

@@ -3,10 +3,9 @@
 .c-header {
   display: flex;
   column-gap: 20px;
-  padding: 15px 20px 0px;
+  padding: 10px 20px 0px;
   align-items: center;
   flex-shrink: 0;
-  border-bottom: 1px solid tokens.$border-color-default;
 
   &__logo-wrapper {
     display: flex;
@@ -83,7 +82,7 @@
           width: max-content;
           list-style: none;
           padding: 9px 52px 8px 12px;
-          background-color: #fff;
+          background-color: tokens.$bg-white;
           border: 2px solid tokens.$border-color-default;
           border-radius: tokens.$border-r-default;
           row-gap: 5px;

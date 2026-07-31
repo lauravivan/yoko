@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import '@/assets/css/main.css';
+import '@/assets/sass/main.scss';
 import App from './App';
 import * as Sentry from '@sentry/react';
 

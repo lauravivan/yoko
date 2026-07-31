@@ -16,12 +16,15 @@ $green-50: rgba($green, 0.5);
 $green-70: rgba($green, 0.7);
 
 $gray: #f8f8f8;
+$gray-30: rgba($gray, 0.3);
 $gray-50: rgba($gray, 0.5);
 $gray-70: rgba($gray, 0.7);
 
 $dark-soft: #313131;
 $dark-md: #262626;
 $dark: #1a1a1a;
+
+$white: #fff;
 
 //base colors to use with categories
 $ice-mint: #ccf0ec;
@@ -48,6 +51,9 @@ $bg-default-invert: $blue-30;
 $bg-subtle: $gray;
 $bg-subtle-hover: $gray-70;
 $bg-subtle-disabled: $gray-50;
+$bg-subtle-light: $gray-30;
+
+$bg-white: $white;
 
 $bg-dark: $dark;
 

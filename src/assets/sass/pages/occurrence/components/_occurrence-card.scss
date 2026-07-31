@@ -190,7 +190,7 @@
       border-top-right-radius: tokens.$border-r-default;
       border-bottom-right-radius: tokens.$border-r-default;
       border-left: 1px solid tokens.$border-color-dark;
-      background-color: #fff;
+      background-color: tokens.$bg-white;
       padding: 33px 19px 30px 17px;
 
       &__counting {

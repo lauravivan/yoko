@@ -2,7 +2,7 @@
 
 .c-dynamic-modal {
   position: absolute;
-  background-color: #fff;
+  background-color: tokens.$bg-white;
   padding: 18px 20px;
   border-radius: tokens.$border-r-default;
   border: 2px solid tokens.$border-color-default;

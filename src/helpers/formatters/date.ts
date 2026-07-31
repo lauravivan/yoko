@@ -1,6 +1,6 @@
 import { type WeekDayEnum } from '@/enum/DayEnum';
 
-function getSafeDate(date: Date) {
+export function getSafeDate(date: Date) {
   const validDate = new Date(date);
 
   const isUTCMidnight =
