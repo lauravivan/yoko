@@ -3,7 +3,7 @@
 .c-calendar-view {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  padding: 10px 0px 4px 0px;
   height: 100%;
 
   &__head {
@@ -11,13 +11,17 @@
 
     &__item {
       flex: 1;
-      border: 1px solid tokens.$border-color-dark;
+      border-top: 1px solid tokens.$border-color-dark;
+      border-right: 1px solid tokens.$border-color-dark;
+      border-bottom: 1px solid tokens.$border-color-dark;
       padding: 10px;
       background-color: tokens.$bg-subtle;
+      @include tokens.text-xs();
     }
 
     &__item:nth-child(1) {
       border-top-left-radius: tokens.$border-r-soft;
+      border-left: 1px solid tokens.$border-color-dark;
     }
 
     &__item:last-child {
@@ -27,7 +31,8 @@
 
   &__body {
     display: flex;
-    flex: 1;
+    height: 100%;
+    border-left: 1px solid tokens.$border-color-dark;
 
     &__item {
       display: flex;
@@ -35,10 +40,76 @@
       flex: 1;
 
       > div {
-        padding: 10px;
-        border: 1px solid tokens.$border-color-dark;
-        background-color: #fff;
+        padding: 5px;
+        border-bottom: 1px solid tokens.$border-color-dark;
+        border-right: 1px solid tokens.$border-color-dark;
+        background-color: tokens.$bg-white;
+        display: flex;
+        column-gap: 5px;
+        @include tokens.text-xs();
         flex: 1;
+        min-height: 70px;
+      }
+
+      &__occurrences {
+        display: flex;
+        flex-direction: column;
+        row-gap: 2px;
+        flex: 1;
+
+        &__occurrence,
+        &__occurrence__more li {
+          background-color: tokens.$bg-default;
+          border-radius: tokens.$border-r-soft;
+        }
+
+        &__occurrence {
+          position: relative;
+          padding: 1px 4px;
+          @include tokens.text-xs-highlight();
+
+          &__more-btn {
+            all: unset;
+            cursor: pointer;
+            @include tokens.text-xs-highlight();
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          &__more {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+
+            li {
+              @include tokens.text-sm-highlight();
+              padding: 5px 7px;
+            }
+          }
+        }
+      }
+    }
+
+    .c-dynamic-modal {
+      bottom: 5%;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      row-gap: 10px;
+      box-shadow: tokens.$shadow-lg;
+
+      h3 {
+        text-align: center;
+        @include tokens.text-base();
+
+        span {
+          @include tokens.text-lg-highlight();
+        }
       }
     }
   }

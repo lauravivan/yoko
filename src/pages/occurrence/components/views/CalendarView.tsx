@@ -1,11 +1,28 @@
+import DynamicModal from '@/components/display/DynamicModal';
+import { formatDate, getSafeDate } from '@/helpers/formatters/date';
+import useClickOutside from '@/hooks/useClickOutside';
+import useOccurrenceStore from '@/store/occurrenceStore';
+import { autoPlacement, autoUpdate, useFloating } from '@floating-ui/react-dom';
 import {
   addMonths,
   eachDayOfInterval,
   endOfMonth,
   getDay,
+  isSameDay,
   startOfMonth,
   subMonths,
 } from 'date-fns';
+import { useMemo, useState } from 'react';
+
+const WEEKDAY_LABELS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
 const getDaysOfTheMonth = (date: Date): Date[] => {
   const firstDay = startOfMonth(date);
@@ -39,79 +56,112 @@ const getDaysOfTheMonth = (date: Date): Date[] => {
   return daysOfPreviousMonth.concat(currentMonth).concat(daysOfNextMonth);
 };
 
-const getSunDays = () => {
-  return Array(5).fill(1);
+const groupDaysByWeekday = (days: Date[]): Date[][] => {
+  const columns: Date[][] = Array.from({ length: 7 }, () => []);
+  days.forEach((day) => {
+    columns[getDay(day)].push(day);
+  });
+  return columns;
 };
 
-const getMonDays = () => {
-  return Array(5).fill(1);
+const Occurrences = ({ d }: { d: Date }) => {
+  const { getEvents } = useOccurrenceStore();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const ref = useClickOutside<HTMLDivElement>(() => {
+    setModalOpen(false);
+  });
+
+  const filtered = useMemo(
+    () =>
+      getEvents().filter((e) =>
+        isSameDay(getSafeDate(new Date(e.dateOfOccurrence)), getSafeDate(d))
+      ),
+    [d, getEvents]
+  );
+
+  const { refs } = useFloating({
+    open: modalOpen,
+    middleware: [autoPlacement()],
+    whileElementsMounted: autoUpdate,
+  });
+
+  return (
+    <div className="c-calendar-view__body__item__occurrences" ref={ref}>
+      {filtered[0] && (
+        <div
+          className="c-calendar-view__body__item__occurrences__occurrence"
+          key={filtered[0].id}
+        >
+          {filtered[0].title}
+        </div>
+      )}
+      {filtered[1] && (
+        <div
+          className="c-calendar-view__body__item__occurrences__occurrence"
+          key={filtered[1].id}
+        >
+          {filtered[1].title}
+        </div>
+      )}
+      {filtered.length > 2 && (
+        <>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="c-calendar-view__body__item__occurrences__occurrence__more-btn"
+            ref={refs.setReference}
+          >
+            More
+          </button>
+          {modalOpen && (
+            <>
+              {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
+              <DynamicModal ref={refs.setFloating}>
+                <h3>
+                  More occurrences for <br />
+                  <span>{formatDate(d)}</span>
+                </h3>
+                <ul className="c-calendar-view__body__item__occurrences__occurrence__more">
+                  {filtered.map((occ) => (
+                    <li key={occ.id}>{occ.title}</li>
+                  ))}
+                </ul>
+              </DynamicModal>
+              {/* eslint-enable react-hooks/refs */}
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
 };
 
-const getTueDays = () => {
-  return Array(5).fill(1);
-};
-const getWedDays = () => {
-  return Array(5).fill(1);
-};
-const getThuDays = () => {
-  return Array(5).fill(1);
-};
-const getFriDays = () => {
-  return Array(5).fill(1);
-};
+const CalendarView = ({ currentDate }: { currentDate: Date }) => {
+  const weekdayColumns = groupDaysByWeekday(getDaysOfTheMonth(currentDate));
 
-const getSatDays = () => {
-  return Array(5).fill(1);
-};
-
-const CalendarView = () => {
   return (
     <div className="c-calendar-view">
       <div className="c-calendar-view__head">
-        <div className="c-calendar-view__head__item">Sunday</div>
-        <div className="c-calendar-view__head__item">Monday</div>
-        <div className="c-calendar-view__head__item">Tuesday</div>
-        <div className="c-calendar-view__head__item">Wednesday</div>
-        <div className="c-calendar-view__head__item">Thursday</div>
-        <div className="c-calendar-view__head__item">Friday</div>
-        <div className="c-calendar-view__head__item">Saturday</div>
+        {WEEKDAY_LABELS.map((label) => (
+          <div className="c-calendar-view__head__item" key={label}>
+            {label}
+          </div>
+        ))}
       </div>
       <div className="c-calendar-view__body">
-        <div className="c-calendar-view__body__item">
-          {getSunDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
-        <div className="c-calendar-view__body__item">
-          {getMonDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
-        <div className="c-calendar-view__body__item">
-          {getTueDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
-        <div className="c-calendar-view__body__item">
-          {getWedDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
-        <div className="c-calendar-view__body__item">
-          {getThuDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
-        <div className="c-calendar-view__body__item">
-          {getFriDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
-        <div className="c-calendar-view__body__item">
-          {getSatDays().map((d) => (
-            <div>{d}</div>
-          ))}
-        </div>
+        {weekdayColumns.map((columnDays, columnIndex) => (
+          <div
+            className="c-calendar-view__body__item"
+            key={WEEKDAY_LABELS[columnIndex]}
+          >
+            {columnDays.map((d) => (
+              <div key={d.toISOString()}>
+                <span>{d.getDate()}</span>
+                <Occurrences d={d} />
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

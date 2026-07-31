@@ -19,6 +19,7 @@ const AppLayout = () => {
       {/* eslint-enable @typescript-eslint/no-empty-function */}
       <div className="app__outlet">
         <Outlet />
+        <img src="/mascot.svg" />
       </div>
       <Footer />
     </div>
