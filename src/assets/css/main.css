@@ -1,22 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 /* 1. Use a more-intuitive box-sizing model */
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 /* breakpoints */
 /* border radius */
 /* border width */
@@ -103,7 +103,7 @@ h6 {
 
 :root {
   color: #262626;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -218,7 +218,8 @@ body {
   }
 }
 @keyframes blink {
-  from, to {
+  from,
+  to {
     border-color: transparent;
   }
   50% {
@@ -230,7 +231,9 @@ body {
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  animation: typing 2.5s steps(35, end) forwards, blink 0.2s step-end infinite;
+  animation:
+    typing 2.5s steps(35, end) forwards,
+    blink 0.2s step-end infinite;
 }
 
 /* components */
@@ -276,7 +279,7 @@ body {
 }
 
 .logo__appname {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -353,7 +356,7 @@ body {
 }
 
 .c-list-toolbar__item-wrapper .c-dynamic-modal__title {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -459,7 +462,7 @@ body {
 .c-header__period {
   flex: 3;
   text-align: center;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 21px;
   line-height: 1.5;
@@ -530,7 +533,7 @@ body {
 .c-header__right-side__options__menu > ul > li > a > div:first-of-type {
   display: flex;
   align-items: center;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -550,7 +553,13 @@ body {
   align-items: center;
 }
 
-.c-header__right-side__options__menu > ul > li > a > div:first-of-type > div svg {
+.c-header__right-side__options__menu
+  > ul
+  > li
+  > a
+  > div:first-of-type
+  > div
+  svg {
   width: 18px;
   height: 18px;
 }
@@ -637,7 +646,7 @@ body {
 }
 
 .c-footer__data span {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -705,7 +714,7 @@ body {
   background-color: #f8f8f8;
   padding: 0px 20px 0px 10px;
   border-radius: 5px;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -714,14 +723,14 @@ body {
 
 @media (min-width: 1280px) {
   .p-homepage__intro h1 {
-    font-family: "Quicksand", sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-weight: 700;
     font-size: 40px;
     line-height: 1.5;
   }
 }
 .p-homepage__intro h3 {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
@@ -729,7 +738,7 @@ body {
 
 @media (min-width: 1280px) {
   .p-homepage__intro h3 {
-    font-family: "Quicksand", sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-weight: 400;
     font-size: 21px;
     line-height: 1.5;
@@ -781,7 +790,7 @@ body {
 }
 
 .c-info-card__title {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -794,7 +803,7 @@ body {
 }
 
 .c-info-card__desc {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -843,7 +852,8 @@ body {
   background-color: #f8f8f8;
 }
 
-.p-occurrence__tabs__tab--active, .p-occurrence__tabs__tab:hover {
+.p-occurrence__tabs__tab--active,
+.p-occurrence__tabs__tab:hover {
   background-color: #b5e0ff;
 }
 
@@ -880,7 +890,9 @@ body {
   height: 100%;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card:hover .c-occurrence-card__checkbox-container {
+.c-occurrence-card-wrapper
+  .c-occurrence-card:hover
+  .c-occurrence-card__checkbox-container {
   display: block;
 }
 
@@ -891,7 +903,10 @@ body {
   right: 5px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card:has(.c-occurrence-card__checkbox-container > input:checked) {
+.c-occurrence-card-wrapper
+  .c-occurrence-card:has(
+    .c-occurrence-card__checkbox-container > input:checked
+  ) {
   border-width: 2px;
 }
 
@@ -921,7 +936,9 @@ body {
   right: 5px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__category-icon svg {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__category-icon
+  svg {
   width: 30px;
   height: 30px;
 }
@@ -978,24 +995,33 @@ body {
   position: relative;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  button {
   all: unset;
   cursor: pointer;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button:hover {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  button:hover {
   transform: scale(1.2);
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container button svg {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  button
+  svg {
   width: 30px;
   height: 30px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container textarea {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  textarea {
   all: unset;
   color: rgba(38, 38, 38, 0.9);
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -1007,17 +1033,20 @@ body {
   width: 100%;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container textarea::placeholder {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container
+  textarea::placeholder {
   color: #262626;
   opacity: 0.8;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__title-container__title {
-  font-family: "Quicksand", sans-serif;
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__title-container__title {
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -1028,7 +1057,7 @@ body {
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__left-container__desc {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.5;
@@ -1039,17 +1068,20 @@ body {
   overflow-x: hidden;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__datetime-container {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__datetime-container {
   display: flex;
   flex-direction: column;
   font-weight: 400;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__datetime-container__date {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__datetime-container__date {
   font-size: 13px;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__left-container__datetime-container__time {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__left-container__datetime-container__time {
   font-size: 12px;
 }
 
@@ -1067,12 +1099,19 @@ body {
   align-self: center;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__right-container__counting--highlight {
-  font-family: "Quicksand", sans-serif;
+.c-occurrence-card-wrapper
+  .c-occurrence-card__right-container__counting--highlight {
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
   font-size: 20px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__right-container__desc {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__edit-form {
@@ -1084,7 +1123,7 @@ body {
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__edit-form__title span {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
@@ -1101,14 +1140,15 @@ body {
 }
 
 .c-occurrence-card-wrapper .c-occurrence-card__edit-form textarea,
-.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type=date],
-.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type=time],
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type='date'],
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type='time'],
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type='number'],
 .c-occurrence-card-wrapper .c-occurrence-card__edit-form select {
   all: unset;
   background-color: #f8f8f8;
   padding: 7px 10px;
   border-radius: 5px;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -1128,14 +1168,137 @@ body {
   column-gap: 5px;
 }
 
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__all-day
+  input[type='checkbox']:checked {
+  background-color: #b5e0ff;
+}
+
 .c-occurrence-card-wrapper .c-occurrence-card__edit-form__times {
   display: flex;
   column-gap: 10px;
   flex: 1;
 }
 
-.c-occurrence-card-wrapper .c-occurrence-card__edit-form__times input[type=time] {
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__times
+  input[type='time'] {
   flex: 1;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__weekday-rep {
+  display: flex;
+  column-gap: 10px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__weekday-rep > div {
+  display: flex;
+  column-gap: 3px;
+  align-items: center;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form input[type='number'] {
+  width: 30px;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__weekday-rep
+  > div
+  > input[type='checkbox'],
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__ends
+  input[type='radio'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: #f8f8f8;
+  border-radius: 100%;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__weekday-rep
+  > div
+  > input[type='checkbox']:checked,
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__ends
+  input[type='radio']:checked {
+  background-color: #b5e0ff;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__weekday-rep
+  > div
+  > input[type='checkbox']:hover,
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__ends
+  input[type='radio']:hover {
+  background-color: rgba(181, 224, 255, 0.5);
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__rep,
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__rep-space {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__rep span,
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__rep-space span {
+  margin-right: 10px;
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__rep > div,
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__rep-space > div,
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__ends > div {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  width: min-content;
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__rep
+  > div
+  input:disabled,
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__rep-space
+  > div
+  input:disabled,
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__ends
+  > div
+  input:disabled {
+  color: rgba(49, 49, 49, 0.3);
+  background-color: rgba(248, 248, 248, 0.5);
+}
+
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__rep
+  > div
+  input:disabled
+  + label,
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__rep-space
+  > div
+  input:disabled
+  + label,
+.c-occurrence-card-wrapper
+  .c-occurrence-card__edit-form__ends
+  > div
+  input:disabled
+  + label {
+  color: rgba(49, 49, 49, 0.3);
+}
+
+.c-occurrence-card-wrapper .c-occurrence-card__edit-form__ends {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
 
 /* breakpoints */
@@ -1255,7 +1418,8 @@ body {
   width: fit-content;
 }
 
-.c-actions-view:has(.c-occurrence-card--show-desc) .c-occurrence-card__left-container {
+.c-actions-view:has(.c-occurrence-card--show-desc)
+  .c-occurrence-card__left-container {
   flex: none;
 }
 
@@ -1267,7 +1431,8 @@ body {
   border-bottom-right-radius: 10px;
 }
 
-.c-actions-view .c-occurrence-card__left-container__title-container, .c-actions-view .c-occurrence-card__left-container__datetime-container {
+.c-actions-view .c-occurrence-card__left-container__title-container,
+.c-actions-view .c-occurrence-card__left-container__datetime-container {
   justify-content: center;
   text-align: center;
 }
@@ -1278,7 +1443,7 @@ body {
 
 .c-actions-view .c-occurrence-card__left-container__title-container__title {
   flex: 1;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 21px;
   line-height: 1.5;
@@ -1303,7 +1468,7 @@ body {
 
 .c-actions-view .c-occurrence-card__left-container__countup__num {
   margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 40px;
   line-height: 1.5;
@@ -1311,13 +1476,15 @@ body {
 
 .c-actions-view .c-occurrence-card__left-container__countup__ext {
   margin: 0 auto;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.c-actions-view .c-occurrence-card--show-desc .c-occurrence-card__left-container {
+.c-actions-view
+  .c-occurrence-card--show-desc
+  .c-occurrence-card__left-container {
   border-top-right-radius: unset;
   border-bottom-right-radius: unset;
 }

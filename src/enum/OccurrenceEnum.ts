@@ -16,3 +16,9 @@ export enum OccurrenceCategoryEnum {
   Social = 'Social',
   Hobby = 'Hobby',
 }
+
+export enum OccurrenceEndsTypeEnum {
+  Never = 'Never',
+  On = 'On',
+  After = 'After',
+}

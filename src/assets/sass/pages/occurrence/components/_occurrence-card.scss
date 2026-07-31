@@ -193,6 +193,12 @@
           font-size: 20px;
         }
       }
+
+      &__desc {
+        overflow-wrap: break-word;
+        word-break: break-word;
+        white-space: pre-wrap;
+      }
     }
 
     &__edit-form {
@@ -221,6 +227,7 @@
       textarea,
       input[type='date'],
       input[type='time'],
+      input[type='number'],
       select {
         all: unset;
         background-color: tokens.$bg-subtle;
@@ -241,6 +248,10 @@
       &__all-day {
         display: flex;
         column-gap: 5px;
+
+        input[type='checkbox']:checked {
+          background-color: tokens.$bg-default;
+        }
       }
 
       &__times {
@@ -251,6 +262,78 @@
         input[type='time'] {
           flex: 1;
         }
+      }
+
+      &__weekday-rep {
+        display: flex;
+        column-gap: 10px;
+
+        > div {
+          display: flex;
+          column-gap: 3px;
+          align-items: center;
+        }
+      }
+
+      input[type='number'] {
+        width: 30px;
+      }
+
+      &__weekday-rep > div > input[type='checkbox'],
+      &__ends input[type='radio'] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: none;
+        background-color: tokens.$bg-subtle;
+        border-radius: tokens.$border-r-full;
+        outline: none;
+        cursor: pointer;
+        transition: background-color 0.4s;
+
+        &:checked {
+          background-color: tokens.$bg-default;
+        }
+
+        &:hover {
+          background-color: tokens.$bg-default-hover;
+        }
+      }
+
+      &__rep,
+      &__rep-space {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+
+        span {
+          margin-right: 10px;
+        }
+      }
+
+      &__rep > div,
+      &__rep-space > div,
+      &__ends > div {
+        display: flex;
+        align-items: center;
+        column-gap: 4px;
+        width: min-content;
+
+        input:disabled {
+          color: tokens.$text-color-disabled;
+          background-color: tokens.$bg-subtle-disabled;
+        }
+
+        input:disabled + label {
+          color: tokens.$text-color-disabled;
+        }
+      }
+
+      &__ends {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
       }
     }
   }

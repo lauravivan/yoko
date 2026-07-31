@@ -47,6 +47,7 @@ $bg-default-invert: $blue-30;
 
 $bg-subtle: $gray;
 $bg-subtle-hover: $gray-70;
+$bg-subtle-disabled: $gray-50;
 
 $bg-dark: $dark;
 
@@ -75,3 +76,4 @@ $text-color-error: $red;
 $text-color-success: $green;
 $text-color-invert: $gray;
 $text-color-highlight: $blue;
+$text-color-disabled: rgba($dark-soft, 0.3);

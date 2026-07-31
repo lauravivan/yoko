@@ -3,20 +3,13 @@ import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
 import { type IOccurrence } from '@/types/Occurrence';
 import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
+import { getDateWeekDay } from '@/helpers/formatters/date';
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
   createOccurrence: (isEvent?: boolean) => void;
   updateOccurrenceTitle: (id: string, newTitle: string) => void;
-  updateOccurrenceDesc: (id: string, newDesc: string | null) => void;
-  updateOccurrenceDate: (id: string, newDate: Date) => void;
-  updateAllDay: (id: string, allDay: boolean) => void;
-  updateOccurrenceStartTime: (id: string, newStartTime: string | null) => void;
-  updateOccurrenceEndTime: (id: string, newEndTime: string | null) => void;
-  updateOccurrenceCategory: (
-    id: string,
-    newCategory: OccurrenceCategoryEnum
-  ) => void;
+  updateOccurrence: (occurrence: IOccurrence) => void;
   deleteOccurrence: (id: string) => void;
   setOccurrences: (occurrences: IOccurrence[]) => void;
   getOccurrences: () => IOccurrence[];
@@ -28,6 +21,8 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
   occurrences: [],
   createOccurrence: (isEvent = true) =>
     set((state) => {
+      const occurrenceDate = new Date();
+
       const occurrence: IOccurrence = {
         id: uuidv7(),
         title: 'Unamed',
@@ -35,32 +30,25 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         isEvent,
         category: OccurrenceCategoryEnum.Personal,
         goalId: null,
-        dateOfOccurrence: new Date(),
+        dateOfOccurrence: occurrenceDate,
         startTime: null,
         endTime: null,
         allDay: true,
+        yearRepetition: null,
+        endDateOfOccurrence: occurrenceDate,
+        endsType: null,
+        monthRepetition: null,
+        qntOccurrencesTillEnd: null,
+        weekRepetitionSpace: null,
+        monthRepetitionSpace: null,
+        yearRepetitionSpace: null,
+        weekDayRepetition: [getDateWeekDay(occurrenceDate)],
+        weekRepetition: null,
       };
 
       const prevOccurrences = [...state.occurrences];
 
       prevOccurrences.unshift(occurrence);
-
-      storeOccurrences(prevOccurrences);
-
-      return {
-        ...state,
-        occurrences: prevOccurrences,
-      };
-    }),
-  updateAllDay: (id: string, allDay: boolean) =>
-    set((state) => {
-      const prevOccurrences = [...state.occurrences];
-
-      for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.allDay = allDay;
-        }
-      }
 
       storeOccurrences(prevOccurrences);
 
@@ -86,81 +74,28 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
         occurrences: prevOccurrences,
       };
     }),
-  updateOccurrenceDesc: (id: string, newDesc: string | null) =>
+  updateOccurrence: (occ: IOccurrence) =>
     set((state) => {
       const prevOccurrences = [...state.occurrences];
 
       for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.desc = newDesc;
-        }
-      }
-
-      storeOccurrences(prevOccurrences);
-
-      return {
-        ...state,
-        occurrences: prevOccurrences,
-      };
-    }),
-  updateOccurrenceDate: (id: string, newDate: Date) =>
-    set((state) => {
-      const prevOccurrences = [...state.occurrences];
-
-      for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.dateOfOccurrence = newDate;
-        }
-      }
-
-      storeOccurrences(prevOccurrences);
-
-      return {
-        ...state,
-        occurrences: prevOccurrences,
-      };
-    }),
-  updateOccurrenceStartTime: (id: string, newTime: string | null) =>
-    set((state) => {
-      const prevOccurrences = [...state.occurrences];
-
-      for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.startTime = newTime;
-        }
-      }
-
-      storeOccurrences(prevOccurrences);
-
-      return {
-        ...state,
-        occurrences: prevOccurrences,
-      };
-    }),
-  updateOccurrenceEndTime: (id: string, newTime: string | null) =>
-    set((state) => {
-      const prevOccurrences = [...state.occurrences];
-
-      for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.endTime = newTime;
-        }
-      }
-
-      storeOccurrences(prevOccurrences);
-
-      return {
-        ...state,
-        occurrences: prevOccurrences,
-      };
-    }),
-  updateOccurrenceCategory: (id: string, newCategory: OccurrenceCategoryEnum) =>
-    set((state) => {
-      const prevOccurrences = [...state.occurrences];
-
-      for (const e of prevOccurrences) {
-        if (e.id === id) {
-          e.category = newCategory;
+        if (e.id === occ.id) {
+          e.allDay = occ.allDay;
+          e.category = occ.category;
+          e.dateOfOccurrence = occ.dateOfOccurrence;
+          e.desc = occ.desc;
+          e.monthRepetition = occ.monthRepetition;
+          e.weekRepetition = occ.weekRepetition;
+          e.yearRepetition = occ.yearRepetition;
+          e.monthRepetitionSpace = occ.monthRepetitionSpace;
+          e.yearRepetitionSpace = occ.yearRepetitionSpace;
+          e.weekRepetitionSpace = occ.weekRepetitionSpace;
+          e.weekDayRepetition = occ.weekDayRepetition;
+          e.startTime = occ.startTime;
+          e.endTime = occ.endTime;
+          e.endsType = occ.endsType;
+          e.endDateOfOccurrence = occ.endDateOfOccurrence;
+          e.qntOccurrencesTillEnd = occ.qntOccurrencesTillEnd;
         }
       }
 
