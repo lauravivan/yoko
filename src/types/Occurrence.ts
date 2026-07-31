@@ -2,6 +2,7 @@ import { type WeekDayEnum } from '@/enum/DayEnum';
 import {
   type OccurrenceEndsTypeEnum,
   type OccurrenceCategoryEnum,
+  type OccurrenceDateStatusEnum,
 } from '@/enum/OccurrenceEnum';
 
 export interface IOccurrence {
@@ -25,4 +26,11 @@ export interface IOccurrence {
   endsType: OccurrenceEndsTypeEnum | null;
   endDateOfOccurrence: Date;
   qntOccurrencesTillEnd: number | null;
+}
+
+export interface IOccurrenceDate {
+  id: string;
+  status: OccurrenceDateStatusEnum;
+  occurrenceId: string;
+  dateOfOccurrence: Date;
 }
