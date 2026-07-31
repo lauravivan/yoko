@@ -6,14 +6,12 @@ on:
         types:
             - completed
 
-permissions:
-    pull-requests: write
-    issues: write
-
 jobs:
     comment:
         runs-on: ubuntu-latest
-        if: github.event.workflow_run.conclusion == 'success'
+        permissions:
+            pull-requests: write
+        if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request'
         steps:
             - name: Download PR info artifact
               uses: actions/download-artifact@v4
@@ -31,12 +29,15 @@ jobs:
 
             - name: Comment preview URL on PR
               uses: actions/github-script@v7
+              env:
+                  PR_NUMBER: ${{ steps.pr-info.outputs.pr-number }}
+                  DEPLOY_URL: ${{ steps.pr-info.outputs.deployment-url }}
               with:
-                  github-token: ${{secrets.GITHUB_TOKEN}}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   script: |
                       github.rest.issues.createComment({
-                        issue_number: ${{ steps.pr-info.outputs.pr-number }},
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        body: `✅ Preview deployed: ${{ steps.pr-info.outputs.deployment-url }}`
-                      })
+                           issue_number: Number(process.env.PR_NUMBER),
+                           owner: context.repo.owner,
+                           repo: context.repo.repo,
+                           body: `✅ Preview deployed: ${process.env.DEPLOY_URL}`
+                       })
