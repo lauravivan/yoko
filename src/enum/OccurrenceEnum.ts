@@ -1,8 +1,3 @@
-export enum OccurrenceEnum {
-  ONGOING = 'ONGOING',
-  WAITING = 'WAITING',
-}
-
 export enum OccurrenceCategoryEnum {
   Personal = 'Personal',
   Work = 'Work',
@@ -21,4 +16,11 @@ export enum OccurrenceEndsTypeEnum {
   Never = 'Never',
   On = 'On',
   After = 'After',
+}
+
+export enum OccurrenceDateStatusEnum {
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  SKIPPED = 'SKIPPED',
+  MISSED = 'MISSED',
 }

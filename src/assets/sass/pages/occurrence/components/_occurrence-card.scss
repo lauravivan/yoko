@@ -1,8 +1,17 @@
 @use '../../../tokens';
 
 .c-occurrence-card-wrapper {
-  .c-dynamic-modal {
-    top: 10%;
+  position: relative;
+
+  &__edit-modal {
+    top: -70%;
+    left: 70%;
+    display: flex;
+  }
+
+  &__options-menu-modal {
+    top: 0%;
+    left: 101%;
     display: flex;
   }
 
