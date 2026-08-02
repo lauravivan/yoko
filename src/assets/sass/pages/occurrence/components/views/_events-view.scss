@@ -1,11 +1,11 @@
 .c-events-view {
   height: 100%;
-  padding: 10px 10px 4px 0px;
+  padding: 10px 10px 0px 0px;
 
   &__cards {
     display: grid;
     gap: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 150px;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   }
 
