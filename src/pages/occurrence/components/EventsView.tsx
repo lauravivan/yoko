@@ -2,14 +2,15 @@ import AddButton from '@/components/action/AddButton';
 import ListToolbar from '@/components/action/ListToolbar';
 import useDelete from '@/hooks/useDelete';
 import { type IOccurrence } from '@/types/Occurrence';
-import OccurrenceCard from '../OccurrenceCard';
-import NotFound from '../NotFound';
+import OccurrenceCard from './OccurrenceCard';
+import NotFound from './NotFound';
 import useOccurrenceStore from '@/store/occurrenceStore';
 import TwentyFourHourIcon from '@/components/display/icons/toolbar/24Hour';
 import { useState } from 'react';
 import TwentyFourHourDisabledIcon from '@/components/display/icons/toolbar/24HourDisabled';
-import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 import DefaultButton from '@/components/action/DefaultButton';
+import useSort from '../hooks/useSort';
+import useFilter from '../hooks/useFilter';
 
 const filterOptions = [
   'All',
@@ -31,16 +32,28 @@ const EventsView = () => {
     id: 0,
     desc: filterOptions[0],
   });
-  const [activeCategory, setActiveCategory] = useState('All');
+  const { activeCategory, FilterList, handleActiveCategory } = useFilter();
   const [includePrevious, setIncludePrevious] = useState(true);
-
   const eventsRes = getEvents({
     category: activeCategory,
     when: activeWhen,
     includePrevious,
   });
 
+  const { occsSorted, sort, SortList } = useSort({
+    occurrences: eventsRes.events,
+  });
+
   const handleCreateOccurrence = () => createOccurrence();
+
+  const resetFilters = () => {
+    handleActiveCategory('All');
+    setActiveWhen({
+      id: 0,
+      desc: filterOptions[0],
+    });
+    setIncludePrevious(true);
+  };
 
   return (
     <div className="c-events-view">
@@ -86,38 +99,17 @@ const EventsView = () => {
                 </ul>
               </div>
               <div className="c-events-view__filter__category">
-                <span>Category</span>
-                <ul>
-                  {['All', ...Object.values(OccurrenceCategoryEnum)].map(
-                    (occ) => (
-                      <li
-                        key={occ}
-                        onClick={() => setActiveCategory(occ)}
-                        data-category-active={activeCategory === occ}
-                      >
-                        {occ}
-                      </li>
-                    )
-                  )}
-                </ul>
+                <FilterList />
               </div>
-
-              <DefaultButton
-                onClick={() => {
-                  setActiveCategory('All');
-                  setActiveWhen({
-                    id: 0,
-                    desc: filterOptions[0],
-                  });
-                  setIncludePrevious(true);
-                }}
-              >
+              <DefaultButton onClick={resetFilters}>
                 Reset filters
               </DefaultButton>
             </div>
           </ListToolbar.Item>
-          <ListToolbar.Item type="sort" currentActive="">
-            <div></div>
+          <ListToolbar.Item type="sort" currentActive={`${sort.toLowerCase()}`}>
+            <div className="c-events-view__sort">
+              <SortList />
+            </div>
           </ListToolbar.Item>
           <ListToolbar.Item
             type="delete"
@@ -146,7 +138,7 @@ const EventsView = () => {
               />
             )}
 
-            {eventsRes.events.map((event: IOccurrence) => (
+            {occsSorted.map((event: IOccurrence) => (
               <OccurrenceCard
                 occurrence={event}
                 key={event.id}

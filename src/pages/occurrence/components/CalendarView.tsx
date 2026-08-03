@@ -74,7 +74,7 @@ const Occurrences = ({ d }: { d: Date }) => {
 
   const filtered = useMemo(
     () =>
-      getEvents().filter((e) =>
+      getEvents().events.filter((e) =>
         isSameDay(getSafeDate(new Date(e.dateOfOccurrence)), getSafeDate(d))
       ),
     [d, getEvents]

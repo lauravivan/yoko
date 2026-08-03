@@ -1,10 +1,20 @@
-import { storeOccurrences } from '@/helpers/storage/occurrence';
 import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
 import { type IOccurrence } from '@/types/Occurrence';
-import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
 import { getDateWeekDay, getSafeDate } from '@/helpers/formatters/date';
 import { differenceInCalendarDays, differenceInCalendarMonths } from 'date-fns';
+import { OccurrenceCategoryEnum } from '@/pages/occurrence/enum/OccurrenceCategoryEnum';
+
+const LS_KEY = 'yoko-occurrences';
+
+export function getStoredOccurrences(): IOccurrence[] {
+  const occurrences = localStorage.getItem(LS_KEY);
+  return occurrences ? (JSON.parse(occurrences) as IOccurrence[]) : [];
+}
+
+export function storeOccurrences(occurrences: IOccurrence[]) {
+  localStorage.setItem(LS_KEY, JSON.stringify(occurrences));
+}
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
@@ -14,7 +24,7 @@ interface OccurrenceStoreState {
   deleteOccurrence: (id: string) => void;
   setOccurrences: (occurrences: IOccurrence[]) => void;
   getOccurrences: () => IOccurrence[];
-  getEvents: (options: {
+  getEvents: (options?: {
     category: string;
     when: { id: number; desc: string };
     includePrevious: boolean;
@@ -132,14 +142,17 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
   getEvents: (options) => {
     const date = getSafeDate(new Date());
 
-    const allCategories = options.category === 'All';
-    const allWhen = options.when.desc === 'All';
+    const optionsCategory = options?.category ?? 'All';
+    const whenDesc = options?.when.desc ?? 'All';
+
+    const allCategories = optionsCategory === 'All';
+    const allWhen = whenDesc === 'All';
 
     const allFilters = allCategories && allWhen;
 
     let events: IOccurrence[] = [];
 
-    if (options.includePrevious) {
+    if (options?.includePrevious) {
       events = get().occurrences.filter((occ) => occ.isEvent);
     } else {
       events = get().occurrences.filter((occ) => {
@@ -153,12 +166,13 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
     const filteredEvents = events.filter((ev) => {
       const eventDate = getSafeDate(ev.dateOfOccurrence);
       const difference = differenceInCalendarMonths(eventDate, date);
-      const rightMonth = options.when.id - 1;
+      const whenId = options?.when.id ?? 0;
+      const rightMonth = whenId - 1;
 
-      const biggerThanSeven = options.when.id === 8 && difference > rightMonth;
+      const biggerThanSeven = whenId === 8 && difference > rightMonth;
       const equalOrBiggerToZero =
-        options.when.id > 0 && options.when.id < 8 && difference === rightMonth;
-      const sameCategory = options.category === (ev.category as string);
+        whenId > 0 && whenId < 8 && difference === rightMonth;
+      const sameCategory = optionsCategory === (ev.category as string);
 
       const oneOfWhen = allWhen || biggerThanSeven || equalOrBiggerToZero;
       const oneOfCategory = sameCategory || allCategories;

@@ -1,11 +1,9 @@
 import { type WeekDayEnum } from '@/enum/DayEnum';
-import {
-  OccurrenceCategoryEnum,
-  OccurrenceEndsTypeEnum,
-} from '@/enum/OccurrenceEnum';
 import useOccurrenceStore from '@/store/occurrenceStore';
 import { type IOccurrence } from '@/types/Occurrence';
 import { useEffect, useRef, useState } from 'react';
+import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
+import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
 
 const useOccurrenceForm = ({
   occurrenceId,
