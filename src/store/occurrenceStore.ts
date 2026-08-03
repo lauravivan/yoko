@@ -3,7 +3,8 @@ import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
 import { type IOccurrence } from '@/types/Occurrence';
 import { OccurrenceCategoryEnum } from '@/enum/OccurrenceEnum';
-import { getDateWeekDay } from '@/helpers/formatters/date';
+import { getDateWeekDay, getSafeDate } from '@/helpers/formatters/date';
+import { differenceInCalendarDays, differenceInCalendarMonths } from 'date-fns';
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
@@ -13,7 +14,14 @@ interface OccurrenceStoreState {
   deleteOccurrence: (id: string) => void;
   setOccurrences: (occurrences: IOccurrence[]) => void;
   getOccurrences: () => IOccurrence[];
-  getEvents: () => IOccurrence[];
+  getEvents: (options: {
+    category: string;
+    when: { id: number; desc: string };
+    includePrevious: boolean;
+  }) => {
+    events: IOccurrence[];
+    totalEvents: number;
+  };
   getActions: () => IOccurrence[];
 }
 
@@ -121,7 +129,48 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
       occurrences,
     })),
   getOccurrences: () => get().occurrences,
-  getEvents: () => get().occurrences.filter((occ) => occ.isEvent),
+  getEvents: (options) => {
+    const date = getSafeDate(new Date());
+
+    const allCategories = options.category === 'All';
+    const allWhen = options.when.desc === 'All';
+
+    const allFilters = allCategories && allWhen;
+
+    let events: IOccurrence[] = [];
+
+    if (options.includePrevious) {
+      events = get().occurrences.filter((occ) => occ.isEvent);
+    } else {
+      events = get().occurrences.filter((occ) => {
+        const eventDate = getSafeDate(occ.dateOfOccurrence);
+        const difference = differenceInCalendarDays(eventDate, date);
+        if (difference >= 0) return occ.isEvent;
+        return null;
+      });
+    }
+
+    const filteredEvents = events.filter((ev) => {
+      const eventDate = getSafeDate(ev.dateOfOccurrence);
+      const difference = differenceInCalendarMonths(eventDate, date);
+      const rightMonth = options.when.id - 1;
+
+      const biggerThanSeven = options.when.id === 8 && difference > rightMonth;
+      const equalOrBiggerToZero =
+        options.when.id > 0 && options.when.id < 8 && difference === rightMonth;
+      const sameCategory = options.category === (ev.category as string);
+
+      const oneOfWhen = allWhen || biggerThanSeven || equalOrBiggerToZero;
+      const oneOfCategory = sameCategory || allCategories;
+
+      return oneOfWhen && oneOfCategory;
+    });
+
+    return {
+      totalEvents: events.length,
+      events: allFilters ? events : filteredEvents,
+    };
+  },
   getActions: () => get().occurrences.filter((occ) => !occ.isEvent),
 }));
 
