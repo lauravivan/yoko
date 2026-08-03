@@ -17,7 +17,7 @@ const AppLayout = () => {
         openModal={() => {}}
       />
       {/* eslint-enable @typescript-eslint/no-empty-function */}
-      <div className="app__outlet">
+      <div className="app__outlet" id="app-outlet">
         <Outlet />
         <img src="/mascot.svg" />
       </div>

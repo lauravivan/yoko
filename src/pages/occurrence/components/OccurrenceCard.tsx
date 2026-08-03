@@ -5,7 +5,13 @@ import { differenceInCalendarDays } from 'date-fns';
 import useClickOutside from '@/hooks/useClickOutside';
 import DocumentTextIcon from '@/components/display/icons/DocumentText';
 import DynamicModal from '@/components/display/DynamicModal';
-import { useFloating, autoUpdate, autoPlacement } from '@floating-ui/react-dom';
+import {
+  useFloating,
+  autoUpdate,
+  flip,
+  shift,
+  size,
+} from '@floating-ui/react-dom';
 import {
   OccurrenceCategoryEnum,
   OccurrenceEndsTypeEnum,
@@ -26,37 +32,6 @@ import TravelIcon from '@/components/display/icons/categories/Travel';
 import { type IOccurrence } from '@/types/Occurrence';
 import OccurrenceEdit from './OccurrenceEdit';
 import useOccurrenceDateStore from '@/store/occurrenceDateStore';
-
-/* eslint-disable sonarjs/no-commented-code */
-// const getCounting = (date: Date) => {
-//   const now = createUTCDateNow();
-//   const years = differenceInYears(now, date);
-//   const dateAfterYears = addYears(date, years);
-//   const months = differenceInMonths(now, dateAfterYears);
-//   const dateAfterMonths = addMonths(dateAfterYears, months);
-//   const days = differenceInDays(now, dateAfterMonths);
-
-//   const yearsExtense = `${years} ${years === 1 ? 'year' : 'years'}`;
-//   const monthsExtense = `${months} ${months === 1 ? 'month' : 'months'}`;
-//   const daysExtense = `${days} ${days === 1 ? 'day' : 'days'}`;
-
-//   let counting = '';
-
-//   if (years > 0) {
-//     counting += `${yearsExtense}, `;
-//   }
-
-//   if (months > 0) {
-//     counting += `${monthsExtense}, `;
-//   }
-
-//   if (days > 0 || months > 0 || years > 0) {
-//     return `It has been ${counting}${daysExtense}`;
-//   }
-
-//   return `It has been 0 days`;
-// };
-/* eslint-enable sonarjs/no-commented-code */
 
 const Countdown = ({ dateToEvent }: { dateToEvent: Date }) => {
   const difference = differenceInCalendarDays(
@@ -179,15 +154,43 @@ const OccurrenceCard = ({
     if (!occurrence.isEvent) setShowRightContainer((prev) => !prev);
   };
 
-  const { refs: editModalRefs } = useFloating({
-    open: editModalOpen,
-    middleware: [autoPlacement()],
-    whileElementsMounted: autoUpdate,
-  });
+  const { refs: editModalRefs, floatingStyles: editModalFloatingStyles } =
+    useFloating({
+      open: editModalOpen,
+      placement: 'left-start',
+      middleware: [
+        flip({
+          boundary: document.getElementById('app-outlet') ?? undefined,
+        }),
+        shift({
+          boundary: document.getElementById('app-outlet') ?? undefined,
+          padding: 5,
+        }),
+        size({
+          boundary: document.getElementById('app-outlet') ?? undefined,
+          padding: 8,
+          apply({ availableHeight, availableWidth, elements }) {
+            Object.assign(elements.floating.style, {
+              maxHeight: `${availableHeight}px`,
+              maxWidth: `${availableWidth}px`,
+              overflow: 'auto',
+            });
+          },
+        }),
+      ],
+      whileElementsMounted: (reference, floating, update) =>
+        autoUpdate(reference, floating, update, {
+          elementResize: false,
+        }),
+    });
 
-  const { refs: optionsMenuModalRefs } = useFloating({
+  const {
+    refs: optionsMenuModalRefs,
+    floatingStyles: optionsMenuFloatingStyles,
+  } = useFloating({
     open: optionsMenuModalOpen,
-    middleware: [autoPlacement()],
+    placement: 'top',
+    middleware: [flip(), shift()],
     whileElementsMounted: autoUpdate,
   });
 
@@ -330,58 +333,56 @@ const OccurrenceCard = ({
         </div>
       </article>
 
-      {editModalOpen && (
-        <>
-          {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
-          <DynamicModal
-            ref={editModalRefs.setFloating}
-            onClick={(e) => e.stopPropagation()}
-            className="c-occurrence-card-wrapper__edit-modal"
-          >
-            <OccurrenceEdit
-              occurrence={occurrence}
-              categoryRef={categoryRef}
-              dateOfOccurrenceRef={dateOfOccurrenceRef}
-              descRef={descRef}
-              endDateOfOccurrenceRef={endDateOfOccurrenceRef}
-              endTimeRef={endTimeRef}
-              endsType={endsType}
-              handleAllDay={handleAllDay}
-              handleEndsType={handleEndsType}
-              handleMonthRepetition={handleMonthRepetition}
-              handleYearRepetition={handleYearRepetition}
-              handleWeekRepetition={handleWeekRepetition}
-              handleWeekRepetitionSpace={handleWeekRepetitionSpace}
-              handleYearRepetitionSpace={handleYearRepetitionSpace}
-              handleMonthRepetitionSpace={handleMonthRepetitionSpace}
-              handleSubmit={handleSubmit}
-              isAllDay={isAllDay}
-              monthRepetition={monthRepetition}
-              weekRepetition={weekRepetition}
-              weekRepetitionSpace={weekRepetitionSpace}
-              monthRepetitionSpace={monthRepetitionSpace}
-              qntOccurrencesTillEndRef={qntOccurrencesTillEndRef}
-              startTimeRef={startTimeRef}
-              weekDayRepetitionRefs={weekDayRepetitionRefs}
-            />
-          </DynamicModal>
-          {/* eslint-enable react-hooks/refs */}
-        </>
-      )}
+      {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
+      <DynamicModal
+        ref={editModalRefs.setFloating}
+        onClick={(e) => e.stopPropagation()}
+        className="c-occurrence-card-wrapper__edit-modal"
+        style={{
+          ...editModalFloatingStyles,
+          visibility: editModalOpen ? 'visible' : 'hidden',
+        }}
+      >
+        <OccurrenceEdit
+          occurrence={occurrence}
+          categoryRef={categoryRef}
+          dateOfOccurrenceRef={dateOfOccurrenceRef}
+          descRef={descRef}
+          endDateOfOccurrenceRef={endDateOfOccurrenceRef}
+          endTimeRef={endTimeRef}
+          endsType={endsType}
+          handleAllDay={handleAllDay}
+          handleEndsType={handleEndsType}
+          handleMonthRepetition={handleMonthRepetition}
+          handleYearRepetition={handleYearRepetition}
+          handleWeekRepetition={handleWeekRepetition}
+          handleWeekRepetitionSpace={handleWeekRepetitionSpace}
+          handleYearRepetitionSpace={handleYearRepetitionSpace}
+          handleMonthRepetitionSpace={handleMonthRepetitionSpace}
+          handleSubmit={handleSubmit}
+          isAllDay={isAllDay}
+          monthRepetition={monthRepetition}
+          weekRepetition={weekRepetition}
+          weekRepetitionSpace={weekRepetitionSpace}
+          monthRepetitionSpace={monthRepetitionSpace}
+          qntOccurrencesTillEndRef={qntOccurrencesTillEndRef}
+          startTimeRef={startTimeRef}
+          weekDayRepetitionRefs={weekDayRepetitionRefs}
+        />
+      </DynamicModal>
 
-      {optionsMenuModalOpen && (
-        <>
-          {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
-          <DynamicModal
-            className="c-occurrence-card-wrapper__options-menu-modal"
-            ref={optionsMenuModalRefs.setFloating}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div>Options menu</div>
-          </DynamicModal>
-          {/* eslint-enable react-hooks/refs */}
-        </>
-      )}
+      <DynamicModal
+        className="c-occurrence-card-wrapper__options-menu-modal"
+        ref={optionsMenuModalRefs.setFloating}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          ...optionsMenuFloatingStyles,
+          visibility: optionsMenuModalOpen ? 'visible' : 'hidden',
+        }}
+      >
+        <div>Options menu</div>
+      </DynamicModal>
+      {/* eslint-enable react-hooks/refs */}
     </div>
   );
 };
