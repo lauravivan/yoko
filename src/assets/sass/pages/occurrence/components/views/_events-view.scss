@@ -63,6 +63,18 @@
       flex-direction: column;
     }
 
+    &__when {
+      > div:first-of-type {
+        display: flex;
+        justify-content: space-between;
+
+        > div {
+          display: flex;
+          column-gap: 5px;
+        }
+      }
+    }
+
     [data-when-active='true'],
     [data-category-active='true'] {
       background-color: tokens.$bg-default;
