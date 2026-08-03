@@ -3,8 +3,17 @@ interface DynamicModalProps extends React.HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
-const DynamicModal = ({ children, className }: DynamicModalProps) => {
-  return <div className={`c-dynamic-modal ${className ?? ''}`}>{children}</div>;
+const DynamicModal = ({
+  children,
+  className,
+  ref,
+  ...rest
+}: DynamicModalProps) => {
+  return (
+    <div className={`c-dynamic-modal ${className ?? ''}`} ref={ref} {...rest}>
+      {children}
+    </div>
+  );
 };
 
 export default DynamicModal;
