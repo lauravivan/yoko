@@ -1,87 +1,31 @@
 const CalendarIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-    <g
-      id="SVGRepo_tracerCarrier"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    ></g>
-    <g id="SVGRepo_iconCarrier">
-      {' '}
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <g stroke="#292D32" strokeLinecap="round" strokeLinejoin="round">
+      {"{' '}"}
+      <path strokeMiterlimit={10} strokeWidth={1.5} d="M8 2v3" />
+      {"{' '}"}
+      <path strokeMiterlimit={10} strokeWidth={1.5} d="M16 2v3" />
+      {"{' '}"}
+      <path strokeMiterlimit={10} strokeWidth={1.5} d="M3.5 9.09h17" />
+      {"{' '}"}
       <path
-        d="M8 2V5"
-        stroke="#292D32"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M16 2V5"
-        stroke="#292D32"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M3.5 9.08997H20.5"
-        stroke="#292D32"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z"
-        stroke="#292D32"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M15.6947 13.7H15.7037"
-        stroke="#292D32"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M15.6947 16.7H15.7037"
-        stroke="#292D32"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M11.9955 13.7H12.0045"
-        stroke="#292D32"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M11.9955 16.7H12.0045"
-        stroke="#292D32"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M8.29431 13.7H8.30329"
-        stroke="#292D32"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
-      <path
-        d="M8.29431 16.7H8.30329"
-        stroke="#292D32"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>{' '}
+        strokeMiterlimit={10}
+        strokeWidth={1.5}
+        d="M21 8.5V17c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V8.5c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z"
+      />
+      {"{' '}"}
+      <path strokeWidth={2} d="M15.695 13.7h.009" />
+      {"{' '}"}
+      <path strokeWidth={2} d="M15.695 16.7h.009" />
+      {"{' '}"}
+      <path strokeWidth={2} d="M11.995 13.7h.01" />
+      {"{' '}"}
+      <path strokeWidth={2} d="M11.995 16.7h.01" />
+      {"{' '}"}
+      <path strokeWidth={2} d="M8.294 13.7h.01" />
+      {"{' '}"}
+      <path strokeWidth={2} d="M8.294 16.7h.01" />
+      {"{' '}"}
     </g>
   </svg>
 );
