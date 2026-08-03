@@ -13,7 +13,10 @@ interface OccurrenceStoreState {
   deleteOccurrence: (id: string) => void;
   setOccurrences: (occurrences: IOccurrence[]) => void;
   getOccurrences: () => IOccurrence[];
-  getEvents: () => IOccurrence[];
+  getEvents: (options: { category: string }) => {
+    events: IOccurrence[];
+    totalEvents: number;
+  };
   getActions: () => IOccurrence[];
 }
 
@@ -121,7 +124,17 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
       occurrences,
     })),
   getOccurrences: () => get().occurrences,
-  getEvents: () => get().occurrences.filter((occ) => occ.isEvent),
+  getEvents: (options) => {
+    const events = get().occurrences.filter((occ) => occ.isEvent);
+    const filteredEvents = events.filter(
+      (ev) => options.category === (ev.category as string)
+    );
+
+    return {
+      totalEvents: events.length,
+      events: options.category === 'All' ? events : filteredEvents,
+    };
+  },
   getActions: () => get().occurrences.filter((occ) => !occ.isEvent),
 }));
 

@@ -1,16 +1,13 @@
 import Footer from '@/layouts/components/Footer';
 import Header from '@/layouts/components/Header';
-import useStore from '@/store/store';
 import { Outlet } from 'react-router';
 
 const AppLayout = () => {
-  const { theme, toggleTheme } = useStore();
-
   return (
-    <div className={`app ${theme === 'moon' ? 'dark' : 'light'}`}>
+    <div className={`app light`}>
       {/* eslint-disable @typescript-eslint/no-empty-function */}
       <Header
-        toggleTheme={toggleTheme}
+        toggleTheme={() => {}}
         handleTitle={() => {}}
         handleSearch={() => {}}
         search={''}

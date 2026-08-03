@@ -4,16 +4,14 @@ import TrashIcon from '@/components/display/icons/toolbar/Trash';
 import FilterIcon from '@/components/display/icons/toolbar/Filter';
 import SortIcon from '@/components/display/icons/toolbar/Sort';
 import DynamicModal from '@/components/display/DynamicModal';
-import { autoPlacement, autoUpdate, useFloating } from '@floating-ui/react-dom';
-
-interface ListToolbarItemProps {
-  children?: React.ReactNode;
-  type: 'delete' | 'filter' | 'sort' | 'toggle';
-  ToggleIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  onToggle?: () => void;
-  currentActive: string;
-  toggleTitle?: string;
-}
+import {
+  autoUpdate,
+  flip,
+  shift,
+  size,
+  useFloating,
+} from '@floating-ui/react-dom';
+import useClickOutside from '@/hooks/useClickOutside';
 
 const ListToolbarItem = ({
   children,
@@ -22,7 +20,14 @@ const ListToolbarItem = ({
   ToggleIcon,
   onToggle,
   toggleTitle,
-}: ListToolbarItemProps) => {
+}: {
+  children?: React.ReactNode;
+  type: 'delete' | 'filter' | 'sort' | 'toggle';
+  ToggleIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  onToggle?: () => void;
+  currentActive: string;
+  toggleTitle?: string;
+}) => {
   const [openModalOptions, setOpenModalOptions] = useState(false);
   const [openModalChoice, setOpenModalChoice] = useState(false);
 
@@ -37,10 +42,34 @@ const ListToolbarItem = ({
     else onToggle?.();
   };
 
-  const { refs } = useFloating({
+  const itemRef = useClickOutside<HTMLDivElement>(() => {
+    setOpenModalOptions(false);
+  });
+
+  const { refs, floatingStyles } = useFloating({
     open: openModalOptions,
-    middleware: [autoPlacement()],
-    whileElementsMounted: autoUpdate,
+    placement: 'bottom-start',
+    middleware: [
+      flip({
+        boundary: document.getElementById('app-outlet') ?? undefined,
+      }),
+      shift({
+        boundary: document.getElementById('app-outlet') ?? undefined,
+      }),
+      size({
+        boundary: document.getElementById('app-outlet') ?? undefined,
+        apply({ availableHeight, elements }) {
+          Object.assign(elements.floating.style, {
+            maxHeight: `${availableHeight}px`,
+            overflow: 'auto',
+          });
+        },
+      }),
+    ],
+    whileElementsMounted: (reference, floating, update) =>
+      autoUpdate(reference, floating, update, {
+        elementResize: false,
+      }),
   });
 
   const btnTitle = useMemo(() => {
@@ -51,7 +80,7 @@ const ListToolbarItem = ({
   }, [isFilter, isSort, isDelete, isToggle]);
 
   return (
-    <div className="c-list-toolbar__item-wrapper">
+    <div className="c-list-toolbar__item-wrapper" ref={itemRef}>
       <div className="c-list-toolbar__item-wrapper__item">
         <button
           onClick={handleClick}
@@ -66,19 +95,25 @@ const ListToolbarItem = ({
           {currentActive}
         </button>
       </div>
-      {(isSort || isFilter) && openModalOptions && (
-        <>
-          {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
-          <DynamicModal ref={refs.setFloating}>
-            {isSort && <span className="c-dynamic-modal__title">Sort by</span>}
-            {isFilter && (
-              <span className="c-dynamic-modal__title">Filter by</span>
-            )}
-            {children}
-          </DynamicModal>
-          {/* eslint-enable react-hooks/refs */}
-        </>
-      )}
+      {/* eslint-disable react-hooks/refs -- false positive refs.setFloating floating-ui */}
+      <DynamicModal
+        ref={refs.setFloating}
+        className="c-list-toolbar__modal"
+        style={{
+          ...floatingStyles,
+          visibility:
+            (isSort || isFilter) && openModalOptions ? 'visible' : 'hidden',
+        }}
+      >
+        {isSort && (
+          <span className="c-list-toolbar__modal__title">Sort by</span>
+        )}
+        {isFilter && (
+          <span className="c-list-toolbar__modal__title">Filter by</span>
+        )}
+        {children}
+      </DynamicModal>
+      {/* eslint-enable react-hooks/refs */}
       {isDelete &&
         openModalChoice &&
         createPortal(<div>Oi, tudo bom</div>, document.getElementById('root')!)}
@@ -86,11 +121,7 @@ const ListToolbarItem = ({
   );
 };
 
-interface ListToolbarProps {
-  children: React.ReactNode;
-}
-
-const ListToolbar = ({ children }: ListToolbarProps) => {
+const ListToolbar = ({ children }: { children: React.ReactNode }) => {
   return <div className="c-list-toolbar">{children}</div>;
 };
 
