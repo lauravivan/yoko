@@ -79,86 +79,88 @@ const EventsView = () => {
         )}
         <div className="c-events-view__tools">
           {eventsRes.totalEvents > 0 && (
-            <ListToolbar>
-              <ListToolbar.Item
-                type="filter"
-                currentActive={`${activeWhen.desc}, ${activeCategory}`}
-              >
-                <div className="c-events-view__tools__filter">
-                  <div className="c-events-view__tools__filter__when">
-                    <div>
-                      <span>When</span>
+            <>
+              <ListToolbar>
+                <ListToolbar.Item
+                  type="filter"
+                  currentActive={`${activeWhen.desc}, ${activeCategory}`}
+                >
+                  <div className="c-events-view__tools__filter">
+                    <div className="c-events-view__tools__filter__when">
                       <div>
-                        <input
-                          type="checkbox"
-                          id="show-previous"
-                          name="show-previous"
-                          checked={!!includePrevious}
-                          onChange={() => setIncludePrevious((prev) => !prev)}
-                        />
-                        <label htmlFor="show-previous">
-                          Show previous events
-                        </label>
+                        <span>When</span>
+                        <div>
+                          <input
+                            type="checkbox"
+                            id="show-previous"
+                            name="show-previous"
+                            checked={!!includePrevious}
+                            onChange={() => setIncludePrevious((prev) => !prev)}
+                          />
+                          <label htmlFor="show-previous">
+                            Show previous events
+                          </label>
+                        </div>
                       </div>
+                      <ul>
+                        {filterOptions?.map((op, i) => (
+                          <li
+                            onClick={() =>
+                              setActiveWhen({
+                                id: i,
+                                desc: op,
+                              })
+                            }
+                            key={op}
+                            data-when-active={activeWhen.desc === op}
+                          >
+                            {op}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul>
-                      {filterOptions?.map((op, i) => (
-                        <li
-                          onClick={() =>
-                            setActiveWhen({
-                              id: i,
-                              desc: op,
-                            })
-                          }
-                          key={op}
-                          data-when-active={activeWhen.desc === op}
-                        >
-                          {op}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="c-events-view__tools__filter__category">
+                      <FilterList />
+                    </div>
+                    <DefaultButton onClick={resetFilters}>
+                      Reset filters
+                    </DefaultButton>
                   </div>
-                  <div className="c-events-view__tools__filter__category">
-                    <FilterList />
+                </ListToolbar.Item>
+                <ListToolbar.Item
+                  type="sort"
+                  currentActive={`${sort.toLowerCase()}`}
+                >
+                  <div className="c-events-view__tools__sort">
+                    <SortList />
                   </div>
-                  <DefaultButton onClick={resetFilters}>
-                    Reset filters
-                  </DefaultButton>
-                </div>
-              </ListToolbar.Item>
-              <ListToolbar.Item
-                type="sort"
-                currentActive={`${sort.toLowerCase()}`}
+                </ListToolbar.Item>
+                <ListToolbar.Item
+                  type="delete"
+                  currentActive={`Delete (${selectedCount} selected)`}
+                >
+                  <div></div>
+                </ListToolbar.Item>
+                <ListToolbar.Item
+                  type="toggle"
+                  ToggleIcon={
+                    is24Hour ? TwentyFourHourDisabledIcon : TwentyFourHourIcon
+                  }
+                  currentActive=""
+                  onToggle={() => setIs24Hour((prev) => !prev)}
+                  toggleTitle="Set hour format"
+                />
+              </ListToolbar>
+              <button
+                className="c-events-view__tools__add-btn"
+                aria-label="Add event"
+                title="Add event"
+                onClick={() => setOpenCreateModal((prev) => !prev)}
               >
-                <div className="c-events-view__tools__sort">
-                  <SortList />
-                </div>
-              </ListToolbar.Item>
-              <ListToolbar.Item
-                type="delete"
-                currentActive={`Delete (${selectedCount} selected)`}
-              >
-                <div></div>
-              </ListToolbar.Item>
-              <ListToolbar.Item
-                type="toggle"
-                ToggleIcon={
-                  is24Hour ? TwentyFourHourDisabledIcon : TwentyFourHourIcon
-                }
-                currentActive=""
-                onToggle={() => setIs24Hour((prev) => !prev)}
-                toggleTitle="Set hour format"
-              />
-            </ListToolbar>
+                <AddIcon />
+              </button>
+            </>
           )}
-          <button
-            className="c-events-view__tools__add-btn"
-            aria-label="Add event"
-            title="Add event"
-            onClick={() => setOpenCreateModal((prev) => !prev)}
-          >
-            <AddIcon />
-          </button>
         </div>
         {eventsRes.totalEvents > 0 && eventsRes.events.length > 0 && (
           <div className="c-events-view__cards">
