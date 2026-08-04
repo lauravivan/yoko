@@ -1,10 +1,10 @@
-import { DEFAULT_THEME } from '@/constants/toggle';
+import { ThemeEnum } from '@/enum/ThemeEnum';
 
 const LS_KEY = 'yoko-theme';
 
 export function getStoredTheme() {
   const theme = localStorage.getItem(LS_KEY);
-  return theme || DEFAULT_THEME;
+  return theme ?? ThemeEnum.Light;
 }
 
 export function storeTheme(theme: string) {

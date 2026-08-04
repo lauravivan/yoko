@@ -1,7 +1,8 @@
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet } from 'react-router';
 
+/*eslint-disable sonarjs/no-commented-code*/
 const LoginLayout = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <main className="login">
       <div>
@@ -12,5 +13,6 @@ const LoginLayout = () => {
     </main>
   );
 };
+/*eslint-enable sonarjs/no-commented-code*/
 
 export default LoginLayout;
