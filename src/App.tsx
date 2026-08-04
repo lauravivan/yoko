@@ -17,7 +17,6 @@ const App = () => {
               element={<OccurrencePage />}
             />
           </Route>
-          {}
           {/* <Route path={paths.auth.signin._} element={<LoginLayout />}>
             <Route index element={<Login />} />
             <Route
@@ -25,7 +24,6 @@ const App = () => {
               element={<LoginRedirect />}
             />
           </Route> */}
-          {}
         </Routes>
       </AuthProvider>
     </BrowserRouter>
