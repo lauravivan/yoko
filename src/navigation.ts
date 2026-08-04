@@ -6,7 +6,7 @@ interface RouteConfig {
   pathname: string;
   search?: string;
   hash?: string;
-  meta?: { restrictions: Array<RestrictionsEnum> };
+  meta?: { restrictions: RestrictionsEnum[] };
 }
 
 export default {
