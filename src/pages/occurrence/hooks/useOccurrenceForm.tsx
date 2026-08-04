@@ -4,30 +4,24 @@ import { type IOccurrence } from '@/types/Occurrence';
 import { useEffect, useRef, useState } from 'react';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
+import { v7 as uuidv7 } from 'uuid';
 
-const useOccurrenceForm = ({
-  occurrenceId,
-  allDay,
-  isEvent,
-  endsTypeDefault,
-  monthRepetitionDefault,
-  monthRepetitionSpaceDefault,
-  weekRepetitionDefault,
-  weekRepetitionSpaceDefault,
-  yearRepetitionDefault,
-  yearRepetitionSpaceDefault,
-}: {
-  occurrenceId: string;
-  allDay: boolean;
-  isEvent: boolean;
-  endsTypeDefault: OccurrenceEndsTypeEnum;
-  monthRepetitionDefault: number;
-  yearRepetitionDefault: number;
-  weekRepetitionDefault: number;
-  weekRepetitionSpaceDefault: number;
-  yearRepetitionSpaceDefault: number;
-  monthRepetitionSpaceDefault: number;
-}) => {
+const useOccurrenceForm = (
+  isCreate: boolean,
+  props: {
+    occurrenceId?: string;
+    allDay?: boolean;
+    isEvent: boolean;
+    endsTypeDefault?: OccurrenceEndsTypeEnum;
+    monthRepetitionDefault?: number;
+    yearRepetitionDefault?: number;
+    weekRepetitionDefault?: number;
+    weekRepetitionSpaceDefault?: number;
+    yearRepetitionSpaceDefault?: number;
+    monthRepetitionSpaceDefault?: number;
+    handleModal?: (value: React.SetStateAction<boolean>) => void;
+  }
+) => {
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const descRef = useRef<HTMLTextAreaElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
@@ -37,25 +31,31 @@ const useOccurrenceForm = ({
   const weekDayRepetitionRef = useRef<HTMLInputElement[]>([]);
   const startTimeRef = useRef<HTMLInputElement>(null);
   const endTimeRef = useRef<HTMLInputElement>(null);
-  const { updateOccurrence, updateOccurrenceTitle } = useOccurrenceStore();
-  const [titleEditMode, setTitleEditMode] = useState(false);
-  const [isAllDay, setIsAllDay] = useState(allDay);
-  const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
-  const [weekRepetition, setWeekRepetition] = useState(weekRepetitionDefault);
-  const [monthRepetition, setMonthRepetition] = useState(
-    monthRepetitionDefault
+  const { updateOccurrence, updateOccurrenceTitle, createOccurrence } =
+    useOccurrenceStore();
+  const [titleEditMode, setTitleEditMode] = useState<boolean>(false);
+  const [isAllDay, setIsAllDay] = useState<boolean>(props.allDay ?? false);
+  const [weekRepetition, setWeekRepetition] = useState<number>(
+    props.weekRepetitionDefault ?? 0
   );
-  const [yearRepetition, setYearRepetition] = useState(yearRepetitionDefault);
-  const [weekRepetitionSpace, setWeekRepetitionSpace] = useState(
-    weekRepetitionSpaceDefault
+  const [monthRepetition, setMonthRepetition] = useState<number>(
+    props.monthRepetitionDefault ?? 0
   );
-  const [monthRepetitionSpace, setMonthRepetitionSpace] = useState(
-    monthRepetitionSpaceDefault
+  const [yearRepetition, setYearRepetition] = useState<number>(
+    props.yearRepetitionDefault ?? 0
   );
-  const [yearRepetitionSpace, setYearRepetitionSpace] = useState(
-    yearRepetitionSpaceDefault
+  const [weekRepetitionSpace, setWeekRepetitionSpace] = useState<number>(
+    props.weekRepetitionSpaceDefault ?? 0
   );
-  const [endsType, setEndsType] = useState(endsTypeDefault);
+  const [monthRepetitionSpace, setMonthRepetitionSpace] = useState<number>(
+    props.monthRepetitionSpaceDefault ?? 0
+  );
+  const [yearRepetitionSpace, setYearRepetitionSpace] = useState<number>(
+    props.yearRepetitionSpaceDefault ?? 0
+  );
+  const [endsType, setEndsType] = useState<OccurrenceEndsTypeEnum>(
+    props.endsTypeDefault ?? OccurrenceEndsTypeEnum.Never
+  );
 
   useEffect(() => {
     weekDayRepetitionRef.current = [];
@@ -64,8 +64,8 @@ const useOccurrenceForm = ({
   const handleTitleUpdateOnKeyDown = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
-    if (e.key === 'Enter' && titleRef.current) {
-      updateOccurrenceTitle(occurrenceId, titleRef.current.value);
+    if (e.key === 'Enter' && titleRef.current && props.occurrenceId) {
+      updateOccurrenceTitle(props.occurrenceId, titleRef.current.value);
       titleRef.current.blur();
       setTitleEditMode(false);
     }
@@ -74,8 +74,10 @@ const useOccurrenceForm = ({
   const handleTitleUpdateOnBlur = (
     e: React.FocusEvent<HTMLTextAreaElement>
   ) => {
-    updateOccurrenceTitle(occurrenceId, e.target.value);
-    setTitleEditMode(false);
+    if (props.occurrenceId) {
+      updateOccurrenceTitle(props.occurrenceId, e.target.value);
+      setTitleEditMode(false);
+    }
   };
 
   const handleTitleEditMode = (e: React.MouseEvent<HTMLHeadingElement>) => {
@@ -97,8 +99,14 @@ const useOccurrenceForm = ({
 
     const occ = {} as IOccurrence;
 
-    occ.id = occurrenceId;
-    occ.isEvent = isEvent;
+    if (isCreate) {
+      occ.id = uuidv7();
+      occ.title = titleRef?.current?.value ?? '';
+    }
+
+    if (props.occurrenceId && !isCreate) occ.id = props.occurrenceId;
+
+    occ.isEvent = props.isEvent;
 
     if (descRef.current) occ.desc = descRef.current.value;
 
@@ -166,14 +174,12 @@ const useOccurrenceForm = ({
       occ.qntOccurrencesTillEnd = 0;
     }
 
-    updateOccurrence(occ);
-    setSubmittedSuccessfully(true);
+    if (isCreate) createOccurrence(occ);
+    else updateOccurrence(occ);
+
+    props.handleModal?.(false);
   };
   /* eslint-enable sonarjs/cognitive-complexity */
-
-  const clearForm = () => {
-    setSubmittedSuccessfully(false);
-  };
 
   return {
     titleRef,
@@ -199,8 +205,6 @@ const useOccurrenceForm = ({
     endsType,
     handleAllDay,
     handleSubmit,
-    submittedSuccessfully,
-    clearForm,
     handleMonthRepetition: setMonthRepetition,
     handleYearRepetition: setYearRepetition,
     handleWeekRepetition: setWeekRepetition,

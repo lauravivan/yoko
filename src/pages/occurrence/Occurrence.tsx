@@ -26,6 +26,7 @@ const OccurrencePage = () => {
   const [view, setView] = useState<ViewsEnum>(ViewsEnum.EVENTS);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     //eslint-disable-next-line no-empty
     if (signed) {
@@ -34,6 +35,7 @@ const OccurrencePage = () => {
       setOccurrences(occ);
     }
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <main className="p-occurrence">
