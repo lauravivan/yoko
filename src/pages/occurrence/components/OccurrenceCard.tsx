@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import NoteIcon from '@/components/display/icons/Note';
 import { formatDate, formatHour } from '@/helpers/formatters/date';
 import { differenceInCalendarDays } from 'date-fns';
@@ -26,7 +26,7 @@ import SocialIcon from '@/components/display/icons/categories/Social';
 import StudyIcon from '@/components/display/icons/categories/Study';
 import TravelIcon from '@/components/display/icons/categories/Travel';
 import { type IOccurrence } from '@/types/Occurrence';
-import OccurrenceEdit from './OccurrenceEdit';
+import OccurrenceCreateEdit from './OccurrenceCreateEdit';
 import useOccurrenceDateStore from '@/store/occurrenceDateStore';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
@@ -91,38 +91,8 @@ const OccurrenceCard = ({
     occurrence.isEvent ? true : false
   );
 
-  const {
-    handleTitleEditMode,
-    handleTitleUpdateOnBlur,
-    handleTitleUpdateOnKeyDown,
-    descRef,
-    titleRef,
-    categoryRef,
-    dateOfOccurrenceRef,
-    titleEditMode,
-    startTimeRef,
-    endTimeRef,
-    handleAllDay,
-    isAllDay,
-    handleSubmit,
-    submittedSuccessfully,
-    clearForm,
-    weekDayRepetitionRefs,
-    monthRepetition,
-    weekRepetition,
-    handleMonthRepetition,
-    handleWeekRepetition,
-    handleYearRepetition,
-    handleMonthRepetitionSpace,
-    handleWeekRepetitionSpace,
-    handleYearRepetitionSpace,
-    monthRepetitionSpace,
-    weekRepetitionSpace,
-    endsType,
-    handleEndsType,
-    qntOccurrencesTillEndRef,
-    endDateOfOccurrenceRef,
-  } = useOccurrenceForm({
+  const occurrenceForm = useOccurrenceForm(false, {
+    handleModal: setEditModalOpen,
     occurrenceId: occurrence.id,
     allDay: occurrence.allDay,
     isEvent: occurrence.isEvent,
@@ -134,6 +104,14 @@ const OccurrenceCard = ({
     yearRepetitionDefault: occurrence.yearRepetition ?? 0,
     yearRepetitionSpaceDefault: occurrence.yearRepetitionSpace ?? 0,
   });
+
+  const {
+    titleEditMode,
+    handleTitleEditMode,
+    handleTitleUpdateOnKeyDown,
+    titleRef,
+    handleTitleUpdateOnBlur,
+  } = occurrenceForm;
 
   const { getCompletedOccurrenceDates } = useOccurrenceDateStore();
 
@@ -203,14 +181,7 @@ const OccurrenceCard = ({
   const completedDays = useMemo(() => {
     const completed = getCompletedOccurrenceDates(occurrence.id);
     return completed.length;
-  }, [occurrence.id]);
-
-  useEffect(() => {
-    if (submittedSuccessfully) {
-      setEditModalOpen((prev) => !prev);
-      clearForm();
-    }
-  }, [submittedSuccessfully]);
+  }, [occurrence.id, getCompletedOccurrenceDates]);
 
   return (
     <div className="c-occurrence-card-wrapper" ref={articleRef}>
@@ -341,31 +312,11 @@ const OccurrenceCard = ({
           visibility: editModalOpen ? 'visible' : 'hidden',
         }}
       >
-        <OccurrenceEdit
+        <OccurrenceCreateEdit
           occurrence={occurrence}
-          categoryRef={categoryRef}
-          dateOfOccurrenceRef={dateOfOccurrenceRef}
-          descRef={descRef}
-          endDateOfOccurrenceRef={endDateOfOccurrenceRef}
-          endTimeRef={endTimeRef}
-          endsType={endsType}
-          handleAllDay={handleAllDay}
-          handleEndsType={handleEndsType}
-          handleMonthRepetition={handleMonthRepetition}
-          handleYearRepetition={handleYearRepetition}
-          handleWeekRepetition={handleWeekRepetition}
-          handleWeekRepetitionSpace={handleWeekRepetitionSpace}
-          handleYearRepetitionSpace={handleYearRepetitionSpace}
-          handleMonthRepetitionSpace={handleMonthRepetitionSpace}
-          handleSubmit={handleSubmit}
-          isAllDay={isAllDay}
-          monthRepetition={monthRepetition}
-          weekRepetition={weekRepetition}
-          weekRepetitionSpace={weekRepetitionSpace}
-          monthRepetitionSpace={monthRepetitionSpace}
-          qntOccurrencesTillEndRef={qntOccurrencesTillEndRef}
-          startTimeRef={startTimeRef}
-          weekDayRepetitionRefs={weekDayRepetitionRefs}
+          {...occurrenceForm}
+          isCreate={false}
+          isEvent={occurrence.isEvent}
         />
       </DynamicModal>
 

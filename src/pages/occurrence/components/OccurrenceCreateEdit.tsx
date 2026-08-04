@@ -5,33 +5,11 @@ import { type IOccurrence } from '@/types/Occurrence';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
 
-const OccurrenceEdit = ({
-  occurrence,
-  categoryRef,
-  descRef,
-  handleSubmit,
-  dateOfOccurrenceRef,
-  handleAllDay,
-  isAllDay,
-  endTimeRef,
-  startTimeRef,
-  handleMonthRepetition,
-  handleMonthRepetitionSpace,
-  handleWeekRepetition,
-  handleWeekRepetitionSpace,
-  handleYearRepetition,
-  handleYearRepetitionSpace,
-  endsType,
-  handleEndsType,
-  endDateOfOccurrenceRef,
-  qntOccurrencesTillEndRef,
-  monthRepetition,
-  monthRepetitionSpace,
-  weekRepetition,
-  weekRepetitionSpace,
-  weekDayRepetitionRefs,
-}: {
-  occurrence: IOccurrence;
+const OccurrenceCreateEdit = (props: {
+  isCreate: boolean;
+  isEvent: boolean;
+  occurrence?: IOccurrence;
+  titleRef: React.RefObject<HTMLTextAreaElement | null>;
   descRef: React.RefObject<HTMLTextAreaElement | null>;
   categoryRef: React.RefObject<HTMLSelectElement | null>;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -56,22 +34,64 @@ const OccurrenceEdit = ({
   monthRepetitionSpace: number;
   weekDayRepetitionRefs: (el: HTMLInputElement) => void;
 }) => {
+  const {
+    isCreate,
+    isEvent,
+    titleRef,
+    occurrence,
+    categoryRef,
+    descRef,
+    handleSubmit,
+    dateOfOccurrenceRef,
+    handleAllDay,
+    isAllDay,
+    endTimeRef,
+    startTimeRef,
+    handleMonthRepetition,
+    handleMonthRepetitionSpace,
+    handleWeekRepetition,
+    handleWeekRepetitionSpace,
+    handleYearRepetition,
+    handleYearRepetitionSpace,
+    endsType,
+    handleEndsType,
+    endDateOfOccurrenceRef,
+    qntOccurrencesTillEndRef,
+    monthRepetition,
+    monthRepetitionSpace,
+    weekRepetition,
+    weekRepetitionSpace,
+    weekDayRepetitionRefs,
+  } = props;
+
   return (
-    <form className="c-occurrence-card__edit-form" onSubmit={handleSubmit}>
-      <span className="c-occurrence-card__edit-form__title">
-        Edit <span>{occurrence.title}</span>
-      </span>
+    <form className="c-create-edit-occurrence-form" onSubmit={handleSubmit}>
+      {isCreate ? (
+        <textarea
+          placeholder="Unamed"
+          onClick={(e) => e.stopPropagation()}
+          ref={titleRef}
+          maxLength={50}
+          autoFocus
+          rows={1}
+          className="c-create-edit-occurrence-form__title-edit"
+        />
+      ) : (
+        <h3 className="c-create-edit-occurrence-form__title">
+          Edit <span>{occurrence?.title}</span>
+        </h3>
+      )}
       {/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */}
       <textarea
-        className="c-occurrence-card__edit-form__desc"
-        placeholder={occurrence.desc || 'Description...'}
+        className="c-create-edit-occurrence-form__desc"
+        placeholder={occurrence?.desc || 'Description...'}
         ref={descRef}
         maxLength={250}
         rows={4}
-        defaultValue={occurrence.desc ?? 'Description...'}
+        defaultValue={occurrence?.desc ?? ''}
       />
       {/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */}
-      <select defaultValue={occurrence.category} ref={categoryRef}>
+      <select defaultValue={occurrence?.category} ref={categoryRef}>
         <option value="" disabled>
           Choose a category
         </option>
@@ -81,40 +101,44 @@ const OccurrenceEdit = ({
           </option>
         ))}
       </select>
-      <div className="c-occurrence-card__edit-form__date-wrapper">
+      <div className="c-create-edit-occurrence-form__date-wrapper">
         <input
           type="date"
-          defaultValue={formatDateForInput(occurrence.dateOfOccurrence)}
+          defaultValue={
+            occurrence?.dateOfOccurrence
+              ? formatDateForInput(occurrence.dateOfOccurrence)
+              : undefined
+          }
           ref={dateOfOccurrenceRef}
         />
-        <div className="c-occurrence-card__edit-form__all-day">
+        <div className="c-create-edit-occurrence-form__all-day">
           <input
             name="all-day"
             id="all-day"
             type="checkbox"
             onChange={handleAllDay}
-            defaultChecked={occurrence.allDay}
+            defaultChecked={occurrence?.allDay}
           />
           <label htmlFor="all-day">All day</label>
         </div>
       </div>
       {!isAllDay && (
-        <div className="c-occurrence-card__edit-form__times">
+        <div className="c-create-edit-occurrence-form__times">
           <input
             type="time"
             ref={startTimeRef}
-            defaultValue={occurrence.startTime ?? '00:00'}
+            defaultValue={occurrence?.startTime ?? '00:00'}
           />
           <input
             type="time"
             ref={endTimeRef}
-            defaultValue={occurrence.endTime ?? '00:00'}
+            defaultValue={occurrence?.endTime ?? '00:00'}
           />
         </div>
       )}
-      {!occurrence.isEvent && (
+      {!isEvent && (
         <>
-          <div className="c-occurrence-card__edit-form__weekday-rep">
+          <div className="c-create-edit-occurrence-form__weekday-rep">
             {Object.keys(WeekDayEnum).map((item) => (
               <div key={item}>
                 <input
@@ -123,7 +147,7 @@ const OccurrenceEdit = ({
                   ref={weekDayRepetitionRefs}
                   id={item}
                   value={item}
-                  defaultChecked={occurrence.weekDayRepetition.some(
+                  defaultChecked={occurrence?.weekDayRepetition.some(
                     (wdr) => wdr === (item as WeekDayEnum)
                   )}
                 />
@@ -131,7 +155,7 @@ const OccurrenceEdit = ({
               </div>
             ))}
           </div>
-          <div className="c-occurrence-card__edit-form__rep">
+          <div className="c-create-edit-occurrence-form__rep">
             <span>Repeat every: </span>
             <div>
               <div>
@@ -139,7 +163,7 @@ const OccurrenceEdit = ({
                   type="number"
                   id="repeat-week"
                   name="repeat-week"
-                  defaultValue={occurrence.weekRepetition ?? 0}
+                  defaultValue={occurrence?.weekRepetition ?? 0}
                   min={0}
                   disabled={monthRepetition > 0}
                   onChange={(e) =>
@@ -153,7 +177,7 @@ const OccurrenceEdit = ({
                   type="number"
                   id="repeat-month"
                   name="repeat-month"
-                  defaultValue={occurrence.monthRepetition ?? 0}
+                  defaultValue={occurrence?.monthRepetition ?? 0}
                   min={0}
                   disabled={weekRepetition > 0}
                   onChange={(e) =>
@@ -167,7 +191,7 @@ const OccurrenceEdit = ({
                   type="number"
                   id="repeat-year"
                   name="repeat-year"
-                  defaultValue={occurrence.yearRepetition ?? 0}
+                  defaultValue={occurrence?.yearRepetition ?? 0}
                   min={0}
                   onChange={(e) =>
                     handleYearRepetition(parseInt(e.target.value))
@@ -177,7 +201,7 @@ const OccurrenceEdit = ({
               </div>
             </div>
           </div>
-          <div className="c-occurrence-card__edit-form__rep-space">
+          <div className="c-create-edit-occurrence-form__rep-space">
             <span>Repetition space: </span>
             <div>
               <div>
@@ -185,7 +209,7 @@ const OccurrenceEdit = ({
                   id="repeat-week-space"
                   name="repeat-week-space"
                   type="number"
-                  defaultValue={occurrence.weekRepetitionSpace ?? 0}
+                  defaultValue={occurrence?.weekRepetitionSpace ?? 0}
                   min={0}
                   disabled={weekRepetitionSpace > 0}
                   onChange={(e) =>
@@ -199,7 +223,7 @@ const OccurrenceEdit = ({
                   id="repeat-month-space"
                   name="repeat-month-space"
                   type="number"
-                  defaultValue={occurrence.monthRepetitionSpace ?? 0}
+                  defaultValue={occurrence?.monthRepetitionSpace ?? 0}
                   min={0}
                   disabled={monthRepetitionSpace > 0}
                   onChange={(e) =>
@@ -213,7 +237,7 @@ const OccurrenceEdit = ({
                   id="repeat-year-space"
                   name="repeat-year-space"
                   type="number"
-                  defaultValue={occurrence.yearRepetitionSpace ?? 0}
+                  defaultValue={occurrence?.yearRepetitionSpace ?? 0}
                   min={0}
                   onChange={(e) =>
                     handleYearRepetitionSpace(parseInt(e.target.value))
@@ -223,7 +247,7 @@ const OccurrenceEdit = ({
               </div>
             </div>
           </div>
-          <div className="c-occurrence-card__edit-form__ends">
+          <div className="c-create-edit-occurrence-form__ends">
             <span>When it ends: </span>
             <div>
               <input
@@ -232,8 +256,8 @@ const OccurrenceEdit = ({
                 onChange={() => handleEndsType(OccurrenceEndsTypeEnum.Never)}
                 id="ends-never"
                 defaultChecked={
-                  occurrence.endsType === OccurrenceEndsTypeEnum.Never ||
-                  !occurrence.endsType
+                  occurrence?.endsType === OccurrenceEndsTypeEnum.Never ||
+                  !occurrence?.endsType
                 }
               />
               <label htmlFor="ends-never">{OccurrenceEndsTypeEnum.Never}</label>
@@ -244,7 +268,7 @@ const OccurrenceEdit = ({
                 name="ends"
                 id="ends-on"
                 defaultChecked={
-                  occurrence.endsType === OccurrenceEndsTypeEnum.On
+                  occurrence?.endsType === OccurrenceEndsTypeEnum.On
                 }
                 onChange={() => handleEndsType(OccurrenceEndsTypeEnum.On)}
               />
@@ -253,9 +277,11 @@ const OccurrenceEdit = ({
                 type="date"
                 disabled={endsType !== OccurrenceEndsTypeEnum.On}
                 ref={endDateOfOccurrenceRef}
-                defaultValue={formatDateForInput(
-                  occurrence.endDateOfOccurrence
-                )}
+                defaultValue={
+                  occurrence?.endDateOfOccurrence
+                    ? formatDateForInput(occurrence.endDateOfOccurrence)
+                    : undefined
+                }
               />
             </div>
             <div>
@@ -265,13 +291,13 @@ const OccurrenceEdit = ({
                 id="ends-after"
                 onChange={() => handleEndsType(OccurrenceEndsTypeEnum.After)}
                 defaultChecked={
-                  occurrence.endsType === OccurrenceEndsTypeEnum.After
+                  occurrence?.endsType === OccurrenceEndsTypeEnum.After
                 }
               />
               <label htmlFor="ends-after">{OccurrenceEndsTypeEnum.After}</label>
               <input
                 type="number"
-                defaultValue={occurrence.qntOccurrencesTillEnd ?? 0}
+                defaultValue={occurrence?.qntOccurrencesTillEnd ?? 0}
                 min={0}
                 name="qnt-occurrences"
                 id="qnt-occurrences"
@@ -283,9 +309,11 @@ const OccurrenceEdit = ({
           </div>
         </>
       )}
-      <DefaultButton type="submit">Save</DefaultButton>
+      <DefaultButton type="submit">
+        {isCreate ? 'Create' : 'Save'}
+      </DefaultButton>
     </form>
   );
 };
 
-export default OccurrenceEdit;
+export default OccurrenceCreateEdit;

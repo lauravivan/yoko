@@ -1,9 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import AppLayout from './layouts/AppLayout';
 import OccurrencePage from '@/pages/occurrence/Occurrence';
-// import Login from './pages/login';
-// import LoginLayout from './layouts/LoginLayout';
-// import LoginRedirect from './pages/login/redirect';
 import Homepage from './pages/home/Homepage';
 import navigate from '@/navigation';
 import { AuthProvider } from '@/context/AuthContext';
@@ -20,6 +17,7 @@ const App = () => {
               element={<OccurrencePage />}
             />
           </Route>
+          {}
           {/* <Route path={paths.auth.signin._} element={<LoginLayout />}>
             <Route index element={<Login />} />
             <Route
@@ -27,6 +25,7 @@ const App = () => {
               element={<LoginRedirect />}
             />
           </Route> */}
+          {}
         </Routes>
       </AuthProvider>
     </BrowserRouter>

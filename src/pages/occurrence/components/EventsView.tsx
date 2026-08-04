@@ -1,4 +1,3 @@
-import AddButton from '@/components/action/AddButton';
 import ListToolbar from '@/components/action/ListToolbar';
 import useDelete from '@/hooks/useDelete';
 import { type IOccurrence } from '@/types/Occurrence';
@@ -11,6 +10,12 @@ import TwentyFourHourDisabledIcon from '@/components/display/icons/toolbar/24Hou
 import DefaultButton from '@/components/action/DefaultButton';
 import useSort from '../hooks/useSort';
 import useFilter from '../hooks/useFilter';
+import AddIcon from '@/components/display/icons/toolbar/Add';
+import { createPortal } from 'react-dom';
+import Modal from '@/components/display/Modal';
+import useClickOutside from '@/hooks/useClickOutside';
+import useOccurrenceForm from '../hooks/useOccurrenceForm';
+import OccurrenceCreateEdit from './OccurrenceCreateEdit';
 
 const filterOptions = [
   'All',
@@ -25,7 +30,8 @@ const filterOptions = [
 ];
 
 const EventsView = () => {
-  const { createOccurrence, getEvents } = useOccurrenceStore();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const { getEvents } = useOccurrenceStore();
   const { selectedCount, onSelect, onDeselect } = useDelete();
   const [is24Hour, setIs24Hour] = useState(true);
   const [activeWhen, setActiveWhen] = useState({
@@ -40,11 +46,18 @@ const EventsView = () => {
     includePrevious,
   });
 
+  const occurrenceForm = useOccurrenceForm(true, {
+    isEvent: true,
+    handleModal: setOpenCreateModal,
+  });
+
+  const modalRef = useClickOutside<HTMLDivElement>(() => {
+    setOpenCreateModal(false);
+  });
+
   const { occsSorted, sort, SortList } = useSort({
     occurrences: eventsRes.events,
   });
-
-  const handleCreateOccurrence = () => createOccurrence();
 
   const resetFilters = () => {
     handleActiveCategory('All');
@@ -56,88 +69,99 @@ const EventsView = () => {
   };
 
   return (
-    <div className="c-events-view">
-      {eventsRes.totalEvents === 0 && (
-        <NotFound keyword="event" handleCreate={handleCreateOccurrence} />
-      )}
-      {eventsRes.totalEvents > 0 && (
-        <ListToolbar>
-          <ListToolbar.Item
-            type="filter"
-            currentActive={`${activeWhen.desc}, ${activeCategory}`}
-          >
-            <div className="c-events-view__filter">
-              <div className="c-events-view__filter__when">
-                <div>
-                  <span>When</span>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="show-previous"
-                      name="show-previous"
-                      checked={!!includePrevious}
-                      onChange={() => setIncludePrevious((prev) => !prev)}
-                    />
-                    <label htmlFor="show-previous">Show previous events</label>
-                  </div>
-                </div>
-                <ul>
-                  {filterOptions?.map((op, i) => (
-                    <li
-                      onClick={() =>
-                        setActiveWhen({
-                          id: i,
-                          desc: op,
-                        })
-                      }
-                      key={op}
-                      data-when-active={activeWhen.desc === op}
-                    >
-                      {op}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="c-events-view__filter__category">
-                <FilterList />
-              </div>
-              <DefaultButton onClick={resetFilters}>
-                Reset filters
-              </DefaultButton>
-            </div>
-          </ListToolbar.Item>
-          <ListToolbar.Item type="sort" currentActive={`${sort.toLowerCase()}`}>
-            <div className="c-events-view__sort">
-              <SortList />
-            </div>
-          </ListToolbar.Item>
-          <ListToolbar.Item
-            type="delete"
-            currentActive={`Delete (${selectedCount} selected)`}
-          >
-            <div></div>
-          </ListToolbar.Item>
-          <ListToolbar.Item
-            type="toggle"
-            ToggleIcon={
-              is24Hour ? TwentyFourHourDisabledIcon : TwentyFourHourIcon
-            }
-            currentActive=""
-            onToggle={() => setIs24Hour((prev) => !prev)}
-            toggleTitle="Set hour format"
+    <>
+      <div className="c-events-view">
+        {eventsRes.totalEvents === 0 && (
+          <NotFound
+            keyword="event"
+            handleCreate={() => setOpenCreateModal(true)}
           />
-        </ListToolbar>
-      )}
-      {eventsRes.totalEvents > 0 && eventsRes.events.length > 0 && (
-        <>
-          <div className="c-events-view__cards">
-            {activeCategory === 'All' && (
-              <AddButton
-                onClick={handleCreateOccurrence}
-                aria-label="Add event"
+        )}
+        <div className="c-events-view__tools">
+          {eventsRes.totalEvents > 0 && (
+            <ListToolbar>
+              <ListToolbar.Item
+                type="filter"
+                currentActive={`${activeWhen.desc}, ${activeCategory}`}
+              >
+                <div className="c-events-view__tools__filter">
+                  <div className="c-events-view__tools__filter__when">
+                    <div>
+                      <span>When</span>
+                      <div>
+                        <input
+                          type="checkbox"
+                          id="show-previous"
+                          name="show-previous"
+                          checked={!!includePrevious}
+                          onChange={() => setIncludePrevious((prev) => !prev)}
+                        />
+                        <label htmlFor="show-previous">
+                          Show previous events
+                        </label>
+                      </div>
+                    </div>
+                    <ul>
+                      {filterOptions?.map((op, i) => (
+                        <li
+                          onClick={() =>
+                            setActiveWhen({
+                              id: i,
+                              desc: op,
+                            })
+                          }
+                          key={op}
+                          data-when-active={activeWhen.desc === op}
+                        >
+                          {op}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="c-events-view__tools__filter__category">
+                    <FilterList />
+                  </div>
+                  <DefaultButton onClick={resetFilters}>
+                    Reset filters
+                  </DefaultButton>
+                </div>
+              </ListToolbar.Item>
+              <ListToolbar.Item
+                type="sort"
+                currentActive={`${sort.toLowerCase()}`}
+              >
+                <div className="c-events-view__tools__sort">
+                  <SortList />
+                </div>
+              </ListToolbar.Item>
+              <ListToolbar.Item
+                type="delete"
+                currentActive={`Delete (${selectedCount} selected)`}
+              >
+                <div></div>
+              </ListToolbar.Item>
+              <ListToolbar.Item
+                type="toggle"
+                ToggleIcon={
+                  is24Hour ? TwentyFourHourDisabledIcon : TwentyFourHourIcon
+                }
+                currentActive=""
+                onToggle={() => setIs24Hour((prev) => !prev)}
+                toggleTitle="Set hour format"
               />
-            )}
-
+            </ListToolbar>
+          )}
+          <button
+            className="c-events-view__tools__add-btn"
+            aria-label="Add event"
+            title="Add event"
+            onClick={() => setOpenCreateModal((prev) => !prev)}
+          >
+            <AddIcon />
+          </button>
+        </div>
+        {eventsRes.totalEvents > 0 && eventsRes.events.length > 0 && (
+          <div className="c-events-view__cards">
             {occsSorted.map((event: IOccurrence) => (
               <OccurrenceCard
                 occurrence={event}
@@ -148,12 +172,19 @@ const EventsView = () => {
               />
             ))}
           </div>
-        </>
-      )}
-      {eventsRes.totalEvents > 0 && eventsRes.events.length === 0 && (
-        <NotFound keyword="events" type="filter-no-data" />
-      )}
-    </div>
+        )}
+        {eventsRes.totalEvents > 0 && eventsRes.events.length === 0 && (
+          <NotFound keyword="events" type="filter-no-data" />
+        )}
+      </div>
+      {openCreateModal &&
+        createPortal(
+          <Modal ref={modalRef}>
+            <OccurrenceCreateEdit isEvent isCreate {...occurrenceForm} />
+          </Modal>,
+          document.getElementById('root')!
+        )}
+    </>
   );
 };
 

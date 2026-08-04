@@ -1,9 +1,7 @@
 import { create } from 'zustand';
-import { v7 as uuidv7 } from 'uuid';
 import { type IOccurrence } from '@/types/Occurrence';
-import { getDateWeekDay, getSafeDate } from '@/helpers/formatters/date';
+import { getSafeDate } from '@/helpers/formatters/date';
 import { differenceInCalendarDays, differenceInCalendarMonths } from 'date-fns';
-import { OccurrenceCategoryEnum } from '@/pages/occurrence/enum/OccurrenceCategoryEnum';
 
 const LS_KEY = 'yoko-occurrences';
 
@@ -18,7 +16,7 @@ export function storeOccurrences(occurrences: IOccurrence[]) {
 
 interface OccurrenceStoreState {
   occurrences: IOccurrence[];
-  createOccurrence: (isEvent?: boolean) => void;
+  createOccurrence: (occ: IOccurrence) => void;
   updateOccurrenceTitle: (id: string, newTitle: string) => void;
   updateOccurrence: (occurrence: IOccurrence) => void;
   deleteOccurrence: (id: string) => void;
@@ -32,41 +30,47 @@ interface OccurrenceStoreState {
     events: IOccurrence[];
     totalEvents: number;
   };
-  getActions: () => IOccurrence[];
+  getActions: (options?: { category: string }) => {
+    actions: IOccurrence[];
+    totalActions: number;
+  };
 }
 
 const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
   occurrences: [],
-  createOccurrence: (isEvent = true) =>
+  createOccurrence: (occ: IOccurrence) =>
     set((state) => {
-      const occurrenceDate = new Date();
+      /*eslint-disable sonarjs/no-commented-code*/
+      // const occurrenceDate = new Date();
 
-      const occurrence: IOccurrence = {
-        id: uuidv7(),
-        title: 'Unamed',
-        desc: '',
-        isEvent,
-        category: OccurrenceCategoryEnum.Personal,
-        goalId: null,
-        dateOfOccurrence: occurrenceDate,
-        startTime: null,
-        endTime: null,
-        allDay: true,
-        yearRepetition: null,
-        endDateOfOccurrence: occurrenceDate,
-        endsType: null,
-        monthRepetition: null,
-        qntOccurrencesTillEnd: null,
-        weekRepetitionSpace: null,
-        monthRepetitionSpace: null,
-        yearRepetitionSpace: null,
-        weekDayRepetition: [getDateWeekDay(occurrenceDate)],
-        weekRepetition: null,
-      };
+      // const occurrence: IOccurrence = {
+      //   id: uuidv7(),
+      //   title: 'Unamed',
+      //   desc: '',
+      //   isEvent,
+      //   category: OccurrenceCategoryEnum.Personal,
+      //   goalId: null,
+      //   dateOfOccurrence: occurrenceDate,
+      //   startTime: null,
+      //   endTime: null,
+      //   allDay: true,
+      //   yearRepetition: null,
+      //   endDateOfOccurrence: occurrenceDate,
+      //   endsType: null,
+      //   monthRepetition: null,
+      //   qntOccurrencesTillEnd: null,
+      //   weekRepetitionSpace: null,
+      //   monthRepetitionSpace: null,
+      //   yearRepetitionSpace: null,
+      //   weekDayRepetition: [getDateWeekDay(occurrenceDate)],
+      //   weekRepetition: null,
+      // };
+
+      /*eslint-enable sonarjs/no-commented-code*/
 
       const prevOccurrences = [...state.occurrences];
 
-      prevOccurrences.unshift(occurrence);
+      prevOccurrences.unshift(occ);
 
       storeOccurrences(prevOccurrences);
 
@@ -185,7 +189,23 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
       events: allFilters ? events : filteredEvents,
     };
   },
-  getActions: () => get().occurrences.filter((occ) => !occ.isEvent),
+  getActions: (options) => {
+    const optionsCategory = options?.category ?? 'All';
+
+    const allCategories = optionsCategory === 'All';
+
+    const actions = get().occurrences.filter((occ) => !occ.isEvent);
+
+    const filteredActions = actions.filter((ev) => {
+      const sameCategory = optionsCategory === (ev.category as string);
+      return sameCategory || allCategories;
+    });
+
+    return {
+      totalActions: actions.length,
+      actions: filteredActions,
+    };
+  },
 }));
 
 export default useOccurrenceStore;
