@@ -1,7 +1,5 @@
 const Login = () => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const signInWithGoogle = () => {};
-
+  /* eslint-disable @typescript-eslint/require-await */
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -10,19 +8,8 @@ const Login = () => {
     const email = formData.get('email') as string;
 
     if (!email) return;
-
-    // try {
-    //   await sendSignInLinkToEmail(auth, email, {
-    //     url: `${import.meta.env.VITE_HOSTING_URL}/signin/redirect`,
-    //     handleCodeInApp: true,
-    //   });
-    //   window.localStorage.setItem('emailForSignIn', email);
-    // } catch (error) {
-    //   const err = error as Error;
-    //   const errorMessage = err.message;
-    //   console.log(errorMessage);
-    // }
   };
+  /* eslint-enable @typescript-eslint/require-await */
 
   return (
     <>

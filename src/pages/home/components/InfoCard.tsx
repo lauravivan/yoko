@@ -1,4 +1,4 @@
-import { Link, To } from 'react-router';
+import { Link, type To } from 'react-router';
 
 interface InfoCardProps {
   title: string;

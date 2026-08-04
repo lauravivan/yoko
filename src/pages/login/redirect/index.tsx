@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
 
+/*eslint-disable sonarjs/no-commented-code*/
 const LoginRedirect = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const completeSignIn = async () => {
@@ -31,5 +31,6 @@ const LoginRedirect = () => {
     </>
   );
 };
+/*eslint-enable sonarjs/no-commented-code*/
 
 export default LoginRedirect;
