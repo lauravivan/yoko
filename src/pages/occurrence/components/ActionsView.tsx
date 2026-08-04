@@ -3,8 +3,8 @@ import ListToolbar from '@/components/action/ListToolbar';
 import useDelete from '@/hooks/useDelete';
 import useOccurrenceStore from '@/store/occurrenceStore';
 import { type IOccurrence } from '@/types/Occurrence';
-import OccurrenceCard from '../OccurrenceCard';
-import NotFound from '../NotFound';
+import OccurrenceCard from './OccurrenceCard';
+import NotFound from './NotFound';
 
 const ActionsView = () => {
   const { createOccurrence, getActions } = useOccurrenceStore();

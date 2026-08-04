@@ -1,13 +1,14 @@
-import EventsView from './components/views/EventsView';
+import EventsView from './components/EventsView';
 import { useEffect, useState } from 'react';
-import CalendarView from './components/views/CalendarView';
-import ActionsView from './components/views/ActionsView';
+import CalendarView from './components/CalendarView';
+import ActionsView from './components/ActionsView';
 import CalendarIcon from '@/components/display/icons/views/Calendar';
 import StopWatchIcon from '@/components/display/icons/views/StopWatch';
 import ClockIcon from '@/components/display/icons/views/Clock';
 import { useAuth } from '@/context/AuthContext';
-import useOccurrenceStore from '@/store/occurrenceStore';
-import { getStoredOccurrences } from '@/helpers/storage/occurrence';
+import useOccurrenceStore, {
+  getStoredOccurrences,
+} from '@/store/occurrenceStore';
 import ArrowLeftIcon from '@/components/display/icons/toolbar/ArrowLeft';
 import ArrowRightIcon from '@/components/display/icons/toolbar/ArrowRight';
 import { addMonths, format, subMonths } from 'date-fns';

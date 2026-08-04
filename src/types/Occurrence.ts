@@ -1,9 +1,7 @@
 import { type WeekDayEnum } from '@/enum/DayEnum';
-import {
-  type OccurrenceEndsTypeEnum,
-  type OccurrenceCategoryEnum,
-  type OccurrenceDateStatusEnum,
-} from '@/enum/OccurrenceEnum';
+import { type OccurrenceCategoryEnum } from '@/pages/occurrence/enum/OccurrenceCategoryEnum';
+import { type OccurrenceDateStatusEnum } from '@/pages/occurrence/enum/OccurrenceDateStatusEnum';
+import { type OccurrenceEndsTypeEnum } from '@/pages/occurrence/enum/OccurrenceEndsTypeEnum';
 
 export interface IOccurrence {
   id: string;

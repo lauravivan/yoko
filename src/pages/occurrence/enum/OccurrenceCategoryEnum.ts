@@ -11,16 +11,3 @@ export enum OccurrenceCategoryEnum {
   Social = 'Social',
   Hobby = 'Hobby',
 }
-
-export enum OccurrenceEndsTypeEnum {
-  Never = 'Never',
-  On = 'On',
-  After = 'After',
-}
-
-export enum OccurrenceDateStatusEnum {
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  SKIPPED = 'SKIPPED',
-  MISSED = 'MISSED',
-}

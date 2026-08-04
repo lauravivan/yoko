@@ -1,11 +1,9 @@
 import DefaultButton from '@/components/action/DefaultButton';
 import { WeekDayEnum } from '@/enum/DayEnum';
-import {
-  OccurrenceCategoryEnum,
-  OccurrenceEndsTypeEnum,
-} from '@/enum/OccurrenceEnum';
 import { formatDateForInput } from '@/helpers/formatters/date';
 import { type IOccurrence } from '@/types/Occurrence';
+import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
+import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
 
 const OccurrenceEdit = ({
   occurrence,

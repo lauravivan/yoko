@@ -12,10 +12,6 @@ import {
   shift,
   size,
 } from '@floating-ui/react-dom';
-import {
-  OccurrenceCategoryEnum,
-  OccurrenceEndsTypeEnum,
-} from '@/enum/OccurrenceEnum';
 import PersonalIcon from '@/components/display/icons/categories/Personal';
 import WorkIcon from '@/components/display/icons/categories/Work';
 import Divider from '@/components/utils/Divider';
@@ -32,6 +28,8 @@ import TravelIcon from '@/components/display/icons/categories/Travel';
 import { type IOccurrence } from '@/types/Occurrence';
 import OccurrenceEdit from './OccurrenceEdit';
 import useOccurrenceDateStore from '@/store/occurrenceDateStore';
+import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
+import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
 
 const Countdown = ({ dateToEvent }: { dateToEvent: Date }) => {
   const difference = differenceInCalendarDays(

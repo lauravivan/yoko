@@ -1,8 +1,20 @@
-import { storeOccurrenceDates } from '@/helpers/storage/occurrence';
 import { create } from 'zustand';
 import { v7 as uuidv7 } from 'uuid';
 import { type IOccurrenceDate } from '@/types/Occurrence';
-import { OccurrenceDateStatusEnum } from '@/enum/OccurrenceEnum';
+import { OccurrenceDateStatusEnum } from '@/pages/occurrence/enum/OccurrenceDateStatusEnum';
+
+const LS_KEY = 'yoko-occurrences-dates';
+
+export function getStoredOccurrenceDate(): IOccurrenceDate[] {
+  const occurrenceDates = localStorage.getItem(LS_KEY);
+  return occurrenceDates
+    ? (JSON.parse(occurrenceDates) as IOccurrenceDate[])
+    : [];
+}
+
+export function storeOccurrenceDates(occurrenceDates: IOccurrenceDate[]) {
+  localStorage.setItem(LS_KEY, JSON.stringify(occurrenceDates));
+}
 
 interface OccurrenceDateStoreState {
   occurrenceDates: IOccurrenceDate[];
