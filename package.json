@@ -14,7 +14,7 @@
     "sass-migrate": "npx sass-migrator module --migrate-deps src/assets/sass/main.scss",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage",
+    "test:coverage": "vitest --passWithNoTests --coverage",
     "test:workflow:local": "vitest related --passWithNoTests --coverage=false",
     "lint": "eslint",
     "lint:all": "eslint .",
