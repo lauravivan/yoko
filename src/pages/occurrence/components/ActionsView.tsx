@@ -55,54 +55,56 @@ const ActionsView = () => {
 
         <div className="c-actions-view__tools">
           {actionsRes.totalActions > 0 && (
-            <ListToolbar>
-              <ListToolbar.Item
-                type="filter"
-                currentActive={`${activeCategory}`}
-              >
-                <div className="c-actions-view__tools__filter">
-                  <div className="c-actions-view__tools__filter__category">
-                    <FilterList />
+            <>
+              <ListToolbar>
+                <ListToolbar.Item
+                  type="filter"
+                  currentActive={`${activeCategory}`}
+                >
+                  <div className="c-actions-view__tools__filter">
+                    <div className="c-actions-view__tools__filter__category">
+                      <FilterList />
+                    </div>
+                    <DefaultButton onClick={resetFilters}>
+                      Reset filters
+                    </DefaultButton>
                   </div>
-                  <DefaultButton onClick={resetFilters}>
-                    Reset filters
-                  </DefaultButton>
-                </div>
-              </ListToolbar.Item>
-              <ListToolbar.Item
-                type="sort"
-                currentActive={`${sort.toLowerCase()}`}
-              >
-                <div className="c-actions-view__tools__sort">
-                  <SortList />
-                </div>
-              </ListToolbar.Item>
-              <ListToolbar.Item
-                type="delete"
-                currentActive={`Delete (${selectedCount} selected)`}
-              >
-                <div></div>
-              </ListToolbar.Item>
-            </ListToolbar>
+                </ListToolbar.Item>
+                <ListToolbar.Item
+                  type="sort"
+                  currentActive={`${sort.toLowerCase()}`}
+                >
+                  <div className="c-actions-view__tools__sort">
+                    <SortList />
+                  </div>
+                </ListToolbar.Item>
+                <ListToolbar.Item
+                  type="delete"
+                  currentActive={`Delete (${selectedCount} selected)`}
+                >
+                  <div></div>
+                </ListToolbar.Item>
+              </ListToolbar>
+              <div className="c-actions-view__tools__right-wrapper">
+                <button
+                  className="c-actions-view__tools__right-wrapper__add-btn"
+                  aria-label="Add action"
+                  title="Add action"
+                  onClick={() => setOpenCreateModal((prev) => !prev)}
+                >
+                  <AddIcon />
+                </button>
+                <button
+                  className="c-actions-view__tools__right-wrapper__goal-btn"
+                  aria-label="Access my goals"
+                  title="Goals"
+                  onClick={() => setOpenCreateModal((prev) => !prev)}
+                >
+                  <TargetIcon />
+                </button>
+              </div>
+            </>
           )}
-          <div className="c-actions-view__tools__right-wrapper">
-            <button
-              className="c-actions-view__tools__right-wrapper__add-btn"
-              aria-label="Add action"
-              title="Add action"
-              onClick={() => setOpenCreateModal((prev) => !prev)}
-            >
-              <AddIcon />
-            </button>
-            <button
-              className="c-actions-view__tools__right-wrapper__goal-btn"
-              aria-label="Access my goals"
-              title="Goals"
-              onClick={() => setOpenCreateModal((prev) => !prev)}
-            >
-              <TargetIcon />
-            </button>
-          </div>
         </div>
         {actionsRes.totalActions > 0 && actionsRes.actions.length > 0 && (
           <div className="c-actions-view__cards">
