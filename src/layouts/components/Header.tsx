@@ -1,29 +1,17 @@
 import QueryManager from '@/helpers/query';
 import React, { type ChangeEvent, useState } from 'react';
 import { BsSearch, BsX } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router';
-// import SignOutIcon from './icons/SignOut';
-// import SignInIcon from './icons/SignIn';
+import { Link } from 'react-router';
 import DefaultLogo from '@/components/display/DefaultLogo';
-import StopWatchIcon from '@/components/display/icons/views/StopWatch';
-// import Grid from '../Grid';
-// import { paths } from '@/contants/paths';
-// import TaskIcon from './icons/Task';
-// import { useGeneral } from '@/context/GeneralContext';
 import ToggleButton from '@/components/action/ToggleButton';
 import MenuIcon from '@/components/display/icons/Menu';
 import Divider from '@/components/utils/Divider';
 import ClockIcon from '@/components/display/icons/views/Clock';
 import navigation from '@/navigation';
-import getTimeOfDay from '@/helpers/time/getTimeOfDay';
-
-interface HeaderProps {
-  toggleTheme: () => void;
-  openModal: () => void;
-  handleTitle?: (title: string) => void;
-  handleSearch: (search: string) => void;
-  search: string;
-}
+import useClickOutside from '@/hooks/useClickOutside';
+import TaskIcon from '@/components/display/icons/Task';
+import NoteIcon from '@/components/display/icons/Note';
+import MoodIcon from '@/components/display/icons/Mood';
 
 const MenuItem = ({
   icon,
@@ -36,23 +24,29 @@ const MenuItem = ({
 }) => {
   return (
     <li>
-      <a href="#">
+      <Link to={href ?? '/'}>
         <div>
           <div>{icon}</div>
           <span>{children}</span>
         </div>
         <Divider />
-      </a>
+      </Link>
     </li>
   );
 };
 
-const Header = ({ toggleTheme, handleSearch, search }: HeaderProps) => {
-  const timeOfDay = getTimeOfDay();
+const Header = ({
+  toggleTheme,
+  handleSearch,
+  search,
+}: {
+  toggleTheme: () => void;
+  openModal: () => void;
+  handleTitle?: (title: string) => void;
+  handleSearch: (search: string) => void;
+  search: string;
+}) => {
   const queryManager = new QueryManager();
-  // const navigate = useNavigate();
-  // const { user, signOut } = useAuth();
-  // const { toggleTask } = useGeneral();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,17 +60,9 @@ const Header = ({ toggleTheme, handleSearch, search }: HeaderProps) => {
     queryManager.cleanQuery();
   };
 
-  // useEffect(() => {
-  //   const fetchData = async (): Promise<void> => {
-  //     if (app === 'countdown') {
-  //       await navigate(paths.home);
-  //     } else {
-  //       await navigate(paths.actions);
-  //     }
-  //   };
-
-  //   void fetchData();
-  // }, [app]);
+  const modalRef = useClickOutside<HTMLUListElement>(() => {
+    setMenuOpen(false);
+  });
 
   const handleMenu = () => setMenuOpen((open) => !open);
 
@@ -89,7 +75,7 @@ const Header = ({ toggleTheme, handleSearch, search }: HeaderProps) => {
               <DefaultLogo />
             </Link>
             <ToggleButton type="button" onClick={toggleTheme}>
-              {timeOfDay.icon()}
+              <div></div>
             </ToggleButton>
           </div>
         </div>
@@ -118,11 +104,16 @@ const Header = ({ toggleTheme, handleSearch, search }: HeaderProps) => {
               <MenuIcon />
             </button>
             {menuOpen && (
-              <ul>
-                <MenuItem icon={<StopWatchIcon />}>
-                  My recurring actions
+              <ul ref={modalRef}>
+                <MenuItem
+                  href={navigation.navigateToOccurrences().pathname}
+                  icon={<ClockIcon />}
+                >
+                  Occurrences
                 </MenuItem>
-                <MenuItem icon={<ClockIcon />}>My events</MenuItem>
+                <MenuItem icon={<NoteIcon />}>Notes</MenuItem>
+                <MenuItem icon={<TaskIcon />}>Tasks</MenuItem>
+                <MenuItem icon={<MoodIcon />}>Mood history</MenuItem>
               </ul>
             )}
           </div>
