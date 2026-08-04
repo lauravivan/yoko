@@ -32,3 +32,5 @@ docs/node_modules
 
 main.css
 main.css.map
+
+coverage/
