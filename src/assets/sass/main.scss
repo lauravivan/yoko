@@ -66,42 +66,57 @@ body {
 
       &__aside {
         display: flex;
-        justify-items: center;
-        align-items: center;
         flex-direction: column;
         height: 100%;
         width: var(--aside-size);
-        position: fixed;
-        left: 0;
-        top: 0;
-        padding-top: 20px;
+        padding: 20px 0px;
         background-color: tokens.$bg-subtle;
 
-        ul {
+        &__top,
+        &__bottom,
+        &__middle {
           display: flex;
           flex-direction: column;
-          row-gap: 20px;
+          align-items: center;
+          row-gap: 5px;
           list-style: none;
           padding: 0;
 
           li {
-            a {
-              display: block;
-              width: 42px;
-              height: 42px;
-              padding: 5px;
+            display: block;
+            cursor: pointer;
+            padding: 5px;
 
-              &:hover {
-                background-color: tokens.$bg-white;
-                border-radius: tokens.$border-r-default;
-              }
+            &:hover {
+              background-color: tokens.$bg-white;
+              border-radius: tokens.$border-r-default;
+            }
+
+            img {
+              width: 30px;
+              height: 30px;
+            }
+
+            a,
+            button {
+              all: unset;
+              display: block;
+              cursor: pointer;
 
               svg {
-                width: 100%;
-                height: 100%;
+                width: 28px;
+                height: 28px;
               }
             }
           }
+        }
+
+        &__top {
+          margin-bottom: auto;
+        }
+
+        &__bottom {
+          margin-top: auto;
         }
       }
 
@@ -115,14 +130,10 @@ body {
           min-height: 0;
           height: 100%;
           width: 100%;
-          margin: 5px 5px 0px var(--aside-size);
+          margin: 5px 5px 0px 0px;
           overflow-y: auto;
           background-color: tokens.$bg-subtle-light;
           border-radius: tokens.$border-r-default;
-        }
-
-        .c-footer {
-          margin-left: var(--aside-size);
         }
       }
     }
