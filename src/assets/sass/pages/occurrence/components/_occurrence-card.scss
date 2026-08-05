@@ -16,6 +16,10 @@
     border: 1px solid tokens.$border-color-dark;
     height: 100%;
 
+    > div {
+      border-radius: tokens.$border-r-default;
+    }
+
     &:hover {
       .c-occurrence-card__checkbox-container {
         display: block;
@@ -40,8 +44,18 @@
       border-top-left-radius: tokens.$border-r-default;
       border-bottom-left-radius: tokens.$border-r-default;
 
+      &__countdown {
+        text-align: center;
+        align-self: center;
+
+        &--highlight {
+          @include tokens.text-base-highlight();
+          font-size: 20px;
+        }
+      }
+
       .c-divider {
-        background-color: tokens.$bg-dark;
+        background-color: tokens.$bg-subtle-hover;
         min-width: 100px;
         max-width: 100px;
         height: 2px;
@@ -108,7 +122,7 @@
       }
 
       &__title-container {
-        width: 100%;
+        width: fit-content;
         display: flex;
         align-items: center;
         column-gap: 5px;
@@ -151,7 +165,7 @@
           overflow-wrap: break-word;
           word-break: break-word;
           white-space: pre-wrap;
-          width: 80%;
+          width: fit-content;
         }
       }
 
@@ -168,6 +182,9 @@
         display: flex;
         flex-direction: column;
         font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        max-width: fit-content;
 
         &__date {
           font-size: 13px;
@@ -186,16 +203,6 @@
       border-left: 1px solid tokens.$border-color-dark;
       background-color: tokens.$bg-white;
       padding: 33px 19px 30px 17px;
-
-      &__counting {
-        text-align: center;
-        align-self: center;
-
-        &--highlight {
-          @include tokens.text-base-highlight();
-          font-size: 20px;
-        }
-      }
 
       &__desc {
         overflow-wrap: break-word;

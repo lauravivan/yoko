@@ -38,7 +38,7 @@ const Countdown = ({ dateToEvent }: { dateToEvent: Date }) => {
   );
 
   return (
-    <span className="c-occurrence-card__right-container__counting">
+    <span className="c-occurrence-card__left-container__countdown">
       {difference < 0 && (
         <>
           Already <br /> happened
@@ -48,7 +48,7 @@ const Countdown = ({ dateToEvent }: { dateToEvent: Date }) => {
       {difference > 0 && (
         <>
           In{' '}
-          <span className="c-occurrence-card__right-container__counting--highlight">
+          <span className="c-occurrence-card__left-container__countdown--highlight">
             {difference}
           </span>{' '}
           {difference === 1 ? 'day' : 'days'}
@@ -268,6 +268,9 @@ const OccurrenceCard = ({
                 </span>
               </div>
             )}
+            {occurrence.isEvent && (
+              <Countdown dateToEvent={occurrence.dateOfOccurrence} />
+            )}
             {!occurrence.isEvent && occurrence.desc && (
               <button
                 className="c-occurrence-card__left-container__desc-btn"
@@ -281,11 +284,8 @@ const OccurrenceCard = ({
             <CategoryIcon category={occurrence.category} />
           </div>
         </div>
-        {showRightContainer && (
+        {showRightContainer && !occurrence.isEvent && (
           <div className="c-occurrence-card__right-container">
-            {occurrence.isEvent && (
-              <Countdown dateToEvent={occurrence.dateOfOccurrence} />
-            )}
             {showDesc && occurrence.desc && !occurrence.isEvent && (
               <p className="c-occurrence-card__right-container__desc">
                 {occurrence.desc}
