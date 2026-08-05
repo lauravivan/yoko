@@ -166,6 +166,4 @@ body {
 @include meta.load-css('pages/occurrence/components/create-edit-occ-form');
 @include meta.load-css('pages/occurrence/components/occurrence-card');
 @include meta.load-css('pages/occurrence/components/not-found');
-@include meta.load-css('pages/occurrence/components/events-view');
 @include meta.load-css('pages/occurrence/components/calendar-view');
-@include meta.load-css('pages/occurrence/components/actions-view');

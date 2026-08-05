@@ -94,14 +94,16 @@ const ActionsView = () => {
                 >
                   <AddIcon />
                 </button>
+                {/* eslint-disable @typescript-eslint/no-empty-function */}
                 <button
                   className="c-actions-view__tools__right-wrapper__goal-btn"
                   aria-label="Access my goals"
                   title="Goals"
-                  onClick={() => setOpenCreateModal((prev) => !prev)}
+                  onClick={() => {}}
                 >
                   <TargetIcon />
                 </button>
+                {/* eslint-enable @typescript-eslint/no-empty-function */}
               </div>
             </>
           )}
