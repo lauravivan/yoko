@@ -5,12 +5,14 @@
   flex-direction: column;
   padding: 10px 0px 4px 0px;
   height: 100%;
+  width: calc(100% - 53px);
 
   &__head {
     display: flex;
 
     &__item {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0;
       border-top: 1px solid tokens.$border-color-dark;
       border-right: 1px solid tokens.$border-color-dark;
       border-bottom: 1px solid tokens.$border-color-dark;
@@ -37,7 +39,8 @@
     &__item {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0;
 
       > div {
         padding: 5px;
@@ -65,8 +68,8 @@
 
         &__occurrence {
           position: relative;
-          padding: 1px 4px;
           @include tokens.text-xs-highlight();
+          padding: 2px;
 
           &__more-btn {
             all: unset;

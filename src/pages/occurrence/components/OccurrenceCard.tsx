@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import NoteIcon from '@/components/display/icons/Note';
+import NoteIcon from '@/components/display/icons/features/Note';
 import { formatDate, formatHour } from '@/helpers/formatters/date';
 import { differenceInCalendarDays } from 'date-fns';
 import useClickOutside from '@/hooks/useClickOutside';

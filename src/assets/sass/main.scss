@@ -9,6 +9,8 @@
 :root {
   color: tokens.$text-color-default;
   @include tokens.text-base();
+
+  --aside-size: 50px;
 }
 
 body {
@@ -20,22 +22,20 @@ body {
 #root {
   position: relative;
   height: 100vh;
+  width: 100vw;
 }
 
 .app {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   overflow: hidden;
   position: relative;
 
-  &__outlet {
-    flex: 1;
-    min-height: 0;
+  &__main-wrapper {
     height: 100%;
-    overflow-y: auto;
-    background-color: tokens.$bg-subtle-light;
-    border-radius: tokens.$border-r-default;
+    width: 100%;
 
     &:has(.c-calendar-view) {
       > img {
@@ -55,6 +55,75 @@ body {
       > img {
         bottom: -85px;
         width: 300px;
+      }
+    }
+
+    &__outlet-wrapper {
+      display: flex;
+      flex: 1;
+      height: 100%;
+      width: 100%;
+
+      &__aside {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: var(--aside-size);
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding-top: 20px;
+        background-color: tokens.$bg-subtle;
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          row-gap: 20px;
+          list-style: none;
+          padding: 0;
+
+          li {
+            a {
+              display: block;
+              width: 42px;
+              height: 42px;
+              padding: 5px;
+
+              &:hover {
+                background-color: tokens.$bg-white;
+                border-radius: tokens.$border-r-default;
+              }
+
+              svg {
+                width: 100%;
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+
+      &__main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+
+        &__outlet {
+          min-height: 0;
+          height: 100%;
+          width: 100%;
+          margin: 5px 5px 0px var(--aside-size);
+          overflow-y: auto;
+          background-color: tokens.$bg-subtle-light;
+          border-radius: tokens.$border-r-default;
+        }
+
+        .c-footer {
+          margin-left: var(--aside-size);
+        }
       }
     }
   }

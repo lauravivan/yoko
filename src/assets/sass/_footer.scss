@@ -31,6 +31,10 @@
     }
   }
 
+  &__version {
+    align-self: center;
+  }
+
   &__data {
     display: flex;
     flex-direction: column;
