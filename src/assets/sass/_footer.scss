@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   flex-shrink: 0;
   background-color: tokens.$bg-white;
-  padding: 10px 30px 5px;
+  padding: 5px 30px;
   justify-content: space-between;
   align-items: flex-end;
   z-index: 100;
@@ -29,6 +29,10 @@
       width: 19px;
       height: 19px;
     }
+  }
+
+  &__version {
+    align-self: center;
   }
 
   &__data {
