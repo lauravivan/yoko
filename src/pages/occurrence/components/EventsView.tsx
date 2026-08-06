@@ -181,7 +181,7 @@ const EventsView = () => {
       </div>
       {openCreateModal &&
         createPortal(
-          <Modal ref={modalRef}>
+          <Modal handleClose={() => setOpenCreateModal(false)} ref={modalRef}>
             <OccurrenceCreateEdit isEvent isCreate {...occurrenceForm} />
           </Modal>,
           document.getElementById('root')!

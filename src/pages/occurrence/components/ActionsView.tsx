@@ -139,7 +139,7 @@ const ActionsView = () => {
       </div>
       {openCreateModal &&
         createPortal(
-          <Modal ref={modalRef}>
+          <Modal ref={modalRef} handleClose={() => setOpenCreateModal(false)}>
             <OccurrenceCreateEdit
               isEvent={false}
               isCreate
