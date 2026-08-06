@@ -11,6 +11,7 @@
     flex-direction: column;
     row-gap: 10px;
     margin-top: 5px;
+    max-width: 50%;
 
     &__title {
       @include tokens.text-base-highlight();

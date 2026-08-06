@@ -15,12 +15,15 @@ import useClickOutside from '@/hooks/useClickOutside';
 import useOccurrenceForm from '../hooks/useOccurrenceForm';
 import DefaultButton from '@/components/action/DefaultButton';
 import TargetIcon from '@/components/display/icons/toolbar/Target';
+import TwentyFourHourDisabledIcon from '@/components/display/icons/toolbar/24HourDisabled';
+import TwentyFourHourIcon from '@/components/display/icons/toolbar/24Hour';
 
 const ActionsView = () => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const { getActions } = useOccurrenceStore();
   const { selectedCount, onSelect, onDeselect } = useDelete();
   const { activeCategory, FilterList, handleActiveCategory } = useFilter();
+  const [is24Hour, setIs24Hour] = useState(true);
 
   const actionsRes = getActions({
     category: activeCategory,
@@ -84,6 +87,15 @@ const ActionsView = () => {
                 >
                   <div></div>
                 </ListToolbar.Item>
+                <ListToolbar.Item
+                  type="toggle"
+                  ToggleIcon={
+                    is24Hour ? TwentyFourHourDisabledIcon : TwentyFourHourIcon
+                  }
+                  currentActive=""
+                  onToggle={() => setIs24Hour((prev) => !prev)}
+                  toggleTitle="Set hour format"
+                />
               </ListToolbar>
               <div className="c-actions-view__tools__right-wrapper">
                 <button
@@ -116,7 +128,7 @@ const ActionsView = () => {
                 key={action.id}
                 onSelect={onSelect}
                 onDeselect={onDeselect}
-                is24Hour={action.allDay}
+                is24Hour={is24Hour}
               />
             ))}
           </div>
