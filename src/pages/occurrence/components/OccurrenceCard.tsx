@@ -228,7 +228,8 @@ const OccurrenceCard = ({
           )}
           <div className="c-occurrence-card__content__datetime-container">
             <span className="c-occurrence-card__content__datetime-container__date">
-              {formatDate(occurrence.dateOfOccurrence)}
+              {formatDate(occurrence.dateOfOccurrence)} -{' '}
+              {formatDate(occurrence.endDateOfOccurrence)}
             </span>
             {occurrence.startTime && occurrence.endTime && (
               <span className="c-occurrence-card__content__datetime-container__time">
