@@ -176,13 +176,10 @@
         margin-top: 10px;
         margin-bottom: 20px;
         max-width: fit-content;
-
-        &__date {
-          font-size: 13px;
-        }
+        @include tokens.text-sm();
 
         &__time {
-          font-size: 12px;
+          @include tokens.text-xs();
         }
       }
     }

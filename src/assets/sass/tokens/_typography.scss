@@ -14,7 +14,7 @@ $quicksand: 'Quicksand', sans-serif;
 }
 
 @mixin text-xs-highlight {
-  @include text-form(13px, 700);
+  @include text-form(13px, 600);
 }
 
 @mixin text-sm {
@@ -22,7 +22,7 @@ $quicksand: 'Quicksand', sans-serif;
 }
 
 @mixin text-sm-highlight {
-  @include text-form(14px, 700);
+  @include text-form(14px, 600);
 }
 
 @mixin text-sm-light {
@@ -34,7 +34,7 @@ $quicksand: 'Quicksand', sans-serif;
 }
 
 @mixin text-base-highlight {
-  @include text-form(16px, 700);
+  @include text-form(16px, 600);
 }
 
 @mixin text-lg {
@@ -42,7 +42,7 @@ $quicksand: 'Quicksand', sans-serif;
 }
 
 @mixin text-lg-highlight {
-  @include text-form(21px, 700);
+  @include text-form(21px, 600);
 }
 
 @mixin text-xl {
@@ -50,5 +50,5 @@ $quicksand: 'Quicksand', sans-serif;
 }
 
 @mixin text-xl-highlight {
-  @include text-form(40px, 700);
+  @include text-form(40px, 600);
 }
