@@ -102,16 +102,29 @@ const OccurrenceCreateEdit = (props: {
         ))}
       </select>
       <div className="c-create-edit-occurrence-form__date-wrapper">
-        <input
-          type="date"
-          defaultValue={
-            occurrence?.dateOfOccurrence
-              ? formatDateForInput(occurrence.dateOfOccurrence)
-              : undefined
-          }
-          ref={dateOfOccurrenceRef}
-        />
-        <div className="c-create-edit-occurrence-form__all-day">
+        <div className="c-create-edit-occurrence-form__date-wrapper__dates">
+          <input
+            type="date"
+            defaultValue={
+              occurrence?.dateOfOccurrence
+                ? formatDateForInput(occurrence.dateOfOccurrence)
+                : undefined
+            }
+            ref={dateOfOccurrenceRef}
+          />
+          {isEvent && (
+            <input
+              type="date"
+              ref={endDateOfOccurrenceRef}
+              defaultValue={
+                occurrence?.endDateOfOccurrence
+                  ? formatDateForInput(occurrence.endDateOfOccurrence)
+                  : undefined
+              }
+            />
+          )}
+        </div>
+        <div className="c-create-edit-occurrence-form__date-wrapper__all-day">
           <input
             name="all-day"
             id="all-day"

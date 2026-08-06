@@ -126,6 +126,9 @@ const useOccurrenceForm = (
     if (dateOfOccurrenceRef.current)
       occ.dateOfOccurrence = new Date(dateOfOccurrenceRef.current.value);
 
+    if (endDateOfOccurrenceRef.current)
+      occ.endDateOfOccurrence = new Date(endDateOfOccurrenceRef.current.value);
+
     occ.allDay = isAllDay;
 
     if (isAllDay) {
@@ -156,22 +159,24 @@ const useOccurrenceForm = (
 
     occ.endsType = endsType;
 
-    if (endsType === OccurrenceEndsTypeEnum.On) {
-      if (endDateOfOccurrenceRef.current)
-        occ.endDateOfOccurrence = new Date(
-          endDateOfOccurrenceRef.current.value
-        );
-    } else {
-      occ.endDateOfOccurrence = occ.dateOfOccurrence;
-    }
+    if (!props.isEvent) {
+      if (endsType === OccurrenceEndsTypeEnum.On) {
+        if (endDateOfOccurrenceRef.current)
+          occ.endDateOfOccurrence = new Date(
+            endDateOfOccurrenceRef.current.value
+          );
+      } else {
+        occ.endDateOfOccurrence = occ.dateOfOccurrence;
+      }
 
-    if (endsType === OccurrenceEndsTypeEnum.After) {
-      if (qntOccurrencesTillEndRef.current)
-        occ.qntOccurrencesTillEnd = parseInt(
-          qntOccurrencesTillEndRef.current.value
-        );
-    } else {
-      occ.qntOccurrencesTillEnd = 0;
+      if (endsType === OccurrenceEndsTypeEnum.After) {
+        if (qntOccurrencesTillEndRef.current)
+          occ.qntOccurrencesTillEnd = parseInt(
+            qntOccurrencesTillEndRef.current.value
+          );
+      } else {
+        occ.qntOccurrencesTillEnd = 0;
+      }
     }
 
     if (isCreate) createOccurrence(occ);
