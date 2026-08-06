@@ -74,6 +74,18 @@
       right: 5px;
     }
 
+    &__category-icon {
+      position: absolute;
+      bottom: 0px;
+      right: 20px;
+      opacity: 0.8;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
     &:has(.c-occurrence-card__checkbox-container > input:checked) {
       border-width: 2px;
     }
@@ -99,17 +111,6 @@
         max-width: 100px;
         height: 2px;
         margin: 4px 0 10px;
-      }
-
-      &__category-icon {
-        position: absolute;
-        bottom: -5px;
-        right: 5px;
-
-        svg {
-          width: 30px;
-          height: 30px;
-        }
       }
 
       &__title-container {
