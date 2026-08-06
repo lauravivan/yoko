@@ -8,6 +8,8 @@ import {
   eachDayOfInterval,
   endOfMonth,
   getDay,
+  isAfter,
+  isBefore,
   isSameDay,
   startOfMonth,
   subMonths,
@@ -74,9 +76,24 @@ const Occurrences = ({ d }: { d: Date }) => {
 
   const filtered = useMemo(
     () =>
-      getEvents().events.filter((e) =>
-        isSameDay(getSafeDate(new Date(e.dateOfOccurrence)), getSafeDate(d))
-      ),
+      getEvents().events.filter((e) => {
+        const isDateOfSame = isSameDay(
+          getSafeDate(new Date(e.dateOfOccurrence)),
+          getSafeDate(d)
+        );
+        const isDateEndSame = isSameDay(
+          getSafeDate(new Date(e.endDateOfOccurrence)),
+          getSafeDate(d)
+        );
+        const isBetween =
+          isAfter(getSafeDate(d), getSafeDate(new Date(e.dateOfOccurrence))) &&
+          isBefore(
+            getSafeDate(d),
+            getSafeDate(new Date(e.endDateOfOccurrence))
+          );
+
+        return isDateOfSame || isDateEndSame || isBetween;
+      }),
     [d, getEvents]
   );
 
