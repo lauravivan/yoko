@@ -4,12 +4,14 @@
   display: flex;
   column-gap: 10px;
   position: relative;
+  flex: 1;
 
   &__modal {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     margin-top: 5px;
+    max-width: 50%;
 
     &__title {
       @include tokens.text-base-highlight();

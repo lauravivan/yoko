@@ -10,11 +10,56 @@
   }
 
   .c-occurrence-card {
-    display: flex;
     position: relative;
+    display: flex;
+    padding: 12px;
     border-radius: tokens.$border-r-default;
     border: 1px solid tokens.$border-color-dark;
     height: 100%;
+
+    &--Personal {
+      background-color: tokens.$ice-mint;
+    }
+
+    &--Work {
+      background-color: tokens.$periwinkle;
+    }
+
+    &--Study {
+      background-color: tokens.$pale-lavender;
+    }
+
+    &--Finance {
+      background-color: tokens.$tea-green;
+    }
+
+    &--Family {
+      background-color: tokens.$pastel-pink;
+    }
+
+    &--Travel {
+      background-color: tokens.$baby-blue;
+    }
+
+    &--Home {
+      background-color: tokens.$pale-peach;
+    }
+
+    &--Health {
+      background-color: tokens.$melon;
+    }
+
+    &--Reading {
+      background-color: tokens.$mint-green;
+    }
+
+    &--Social {
+      background-color: tokens.$light-magenta;
+    }
+
+    &--Hobby {
+      background-color: tokens.$pale-lime;
+    }
 
     &:hover {
       .c-occurrence-card__checkbox-container {
@@ -33,23 +78,27 @@
       border-width: 2px;
     }
 
-    &__left-container {
-      position: relative;
+    &__content {
       display: flex;
-      overflow: hidden;
-      border-top-left-radius: tokens.$border-r-default;
-      border-bottom-left-radius: tokens.$border-r-default;
+      flex-direction: column;
+      flex: 1;
+
+      &__countdown,
+      &__countup {
+        margin-top: auto;
+
+        &--highlight {
+          @include tokens.text-base-highlight();
+          font-size: 20px;
+        }
+      }
 
       .c-divider {
-        background-color: tokens.$bg-dark;
+        background-color: tokens.$bg-subtle-hover;
         min-width: 100px;
         max-width: 100px;
         height: 2px;
         margin: 4px 0 10px;
-      }
-
-      > div {
-        flex: 1;
       }
 
       &__category-icon {
@@ -63,52 +112,8 @@
         }
       }
 
-      &--Personal {
-        background-color: tokens.$ice-mint;
-      }
-
-      &--Work {
-        background-color: tokens.$periwinkle;
-      }
-
-      &--Study {
-        background-color: tokens.$pale-lavender;
-      }
-
-      &--Finance {
-        background-color: tokens.$tea-green;
-      }
-
-      &--Family {
-        background-color: tokens.$pastel-pink;
-      }
-
-      &--Travel {
-        background-color: tokens.$baby-blue;
-      }
-
-      &--Home {
-        background-color: tokens.$pale-peach;
-      }
-
-      &--Health {
-        background-color: tokens.$melon;
-      }
-
-      &--Reading {
-        background-color: tokens.$mint-green;
-      }
-
-      &--Social {
-        background-color: tokens.$light-magenta;
-      }
-
-      &--Hobby {
-        background-color: tokens.$pale-lime;
-      }
-
       &__title-container {
-        width: 100%;
+        width: fit-content;
         display: flex;
         align-items: center;
         column-gap: 5px;
@@ -151,7 +156,7 @@
           overflow-wrap: break-word;
           word-break: break-word;
           white-space: pre-wrap;
-          width: 80%;
+          width: fit-content;
         }
       }
 
@@ -168,6 +173,9 @@
         display: flex;
         flex-direction: column;
         font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        max-width: fit-content;
 
         &__date {
           font-size: 13px;
@@ -176,31 +184,6 @@
         &__time {
           font-size: 12px;
         }
-      }
-    }
-
-    &__right-container {
-      display: flex;
-      border-top-right-radius: tokens.$border-r-default;
-      border-bottom-right-radius: tokens.$border-r-default;
-      border-left: 1px solid tokens.$border-color-dark;
-      background-color: tokens.$bg-white;
-      padding: 33px 19px 30px 17px;
-
-      &__counting {
-        text-align: center;
-        align-self: center;
-
-        &--highlight {
-          @include tokens.text-base-highlight();
-          font-size: 20px;
-        }
-      }
-
-      &__desc {
-        overflow-wrap: break-word;
-        word-break: break-word;
-        white-space: pre-wrap;
       }
     }
   }
