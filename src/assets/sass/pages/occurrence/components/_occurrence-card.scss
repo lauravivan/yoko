@@ -72,6 +72,37 @@
       position: absolute;
       top: 5px;
       right: 5px;
+
+      input[type='checkbox'] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        border: 1px solid tokens.$border-color-dark;
+        border-radius: tokens.$border-r-full;
+        background-color: tokens.$bg-subtle;
+        outline: none;
+        cursor: pointer;
+        transition:
+          background-color 0.2s,
+          border-color 0.2s;
+
+        &:hover {
+          background-color: tokens.$bg-default-hover;
+        }
+
+        &:focus-visible {
+          box-shadow:
+            0 0 0 2px tokens.$bg-white,
+            0 0 0 4px tokens.$border-color-dark;
+        }
+
+        &:checked {
+          border-color: tokens.$bg-default;
+          background-color: tokens.$bg-default;
+        }
+      }
     }
 
     &__category-icon {
