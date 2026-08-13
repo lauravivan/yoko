@@ -146,6 +146,7 @@ const EventsView = () => {
                   type="delete"
                   currentActive={`Delete (${selectedCount} selected)`}
                   selectedCount={selectedCount}
+                  itemLabel="event"
                   onDelete={handleDelete}
                 >
                   <div></div>

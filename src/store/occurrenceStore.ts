@@ -5,6 +5,8 @@ import { differenceInCalendarDays, differenceInCalendarMonths } from 'date-fns';
 
 const LS_KEY = 'yoko-occurrences';
 
+const isActiveOccurrence = (occurrence: IOccurrence) => !occurrence.deletedAt;
+
 export function getStoredOccurrences(): IOccurrence[] {
   const occurrences = localStorage.getItem(LS_KEY);
   return occurrences ? (JSON.parse(occurrences) as IOccurrence[]) : [];
@@ -130,19 +132,23 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
     }),
   deleteOccurrence: (id: string) =>
     set((state) => {
-      const prevOccurrences = [...state.occurrences];
-      const newOccurrences = prevOccurrences.filter((e) => e.id !== id);
-      storeOccurrences(newOccurrences);
+      const updatedOccurrences = state.occurrences.map((occurrence) =>
+        occurrence.id === id
+          ? { ...occurrence, deletedAt: new Date().toISOString() }
+          : occurrence
+      );
+
+      storeOccurrences(updatedOccurrences);
       return {
         ...state,
-        occurrences: newOccurrences,
+        occurrences: updatedOccurrences,
       };
     }),
   setOccurrences: (occurrences: IOccurrence[]) =>
     set(() => ({
       occurrences,
     })),
-  getOccurrences: () => get().occurrences,
+  getOccurrences: () => get().occurrences.filter(isActiveOccurrence),
   getEvents: (options) => {
     const date = getSafeDate(new Date());
 
@@ -157,9 +163,12 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
     let events: IOccurrence[] = [];
 
     if (options?.includePrevious) {
-      events = get().occurrences.filter((occ) => occ.isEvent);
+      events = get().occurrences.filter(
+        (occ) => isActiveOccurrence(occ) && occ.isEvent
+      );
     } else {
       events = get().occurrences.filter((occ) => {
+        if (!isActiveOccurrence(occ)) return false;
         const eventDate = getSafeDate(occ.dateOfOccurrence);
         const difference = differenceInCalendarDays(eventDate, date);
         if (difference >= 0) return occ.isEvent;
@@ -194,7 +203,9 @@ const useOccurrenceStore = create<OccurrenceStoreState>((set, get) => ({
 
     const allCategories = optionsCategory === 'All';
 
-    const actions = get().occurrences.filter((occ) => !occ.isEvent);
+    const actions = get().occurrences.filter(
+      (occ) => isActiveOccurrence(occ) && !occ.isEvent
+    );
 
     const filteredActions = actions.filter((ev) => {
       const sameCategory = optionsCategory === (ev.category as string);

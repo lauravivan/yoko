@@ -22,6 +22,7 @@ const ListToolbarItem = ({
   onToggle,
   toggleTitle,
   selectedCount = 0,
+  itemLabel = 'item',
   onDelete,
 }: {
   children?: React.ReactNode;
@@ -31,6 +32,7 @@ const ListToolbarItem = ({
   currentActive: string;
   toggleTitle?: string;
   selectedCount?: number;
+  itemLabel?: string;
   onDelete?: () => void;
 }) => {
   const [openModalOptions, setOpenModalOptions] = useState(false);
@@ -126,7 +128,7 @@ const ListToolbarItem = ({
             <div className="c-delete-confirmation">
               <p>
                 Are you sure you want to delete {selectedCount}{' '}
-                {selectedCount === 1 ? 'item' : 'items'}?
+                {selectedCount === 1 ? itemLabel : `${itemLabel}s`}?
               </p>
               <div className="c-delete-confirmation__actions">
                 <button type="button" onClick={() => setOpenModalChoice(false)}>

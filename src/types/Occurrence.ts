@@ -5,6 +5,7 @@ import { type OccurrenceEndsTypeEnum } from '@/pages/occurrence/enum/OccurrenceE
 
 export interface IOccurrence {
   id: string;
+  deletedAt?: string;
   title: string;
   desc: string | null;
   isEvent: boolean;

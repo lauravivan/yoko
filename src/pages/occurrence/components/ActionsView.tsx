@@ -92,6 +92,7 @@ const ActionsView = () => {
                   type="delete"
                   currentActive={`Delete (${selectedCount} selected)`}
                   selectedCount={selectedCount}
+                  itemLabel="action"
                   onDelete={handleDelete}
                 >
                   <div></div>

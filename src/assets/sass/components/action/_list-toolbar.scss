@@ -69,11 +69,12 @@
       }
 
       &:last-child {
-        background-color: tokens.$bg-dark;
+        background-color: tokens.$bg-error;
         color: tokens.$text-color-invert;
 
         &:hover {
-          opacity: 0.85;
+          background-color: tokens.$bg-error-hover;
+          color: tokens.$text-color-default;
         }
       }
     }
