@@ -82,7 +82,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        color: tokens.$text-color-default;
+        color: tokens.$text-color-invert;
         font-size: 14px;
         font-weight: 700;
         line-height: 1;
@@ -106,7 +106,7 @@
           border-color 0.2s;
 
         &:hover {
-          background-color: tokens.$bg-error-hover;
+          background-color: tokens.$bg-subtle-hover;
         }
 
         &:focus-visible {
@@ -116,8 +116,8 @@
         }
 
         &:checked {
-          border-color: tokens.$bg-error;
-          background-color: tokens.$bg-error;
+          border-color: tokens.$bg-dark;
+          background-color: tokens.$bg-dark;
         }
       }
     }
