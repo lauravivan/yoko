@@ -12,6 +12,7 @@ import {
   useFloating,
 } from '@floating-ui/react-dom';
 import useClickOutside from '@/hooks/useClickOutside';
+import Modal from '@/components/display/Modal';
 
 const ListToolbarItem = ({
   children,
@@ -20,6 +21,8 @@ const ListToolbarItem = ({
   ToggleIcon,
   onToggle,
   toggleTitle,
+  selectedCount = 0,
+  onDelete,
 }: {
   children?: React.ReactNode;
   type: 'delete' | 'filter' | 'sort' | 'toggle';
@@ -27,6 +30,8 @@ const ListToolbarItem = ({
   onToggle?: () => void;
   currentActive: string;
   toggleTitle?: string;
+  selectedCount?: number;
+  onDelete?: () => void;
 }) => {
   const [openModalOptions, setOpenModalOptions] = useState(false);
   const [openModalChoice, setOpenModalChoice] = useState(false);
@@ -38,7 +43,7 @@ const ListToolbarItem = ({
 
   const handleClick = () => {
     if (isSort || isFilter) setOpenModalOptions((prev) => !prev);
-    else if (isDelete) setOpenModalChoice((prev) => !prev);
+    else if (isDelete && selectedCount > 0) setOpenModalChoice((prev) => !prev);
     else onToggle?.();
   };
 
@@ -116,7 +121,31 @@ const ListToolbarItem = ({
       {/* eslint-enable react-hooks/refs */}
       {isDelete &&
         openModalChoice &&
-        createPortal(<div>Oi, tudo bom</div>, document.getElementById('root')!)}
+        createPortal(
+          <Modal handleClose={() => setOpenModalChoice(false)}>
+            <div className="c-delete-confirmation">
+              <p>
+                Are you sure you want to delete {selectedCount}{' '}
+                {selectedCount === 1 ? 'item' : 'items'}?
+              </p>
+              <div className="c-delete-confirmation__actions">
+                <button type="button" onClick={() => setOpenModalChoice(false)}>
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onDelete?.();
+                    setOpenModalChoice(false);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </Modal>,
+          document.getElementById('root')!
+        )}
     </div>
   );
 };

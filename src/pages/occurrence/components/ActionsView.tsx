@@ -21,7 +21,9 @@ import TwentyFourHourIcon from '@/components/display/icons/toolbar/24Hour';
 const ActionsView = () => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const { getActions } = useOccurrenceStore();
-  const { selectedCount, onSelect, onDeselect } = useDelete();
+  const { selectedCount, selectedIds, clearSelection, onSelect, onDeselect } =
+    useDelete();
+  const { deleteOccurrence } = useOccurrenceStore();
   const { activeCategory, FilterList, handleActiveCategory } = useFilter();
   const [is24Hour, setIs24Hour] = useState(true);
 
@@ -44,6 +46,11 @@ const ActionsView = () => {
 
   const resetFilters = () => {
     handleActiveCategory('All');
+  };
+
+  const handleDelete = () => {
+    selectedIds.forEach((id) => deleteOccurrence(id));
+    clearSelection();
   };
 
   return (
@@ -84,6 +91,8 @@ const ActionsView = () => {
                 <ListToolbar.Item
                   type="delete"
                   currentActive={`Delete (${selectedCount} selected)`}
+                  selectedCount={selectedCount}
+                  onDelete={handleDelete}
                 >
                   <div></div>
                 </ListToolbar.Item>

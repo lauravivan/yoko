@@ -1,20 +1,22 @@
 import { useState } from 'react';
 
 const useDelete = () => {
-  const [selectedCount, setSelectedCount] = useState(0);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  const onSelect = () => {
-    setSelectedCount((prev) => prev + 1);
+  const onSelect = (id: string) => {
+    setSelectedIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
   };
 
-  const onDeselect = () => {
-    setSelectedCount((prev) => prev - 1);
+  const onDeselect = (id: string) => {
+    setSelectedIds((prev) => prev.filter((selectedId) => selectedId !== id));
   };
 
   return {
     onSelect,
     onDeselect,
-    selectedCount,
+    selectedIds,
+    selectedCount: selectedIds.length,
+    clearSelection: () => setSelectedIds([]),
   };
 };
 
