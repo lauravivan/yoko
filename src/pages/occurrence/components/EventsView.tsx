@@ -32,7 +32,9 @@ const filterOptions = [
 const EventsView = () => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const { getEvents } = useOccurrenceStore();
-  const { selectedCount, onSelect, onDeselect } = useDelete();
+  const { selectedCount, selectedIds, clearSelection, onSelect, onDeselect } =
+    useDelete();
+  const { deleteOccurrence } = useOccurrenceStore();
   const [is24Hour, setIs24Hour] = useState(true);
   const [activeWhen, setActiveWhen] = useState({
     id: 0,
@@ -66,6 +68,11 @@ const EventsView = () => {
       desc: filterOptions[0],
     });
     setIncludePrevious(true);
+  };
+
+  const handleDelete = () => {
+    selectedIds.forEach((id) => deleteOccurrence(id));
+    clearSelection();
   };
 
   return (
@@ -138,6 +145,9 @@ const EventsView = () => {
                 <ListToolbar.Item
                   type="delete"
                   currentActive={`Delete (${selectedCount} selected)`}
+                  selectedCount={selectedCount}
+                  itemLabel="event"
+                  onDelete={handleDelete}
                 >
                   <div></div>
                 </ListToolbar.Item>

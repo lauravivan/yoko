@@ -78,8 +78,8 @@ const OccurrenceCard = ({
   occurrence,
   is24Hour,
 }: {
-  onSelect: () => void;
-  onDeselect: () => void;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
   occurrence: IOccurrence;
   is24Hour: boolean;
 }) => {
@@ -266,7 +266,11 @@ const OccurrenceCard = ({
           <input
             onClick={(e) => e.stopPropagation()}
             type="checkbox"
-            onChange={(e) => (e.target.checked ? onSelect() : onDeselect())}
+            onChange={(e) =>
+              e.target.checked
+                ? onSelect(occurrence.id)
+                : onDeselect(occurrence.id)
+            }
           />
         </div>
       </article>

@@ -47,3 +47,35 @@
     }
   }
 }
+
+.c-delete-confirmation {
+  @include tokens.text-base();
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+
+    button {
+      all: unset;
+      background-color: tokens.$bg-subtle;
+      border-radius: tokens.$border-r-soft;
+      cursor: pointer;
+      padding: 8px 12px;
+
+      &:hover {
+        background-color: tokens.$bg-subtle-hover;
+      }
+
+      &:last-child {
+        background-color: tokens.$bg-error;
+        color: tokens.$text-color-default;
+
+        &:hover {
+          background-color: tokens.$bg-error-hover;
+        }
+      }
+    }
+  }
+}
