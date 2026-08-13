@@ -72,6 +72,54 @@
       position: absolute;
       top: 5px;
       right: 5px;
+
+      &:has(input[type='checkbox']:checked) {
+        display: flex;
+      }
+
+      &:has(input[type='checkbox']:checked)::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: tokens.$text-color-invert;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
+
+      input[type='checkbox'] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        border: 1px solid tokens.$border-color-dark;
+        border-radius: tokens.$border-r-soft;
+        background-color: tokens.$bg-subtle;
+        outline: none;
+        cursor: pointer;
+        transition:
+          background-color 0.2s,
+          border-color 0.2s;
+
+        &:hover {
+          background-color: tokens.$bg-subtle-hover;
+        }
+
+        &:focus-visible {
+          box-shadow:
+            0 0 0 2px tokens.$bg-white,
+            0 0 0 4px tokens.$border-color-dark;
+        }
+
+        &:checked {
+          border-color: tokens.$bg-dark;
+          background-color: tokens.$bg-dark;
+        }
+      }
     }
 
     &__category-icon {

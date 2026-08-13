@@ -6,6 +6,11 @@
   width: 5px;
 }
 
+::-moz-selection,
+::selection {
+  background-color: tokens.$bg-subtle;
+}
+
 :root {
   color: tokens.$text-color-default;
   @include tokens.text-base();

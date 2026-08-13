@@ -68,7 +68,7 @@
         &__occurrence {
           position: relative;
           @include tokens.text-xs-highlight();
-          padding: 2px;
+          padding: 2px 3px;
 
           &__more-btn {
             all: unset;
