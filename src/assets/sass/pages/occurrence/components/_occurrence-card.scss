@@ -73,6 +73,23 @@
       top: 5px;
       right: 5px;
 
+      &:has(input[type='checkbox']:checked) {
+        display: flex;
+      }
+
+      &:has(input[type='checkbox']:checked)::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: tokens.$text-color-default;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
+
       input[type='checkbox'] {
         appearance: none;
         -webkit-appearance: none;
@@ -80,7 +97,7 @@
         height: 20px;
         margin: 0;
         border: 1px solid tokens.$border-color-dark;
-        border-radius: tokens.$border-r-full;
+        border-radius: tokens.$border-r-soft;
         background-color: tokens.$bg-subtle;
         outline: none;
         cursor: pointer;
