@@ -70,11 +70,10 @@
 
       &:last-child {
         background-color: tokens.$bg-error;
-        color: tokens.$text-color-invert;
+        color: tokens.$text-color-default;
 
         &:hover {
           background-color: tokens.$bg-error-hover;
-          color: tokens.$text-color-default;
         }
       }
     }
