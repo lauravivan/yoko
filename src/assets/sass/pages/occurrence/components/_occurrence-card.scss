@@ -106,7 +106,7 @@
           border-color 0.2s;
 
         &:hover {
-          background-color: tokens.$bg-default-hover;
+          background-color: tokens.$bg-error-hover;
         }
 
         &:focus-visible {
@@ -116,8 +116,8 @@
         }
 
         &:checked {
-          border-color: tokens.$bg-default;
-          background-color: tokens.$bg-default;
+          border-color: tokens.$bg-error;
+          background-color: tokens.$bg-error;
         }
       }
     }
