@@ -5,6 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
 import { v7 as uuidv7 } from 'uuid';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  occurrenceEditFormSchema,
+  occurrenceFormSchema,
+  type OccurrenceFormValues,
+} from '../schemas/occurrenceFormSchema';
+import type { Resolver } from 'react-hook-form';
 
 const useOccurrenceForm = (
   isCreate: boolean,
@@ -33,6 +41,36 @@ const useOccurrenceForm = (
   const endTimeRef = useRef<HTMLInputElement>(null);
   const { updateOccurrence, updateOccurrenceTitle, createOccurrence } =
     useOccurrenceStore();
+  const {
+    register,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useForm<OccurrenceFormValues>({
+    resolver: zodResolver(
+      isCreate ? occurrenceFormSchema : occurrenceEditFormSchema
+    ) as Resolver<OccurrenceFormValues>,
+    mode: 'onSubmit',
+  });
+
+  useEffect(() => {
+    register('title');
+    register('desc');
+    register('category');
+    register('dateOfOccurrence');
+    register('endDateOfOccurrence');
+    register('allDay');
+    register('startTime');
+    register('endTime');
+    register('weekRepetition');
+    register('monthRepetition');
+    register('yearRepetition');
+    register('weekRepetitionSpace');
+    register('monthRepetitionSpace');
+    register('yearRepetitionSpace');
+    register('endsType');
+    register('qntOccurrencesTillEnd');
+  }, [register]);
   const [titleEditMode, setTitleEditMode] = useState<boolean>(false);
   const [isAllDay, setIsAllDay] = useState<boolean>(props.allDay ?? false);
   const [weekRepetition, setWeekRepetition] = useState<number>(
@@ -94,7 +132,7 @@ const useOccurrenceForm = (
   };
 
   /* eslint-disable sonarjs/cognitive-complexity */
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitLegacy = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const occ = {} as IOccurrence;
@@ -186,6 +224,39 @@ const useOccurrenceForm = (
   };
   /* eslint-enable sonarjs/cognitive-complexity */
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setValue('title', titleRef.current?.value ?? '');
+    setValue('desc', descRef.current?.value ?? '');
+    setValue(
+      'category',
+      (categoryRef.current?.value as OccurrenceCategoryEnum) ??
+        OccurrenceCategoryEnum.Personal
+    );
+    setValue('dateOfOccurrence', dateOfOccurrenceRef.current?.value ?? '');
+    setValue(
+      'endDateOfOccurrence',
+      endDateOfOccurrenceRef.current?.value ?? ''
+    );
+    setValue('allDay', isAllDay);
+    setValue('startTime', startTimeRef.current?.value ?? '');
+    setValue('endTime', endTimeRef.current?.value ?? '');
+    setValue('weekRepetition', weekRepetition);
+    setValue('monthRepetition', monthRepetition);
+    setValue('yearRepetition', yearRepetition);
+    setValue('weekRepetitionSpace', weekRepetitionSpace);
+    setValue('monthRepetitionSpace', monthRepetitionSpace);
+    setValue('yearRepetitionSpace', yearRepetitionSpace);
+    setValue('endsType', endsType);
+    setValue(
+      'qntOccurrencesTillEnd',
+      Number(qntOccurrencesTillEndRef.current?.value ?? 0)
+    );
+
+    const isValid = await trigger();
+    if (isValid) handleSubmitLegacy(e);
+  };
+
   return {
     titleRef,
     descRef,
@@ -210,6 +281,8 @@ const useOccurrenceForm = (
     endsType,
     handleAllDay,
     handleSubmit,
+    register,
+    errors,
     handleMonthRepetition: setMonthRepetition,
     handleYearRepetition: setYearRepetition,
     handleWeekRepetition: setWeekRepetition,

@@ -4,6 +4,8 @@ import { formatDateForInput } from '@/helpers/formatters/date';
 import { type IOccurrence } from '@/types/Occurrence';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { OccurrenceFormValues } from '../schemas/occurrenceFormSchema';
 
 const OccurrenceCreateEdit = (props: {
   isCreate: boolean;
@@ -33,6 +35,8 @@ const OccurrenceCreateEdit = (props: {
   weekRepetitionSpace: number;
   monthRepetitionSpace: number;
   weekDayRepetitionRefs: (el: HTMLInputElement) => void;
+  register: UseFormRegister<OccurrenceFormValues>;
+  errors: FieldErrors<OccurrenceFormValues>;
 }) => {
   const {
     isCreate,
@@ -62,20 +66,28 @@ const OccurrenceCreateEdit = (props: {
     weekRepetition,
     weekRepetitionSpace,
     weekDayRepetitionRefs,
+    errors,
   } = props;
 
   return (
     <form className="c-create-edit-occurrence-form" onSubmit={handleSubmit}>
       {isCreate ? (
-        <textarea
-          placeholder="Unamed"
-          onClick={(e) => e.stopPropagation()}
-          ref={titleRef}
-          maxLength={50}
-          autoFocus
-          rows={1}
-          className="c-create-edit-occurrence-form__title-edit"
-        />
+        <>
+          <textarea
+            placeholder="Unamed"
+            onClick={(e) => e.stopPropagation()}
+            ref={titleRef}
+            maxLength={50}
+            autoFocus
+            rows={1}
+            className="c-create-edit-occurrence-form__title-edit"
+          />
+          {errors.title?.message && (
+            <span className="c-create-edit-occurrence-form__error" role="alert">
+              {errors.title.message}
+            </span>
+          )}
+        </>
       ) : (
         <h3 className="c-create-edit-occurrence-form__title">
           Edit <span>{occurrence?.title}</span>
@@ -103,25 +115,45 @@ const OccurrenceCreateEdit = (props: {
       </select>
       <div className="c-create-edit-occurrence-form__date-wrapper">
         <div className="c-create-edit-occurrence-form__date-wrapper__dates">
-          <input
-            type="date"
-            defaultValue={
-              occurrence?.dateOfOccurrence
-                ? formatDateForInput(occurrence.dateOfOccurrence)
-                : undefined
-            }
-            ref={dateOfOccurrenceRef}
-          />
-          {isEvent && (
+          <div className="c-create-edit-occurrence-form__date-wrapper__date-field">
             <input
               type="date"
-              ref={endDateOfOccurrenceRef}
               defaultValue={
-                occurrence?.endDateOfOccurrence
-                  ? formatDateForInput(occurrence.endDateOfOccurrence)
+                occurrence?.dateOfOccurrence
+                  ? formatDateForInput(occurrence.dateOfOccurrence)
                   : undefined
               }
+              ref={dateOfOccurrenceRef}
             />
+            {errors.dateOfOccurrence?.message && (
+              <span
+                className="c-create-edit-occurrence-form__error"
+                role="alert"
+              >
+                {errors.dateOfOccurrence.message}
+              </span>
+            )}
+          </div>
+          {isEvent && (
+            <div className="c-create-edit-occurrence-form__date-wrapper__date-field">
+              <input
+                type="date"
+                ref={endDateOfOccurrenceRef}
+                defaultValue={
+                  occurrence?.endDateOfOccurrence
+                    ? formatDateForInput(occurrence.endDateOfOccurrence)
+                    : undefined
+                }
+              />
+              {errors.endDateOfOccurrence?.message && (
+                <span
+                  className="c-create-edit-occurrence-form__error"
+                  role="alert"
+                >
+                  {errors.endDateOfOccurrence.message}
+                </span>
+              )}
+            </div>
           )}
         </div>
         <div className="c-create-edit-occurrence-form__date-wrapper__all-day">

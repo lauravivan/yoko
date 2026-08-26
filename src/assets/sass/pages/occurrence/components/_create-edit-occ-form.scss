@@ -20,6 +20,11 @@
     }
   }
 
+  &__error {
+    @include tokens.text-xs();
+    color: tokens.$text-color-error;
+  }
+
   &__title-edit {
     all: unset;
     flex: 1;
@@ -48,6 +53,12 @@
     &__dates {
       display: flex;
       column-gap: 10px;
+    }
+
+    &__date-field {
+      display: flex;
+      flex-direction: column;
+      row-gap: 6px;
     }
   }
 
