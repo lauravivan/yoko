@@ -34,3 +34,7 @@ Update the task status as work progresses:
 - Move it to `Test staging` after the changes are merged into `develop`.
 - Move it to `Deploy` after the changes are released to production.
 - Use `Done` only for tasks of type `documentation` or `spike`.
+
+## Development Workflow
+
+During implementation work, run `npm run dev` so the user can follow the changes in the development environment.
