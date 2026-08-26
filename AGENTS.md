@@ -38,3 +38,13 @@ Update the task status as work progresses:
 ## Development Workflow
 
 During implementation work, run `npm run dev` so the user can follow the changes in the development environment.
+
+## Branch Naming
+
+Name each task branch with the task type as its prefix, followed by a descriptive kebab-case name:
+
+`[chore|documentation|spike|feature|bug]/descriptive-task-name`
+
+For example:
+
+`chore/migrate-occurrence-form-rhf-zod`
