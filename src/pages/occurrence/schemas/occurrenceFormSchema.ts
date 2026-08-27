@@ -1,10 +1,15 @@
 import { z } from 'zod';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
+import { WeekDayEnum } from '@/enum/DayEnum';
 
 const occurrenceCategories = Object.values(OccurrenceCategoryEnum) as [
   OccurrenceCategoryEnum,
   ...OccurrenceCategoryEnum[],
+];
+const occurrenceWeekDays = Object.values(WeekDayEnum) as [
+  WeekDayEnum,
+  ...WeekDayEnum[],
 ];
 const occurrenceEndsTypes = Object.values(OccurrenceEndsTypeEnum) as [
   OccurrenceEndsTypeEnum,
@@ -24,6 +29,7 @@ export const occurrenceFormSchema = z.object({
   allDay: z.boolean(),
   startTime: z.string().optional(),
   endTime: z.string().optional(),
+  weekDayRepetition: z.array(z.enum(occurrenceWeekDays)).optional(),
   weekRepetition: z.number().min(0),
   monthRepetition: z.number().min(0),
   yearRepetition: z.number().min(0),
