@@ -51,7 +51,12 @@ describe('OccurrenceCreateEdit', () => {
 
     fireEvent.submit(form);
 
-    expect(await screen.findByText('Title is required')).toBeInTheDocument();
-    expect(await screen.findByText('Date is required')).toBeInTheDocument();
+    const titleError = await screen.findByText('Title is required');
+    const dateError = await screen.findByText('Date is required');
+
+    expect(titleError).toBeInTheDocument();
+    expect(titleError).toBeVisible();
+    expect(dateError).toBeInTheDocument();
+    expect(dateError).toBeVisible();
   });
 });
