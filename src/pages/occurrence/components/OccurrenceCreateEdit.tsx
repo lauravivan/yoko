@@ -4,20 +4,16 @@ import { formatDateForInput } from '@/helpers/formatters/date';
 import { type IOccurrence } from '@/types/Occurrence';
 import { OccurrenceEndsTypeEnum } from '../enum/OccurrenceEndsTypeEnum';
 import { OccurrenceCategoryEnum } from '../enum/OccurrenceCategoryEnum';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { OccurrenceFormValues } from '../schemas/occurrenceFormSchema';
 
 const OccurrenceCreateEdit = (props: {
   isCreate: boolean;
   isEvent: boolean;
   occurrence?: IOccurrence;
-  titleRef: React.RefObject<HTMLTextAreaElement | null>;
-  descRef: React.RefObject<HTMLTextAreaElement | null>;
-  categoryRef: React.RefObject<HTMLSelectElement | null>;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  dateOfOccurrenceRef: React.RefObject<HTMLInputElement | null>;
   isAllDay: boolean;
   handleAllDay: () => void;
-  startTimeRef: React.RefObject<HTMLInputElement | null>;
-  endTimeRef: React.RefObject<HTMLInputElement | null>;
   handleMonthRepetition: React.Dispatch<React.SetStateAction<number>>;
   handleYearRepetition: React.Dispatch<React.SetStateAction<number>>;
   handleWeekRepetition: React.Dispatch<React.SetStateAction<number>>;
@@ -26,27 +22,20 @@ const OccurrenceCreateEdit = (props: {
   handleYearRepetitionSpace: React.Dispatch<React.SetStateAction<number>>;
   endsType: OccurrenceEndsTypeEnum;
   handleEndsType: React.Dispatch<React.SetStateAction<OccurrenceEndsTypeEnum>>;
-  endDateOfOccurrenceRef: React.RefObject<HTMLInputElement | null>;
-  qntOccurrencesTillEndRef: React.RefObject<HTMLInputElement | null>;
   weekRepetition: number;
   monthRepetition: number;
   weekRepetitionSpace: number;
   monthRepetitionSpace: number;
-  weekDayRepetitionRefs: (el: HTMLInputElement) => void;
+  register: UseFormRegister<OccurrenceFormValues>;
+  errors: FieldErrors<OccurrenceFormValues>;
 }) => {
   const {
     isCreate,
     isEvent,
-    titleRef,
     occurrence,
-    categoryRef,
-    descRef,
     handleSubmit,
-    dateOfOccurrenceRef,
     handleAllDay,
     isAllDay,
-    endTimeRef,
-    startTimeRef,
     handleMonthRepetition,
     handleMonthRepetitionSpace,
     handleWeekRepetition,
@@ -55,27 +44,33 @@ const OccurrenceCreateEdit = (props: {
     handleYearRepetitionSpace,
     endsType,
     handleEndsType,
-    endDateOfOccurrenceRef,
-    qntOccurrencesTillEndRef,
     monthRepetition,
     monthRepetitionSpace,
     weekRepetition,
     weekRepetitionSpace,
-    weekDayRepetitionRefs,
+    errors,
+    register,
   } = props;
 
   return (
     <form className="c-create-edit-occurrence-form" onSubmit={handleSubmit}>
       {isCreate ? (
-        <textarea
-          placeholder="Unamed"
-          onClick={(e) => e.stopPropagation()}
-          ref={titleRef}
-          maxLength={50}
-          autoFocus
-          rows={1}
-          className="c-create-edit-occurrence-form__title-edit"
-        />
+        <>
+          <textarea
+            placeholder="Unamed"
+            onClick={(e) => e.stopPropagation()}
+            {...register('title')}
+            maxLength={50}
+            autoFocus
+            rows={1}
+            className="c-create-edit-occurrence-form__title-edit"
+          />
+          {errors.title?.message && (
+            <span className="c-create-edit-occurrence-form__error" role="alert">
+              {errors.title.message}
+            </span>
+          )}
+        </>
       ) : (
         <h3 className="c-create-edit-occurrence-form__title">
           Edit <span>{occurrence?.title}</span>
@@ -85,13 +80,16 @@ const OccurrenceCreateEdit = (props: {
       <textarea
         className="c-create-edit-occurrence-form__desc"
         placeholder={occurrence?.desc || 'Description...'}
-        ref={descRef}
+        {...register('desc')}
         maxLength={250}
         rows={4}
         defaultValue={occurrence?.desc ?? ''}
       />
       {/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */}
-      <select defaultValue={occurrence?.category} ref={categoryRef}>
+      <select
+        defaultValue={occurrence?.category ?? OccurrenceCategoryEnum.Personal}
+        {...register('category')}
+      >
         <option value="" disabled>
           Choose a category
         </option>
@@ -103,33 +101,52 @@ const OccurrenceCreateEdit = (props: {
       </select>
       <div className="c-create-edit-occurrence-form__date-wrapper">
         <div className="c-create-edit-occurrence-form__date-wrapper__dates">
-          <input
-            type="date"
-            defaultValue={
-              occurrence?.dateOfOccurrence
-                ? formatDateForInput(occurrence.dateOfOccurrence)
-                : undefined
-            }
-            ref={dateOfOccurrenceRef}
-          />
-          {isEvent && (
+          <div className="c-create-edit-occurrence-form__date-wrapper__date-field">
             <input
               type="date"
-              ref={endDateOfOccurrenceRef}
               defaultValue={
-                occurrence?.endDateOfOccurrence
-                  ? formatDateForInput(occurrence.endDateOfOccurrence)
+                occurrence?.dateOfOccurrence
+                  ? formatDateForInput(occurrence.dateOfOccurrence)
                   : undefined
               }
+              {...register('dateOfOccurrence')}
             />
+            {errors.dateOfOccurrence?.message && (
+              <span
+                className="c-create-edit-occurrence-form__error"
+                role="alert"
+              >
+                {errors.dateOfOccurrence.message}
+              </span>
+            )}
+          </div>
+          {isEvent && (
+            <div className="c-create-edit-occurrence-form__date-wrapper__date-field">
+              <input
+                type="date"
+                {...register('endDateOfOccurrence')}
+                defaultValue={
+                  occurrence?.endDateOfOccurrence
+                    ? formatDateForInput(occurrence.endDateOfOccurrence)
+                    : undefined
+                }
+              />
+              {errors.endDateOfOccurrence?.message && (
+                <span
+                  className="c-create-edit-occurrence-form__error"
+                  role="alert"
+                >
+                  {errors.endDateOfOccurrence.message}
+                </span>
+              )}
+            </div>
           )}
         </div>
         <div className="c-create-edit-occurrence-form__date-wrapper__all-day">
           <input
-            name="all-day"
+            {...register('allDay', { onChange: handleAllDay })}
             id="all-day"
             type="checkbox"
-            onChange={handleAllDay}
             defaultChecked={occurrence?.allDay}
           />
           <label htmlFor="all-day">All day</label>
@@ -139,12 +156,12 @@ const OccurrenceCreateEdit = (props: {
         <div className="c-create-edit-occurrence-form__times">
           <input
             type="time"
-            ref={startTimeRef}
+            {...register('startTime')}
             defaultValue={occurrence?.startTime ?? '00:00'}
           />
           <input
             type="time"
-            ref={endTimeRef}
+            {...register('endTime')}
             defaultValue={occurrence?.endTime ?? '00:00'}
           />
         </div>
@@ -156,8 +173,7 @@ const OccurrenceCreateEdit = (props: {
               <div key={item}>
                 <input
                   type="checkbox"
-                  name="weekday-repetition"
-                  ref={weekDayRepetitionRefs}
+                  {...register('weekDayRepetition')}
                   id={item}
                   value={item}
                   defaultChecked={occurrence?.weekDayRepetition.some(
@@ -173,42 +189,45 @@ const OccurrenceCreateEdit = (props: {
             <div>
               <div>
                 <input
+                  {...register('weekRepetition', {
+                    valueAsNumber: true,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleWeekRepetition(parseInt(e.target.value, 10)),
+                  })}
                   type="number"
                   id="repeat-week"
-                  name="repeat-week"
                   defaultValue={occurrence?.weekRepetition ?? 0}
                   min={0}
                   disabled={monthRepetition > 0}
-                  onChange={(e) =>
-                    handleWeekRepetition(parseInt(e.target.value))
-                  }
                 />
                 <label htmlFor="repeat-week">week</label>
               </div>
               <div>
                 <input
+                  {...register('monthRepetition', {
+                    valueAsNumber: true,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleMonthRepetition(parseInt(e.target.value, 10)),
+                  })}
                   type="number"
                   id="repeat-month"
-                  name="repeat-month"
                   defaultValue={occurrence?.monthRepetition ?? 0}
                   min={0}
                   disabled={weekRepetition > 0}
-                  onChange={(e) =>
-                    handleMonthRepetition(parseInt(e.target.value))
-                  }
                 />
                 <label htmlFor="repeat-month">month</label>
               </div>
               <div>
                 <input
+                  {...register('yearRepetition', {
+                    valueAsNumber: true,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleYearRepetition(parseInt(e.target.value, 10)),
+                  })}
                   type="number"
                   id="repeat-year"
-                  name="repeat-year"
                   defaultValue={occurrence?.yearRepetition ?? 0}
                   min={0}
-                  onChange={(e) =>
-                    handleYearRepetition(parseInt(e.target.value))
-                  }
                 />
                 <label htmlFor="repeat-year">year</label>
               </div>
@@ -219,42 +238,45 @@ const OccurrenceCreateEdit = (props: {
             <div>
               <div>
                 <input
+                  {...register('weekRepetitionSpace', {
+                    valueAsNumber: true,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleWeekRepetitionSpace(parseInt(e.target.value, 10)),
+                  })}
                   id="repeat-week-space"
-                  name="repeat-week-space"
                   type="number"
                   defaultValue={occurrence?.weekRepetitionSpace ?? 0}
                   min={0}
                   disabled={weekRepetitionSpace > 0}
-                  onChange={(e) =>
-                    handleWeekRepetitionSpace(parseInt(e.target.value))
-                  }
                 />
                 <label htmlFor="repeat-week-space">week</label>
               </div>
               <div>
                 <input
+                  {...register('monthRepetitionSpace', {
+                    valueAsNumber: true,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleMonthRepetitionSpace(parseInt(e.target.value, 10)),
+                  })}
                   id="repeat-month-space"
-                  name="repeat-month-space"
                   type="number"
                   defaultValue={occurrence?.monthRepetitionSpace ?? 0}
                   min={0}
                   disabled={monthRepetitionSpace > 0}
-                  onChange={(e) =>
-                    handleMonthRepetitionSpace(parseInt(e.target.value))
-                  }
                 />
                 <label htmlFor="repeat-month-space">month</label>
               </div>
               <div>
                 <input
+                  {...register('yearRepetitionSpace', {
+                    valueAsNumber: true,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleYearRepetitionSpace(parseInt(e.target.value, 10)),
+                  })}
                   id="repeat-year-space"
-                  name="repeat-year-space"
                   type="number"
                   defaultValue={occurrence?.yearRepetitionSpace ?? 0}
                   min={0}
-                  onChange={(e) =>
-                    handleYearRepetitionSpace(parseInt(e.target.value))
-                  }
                 />
                 <label htmlFor="repeat-year-space">year</label>
               </div>
@@ -264,9 +286,11 @@ const OccurrenceCreateEdit = (props: {
             <span>When it ends: </span>
             <div>
               <input
+                {...register('endsType', {
+                  onChange: () => handleEndsType(OccurrenceEndsTypeEnum.Never),
+                })}
                 type="radio"
-                name="ends"
-                onChange={() => handleEndsType(OccurrenceEndsTypeEnum.Never)}
+                value={OccurrenceEndsTypeEnum.Never}
                 id="ends-never"
                 defaultChecked={
                   occurrence?.endsType === OccurrenceEndsTypeEnum.Never ||
@@ -277,19 +301,21 @@ const OccurrenceCreateEdit = (props: {
             </div>
             <div>
               <input
+                {...register('endsType', {
+                  onChange: () => handleEndsType(OccurrenceEndsTypeEnum.On),
+                })}
                 type="radio"
-                name="ends"
+                value={OccurrenceEndsTypeEnum.On}
                 id="ends-on"
                 defaultChecked={
                   occurrence?.endsType === OccurrenceEndsTypeEnum.On
                 }
-                onChange={() => handleEndsType(OccurrenceEndsTypeEnum.On)}
               />
               <label htmlFor="ends-on">{OccurrenceEndsTypeEnum.On}</label>
               <input
                 type="date"
                 disabled={endsType !== OccurrenceEndsTypeEnum.On}
-                ref={endDateOfOccurrenceRef}
+                {...register('endDateOfOccurrence')}
                 defaultValue={
                   occurrence?.endDateOfOccurrence
                     ? formatDateForInput(occurrence.endDateOfOccurrence)
@@ -299,10 +325,12 @@ const OccurrenceCreateEdit = (props: {
             </div>
             <div>
               <input
+                {...register('endsType', {
+                  onChange: () => handleEndsType(OccurrenceEndsTypeEnum.After),
+                })}
                 type="radio"
-                name="ends"
+                value={OccurrenceEndsTypeEnum.After}
                 id="ends-after"
-                onChange={() => handleEndsType(OccurrenceEndsTypeEnum.After)}
                 defaultChecked={
                   occurrence?.endsType === OccurrenceEndsTypeEnum.After
                 }
@@ -312,9 +340,8 @@ const OccurrenceCreateEdit = (props: {
                 type="number"
                 defaultValue={occurrence?.qntOccurrencesTillEnd ?? 0}
                 min={0}
-                name="qnt-occurrences"
                 id="qnt-occurrences"
-                ref={qntOccurrencesTillEndRef}
+                {...register('qntOccurrencesTillEnd', { valueAsNumber: true })}
                 disabled={endsType !== OccurrenceEndsTypeEnum.After}
               />
               <label htmlFor="qnt-occurrences">occurrences</label>
